@@ -1,0 +1,29 @@
+<h2>Cadastrar Classe</h2>
+<form id="meuFormulario" class="row g-3 needs-validation mx-auto mt-4" method="post" action="" novalidate>
+    <div class="col-md-6">
+        <label for="inputNome" class="form-label">Nome</label>
+        <input type="text" class="form-control" name="inputNome" id="inputNome" required>
+        <div class="invalid-feedback">
+        Informação inválida. Preencha o campo!
+        </div>
+    </div>
+    <div class="col-md-6">
+        <label for="inputValor" class="form-label">Valor</label>
+        <input type="number" class="form-control" name="inputValor" id="inputValor" required>
+        <div class="invalid-feedback">
+        Informação inválida. Preencha o campo!
+        </div>
+    </div>
+    <div class="col-md-12">
+        <label for="inputDt" class="form-label">Data de Devolução</label>
+        <input type="date" class="form-control" name="inputDt" id="inputDt" required>
+        <div class="invalid-feedback">
+        Informação inválida. Preencha o campo!
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-success me-4">Enviar</button>
+        <button type="reset" class="btn btn-secondary" id="resetaForm">Resetar</button>
+    </div>
+</form>
