@@ -31,7 +31,12 @@
               "src/styles.scss",
               "./node_modules/ng-multiselect-dropdown/themes/ng-multiselect-dropdown.theme.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules/"
+              ]
+            }
           },
           "configurations": {
             "production": {
