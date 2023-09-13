@@ -13,13 +13,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from './_services/alert.service';
+import { ClasseComponent } from './sprints/s1/criar/classe/classe.component';
+import { DiretorComponent } from './sprints/s1/criar/diretor/diretor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    ClasseComponent,
+    DiretorComponent
   ],
   imports: [
     BrowserModule,
