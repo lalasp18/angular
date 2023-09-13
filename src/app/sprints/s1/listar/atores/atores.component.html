@@ -1,0 +1,39 @@
+<div class="corpo mx-auto mt-4">
+    <h2>Lista De Atores</h2>
+
+    <div id="listaAtores" class="row row-cols-2 row-cols-lg-5 align-items-center" *ngIf="atorData.length > 0">
+        <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;" *ngFor="let ator of atorData; index as i"> 
+            <div class="card-body"> 
+                <h5 class="card-title">{{ ator.nome }}</h5> 
+                <a href="#" class="btn btn-warning me-2">Editar</a> 
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="deletarAluno(ator.idAtor)">Deletar</button> 
+            </div> 
+        </div>
+    </div>
+                
+                
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
+        <div class="modal-dialog modal-dialog-centered"> 
+            <div class="modal-content"> 
+                <div class="modal-header"> 
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Você está prestes a excluir este item.</h1> 
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
+                </div> 
+                
+                <div class="modal-body"> 
+                    <h3 id="modalAlert">Esta ação é irreversível.</h3> 
+                    <p>Você deseja continuar?</p> 
+                </div> 
+                
+                <div class="modal-footer"> 
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> 
+                    <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary">Confirmar</button> 
+                </div> 
+            </div> 
+        </div> 
+    </div>
+</div>
+
+<div class="alerta w-50 my-5 mx-auto">
+    <ngb-alert #selfClosingAlert *ngIf="alertMessage" [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error', 'alert-warning': alertType === 'warning'}" (closed)="close()">{{ alertMessage }}</ngb-alert>
+</div>

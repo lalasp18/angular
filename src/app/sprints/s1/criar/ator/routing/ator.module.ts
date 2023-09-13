@@ -6,12 +6,12 @@ import { AtorService } from '../service/ator.service';
 import { AtorRoutingModule } from './ator-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'src/app/_services/alert.service';
-
-
+import { AtoresComponent } from '../../../listar/atores/atores.component';
 
 @NgModule({
   declarations: [
-    AtorComponent
+    AtorComponent,
+    AtoresComponent
   ],
   imports: [
     CommonModule,
