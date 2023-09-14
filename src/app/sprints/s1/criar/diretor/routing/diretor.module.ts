@@ -6,12 +6,12 @@ import { DiretorService } from '../service/diretor.service';
 import { DiretorRoutingModule } from './diretor-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'src/app/_services/alert.service';
-// import { DiretoresComponent } from '../../../listar/diretores/diretores.component';
+import { DiretoresComponent } from '../../../listar/diretor/diretor.component';
 
 @NgModule({
   declarations: [
     DiretorComponent,
-    // DiretoresComponent
+    DiretoresComponent
   ],
   imports: [
     CommonModule,
