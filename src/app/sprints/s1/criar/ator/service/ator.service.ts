@@ -22,6 +22,10 @@ export class AtorService {
     return this.http.get<Ator[]>(`${this.API}`);
   }
 
+  editarAtor(record: Ator[]): Observable<Object>{
+    return this.http.post(this.API+"/editar", record);
+  }
+
   salvarAtor(record: Ator[]): Observable<Object>{
     return this.http.post(this.API, record);
   }
