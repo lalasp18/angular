@@ -23,7 +23,7 @@ import { DiretoresComponent } from '../../../listar/diretores/diretores.componen
     NgbModule
   ],
   providers: [
-    DiretorComponent,
+    DiretorService,
     // FormDeactivateGuard,
     AlertService
   ],
