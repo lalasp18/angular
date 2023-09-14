@@ -62,8 +62,8 @@ export class AtoresComponent implements OnInit {
   }
 
   
-  deletarAluno(idAtor: number){
-    this.atorService.deletarAtor(idAtor).subscribe(data => {
+  deletarID(id: number){
+    this.atorService.deletarAtor(id).subscribe(data => {
       this.ngOnInit();
     });
   }

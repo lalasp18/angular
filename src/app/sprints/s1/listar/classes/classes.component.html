@@ -6,7 +6,7 @@
             <div class="card-body"> 
                 <h5 class="card-title">{{ classe.nome }}</h5> 
                 <h6 class="card-subtitle my-2 text-body-secondary">Valor: {{ classe.valor }} </h6> 
-                <p class="card-text"> {{ classe.prazoDevolucao }} </p>
+                <p class="card-text"> {{ classe.prazoDevolucao | date: 'dd/MM/yyyy' }} </p>
                 <a href="#" class="btn btn-warning me-2">Editar</a> 
                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Deletar</button> 
             </div> 

@@ -7,11 +7,13 @@ import { AtorRoutingModule } from './ator-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'src/app/_services/alert.service';
 import { AtoresComponent } from '../../../listar/atores/atores.component';
+import { AtorEditComponent } from '../../../editar/ator/ator-edit.component';
 
 @NgModule({
   declarations: [
     AtorComponent,
-    AtoresComponent
+    AtoresComponent,
+    AtorEditComponent
   ],
   imports: [
     CommonModule,
