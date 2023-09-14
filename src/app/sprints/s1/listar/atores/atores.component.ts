@@ -61,6 +61,9 @@ export class AtoresComponent implements OnInit {
     this.alertMessage = '';
   }
 
+  editarID(id: number) {
+    this.router.navigate(['api/ator-create', id]);
+  }
   
   deletarID(id: number){
     this.atorService.deletarAtor(id).subscribe(data => {
