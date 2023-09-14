@@ -1,16 +1,18 @@
 <div class="corpo mx-auto mt-4">
-    <h2>Lista De Atores</h2>
+    <h2>Lista De Classes</h2>
 
-    <div id="listaAtores" class="row row-cols-2 row-cols-lg-5 align-items-center" *ngIf="atorData.length > 0">
-        <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;" *ngFor="let ator of atorData; index as i"> 
+    <div id="listaAtores" class="row row-cols-2 row-cols-lg-5 align-items-center" *ngIf="classeData.length > 0">
+        <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;" *ngFor="let classe of classeData; index as i"> 
             <div class="card-body"> 
-                <h5 class="card-title">{{ ator.nome }}</h5> 
-                <!-- <a [routerLink]="['/editar/ator']" routerLinkActive="router-link-active"  class="btn btn-warning me-2">Editar</a>  -->
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="deletarAluno(ator.idAtor)">Deletar</button> 
+                <h5 class="card-title">{{ classe.nomeClasse }}</h5> 
+                <h6 class="card-subtitle my-2 text-body-secondary">Valor: {{ classe.valor }} </h6> 
+                <p class="card-text"> {{ classe.prazoDevolucao }} </p>
+                <a href="#" class="btn btn-warning me-2">Editar</a> 
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Deletar</button> 
             </div> 
         </div>
     </div>
-                
+            
                 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
         <div class="modal-dialog modal-dialog-centered"> 

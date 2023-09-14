@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClasseComponent } from '../classe.component';
+import { ClassesComponent } from '../../../listar/classes/classes.component';
 
 const routes: Routes = [
   { path: 'api/classe-create', redirectTo: 'cadastrar/classe', pathMatch: 'full' },
@@ -9,7 +10,8 @@ const routes: Routes = [
     component: ClasseComponent,
     // canActivate: [AuthGuard],
     // canDeactivate: [FormDeactivateGuard] 
-  }
+  },
+  { path: 'listar-classes', component: ClassesComponent }
 ];
 
 @NgModule({

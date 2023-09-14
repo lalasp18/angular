@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DiretorComponent } from '../diretor.component';
+import { DiretoresComponent } from '../../../listar/diretores/diretores.component';
 
 const routes: Routes = [
   { path: 'api/diretor-create', redirectTo: 'cadastrar/diretor', pathMatch: 'full' },
@@ -9,7 +10,8 @@ const routes: Routes = [
     component: DiretorComponent,
     // canActivate: [AuthGuard],
     // canDeactivate: [FormDeactivateGuard] 
-  }
+  },
+  { path: 'listar-diretores', component: DiretoresComponent }
 ];
 
 @NgModule({
