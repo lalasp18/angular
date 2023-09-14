@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { DiretorComponent } from '../diretor.component';
 
 const routes: Routes = [
-  { path: 'api/ator-create', redirectTo: 'cadastrar/ator', pathMatch: 'full' },
+  { path: 'api/diretor-create', redirectTo: 'cadastrar/diretor', pathMatch: 'full' },
   {
-    path: 'cadastrar/ator',
+    path: 'cadastrar/diretor',
     component: DiretorComponent,
     // canActivate: [AuthGuard],
     // canDeactivate: [FormDeactivateGuard] 

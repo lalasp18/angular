@@ -13,9 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from './_services/alert.service';
-import { ClasseComponent } from './sprints/s1/criar/classe/classe.component';
-import { DiretorComponent } from './sprints/s1/criar/diretor/diretor.component';
-import { AtorComponent } from './sprints/s1/editar/ator/ator.component';
+import { ClasseModule } from './sprints/s1/criar/classe/routing/classe.module';
+import { DiretorModule } from './sprints/s1/criar/diretor/routing/diretor.module';
 
 @NgModule({
   declarations: [
@@ -23,9 +22,6 @@ import { AtorComponent } from './sprints/s1/editar/ator/ator.component';
     NavComponent,
     FooterComponent,
     HomeComponent,
-    ClasseComponent,
-    DiretorComponent,
-    AtorComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +34,8 @@ import { AtorComponent } from './sprints/s1/editar/ator/ator.component';
     NgbModule,
 
     AtorModule,
+    ClasseModule,
+    DiretorModule
   ],
   providers: [
     AlertService

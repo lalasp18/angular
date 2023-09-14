@@ -8,7 +8,7 @@ import { Classe } from 'src/app/models/classe.models';
 })
 export class ClasseService {
 
-    private readonly API = '/api/Classe-create';
+    private readonly API = '/api/classe-create';
 
     constructor(private http: HttpClient) { }
 

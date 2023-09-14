@@ -10,9 +10,15 @@ const routes: Routes = [
   // { path: 'diretor-control', component: DiretorComponent },
 
   
-  // { path: 'ator', 
-    // loadChildren:() => import('./s#1/criar/ator/routing/ator.module').then(m => m.AtorModule)
-  // },
+  { path: 'ator', 
+    loadChildren:() => import('./sprints/s1/criar/ator/routing/ator.module').then(m => m.AtorModule)
+  },
+  { path: 'classe', 
+    loadChildren:() => import('./sprints/s1/criar/classe/routing/classe.module').then(m => m.ClasseModule)
+  },
+  { path: 'diretor', 
+    loadChildren:() => import('./sprints/s1/criar/diretor/routing/diretor.module').then(m => m.DiretorModule)
+  }
 ];
 
 @NgModule({
