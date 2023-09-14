@@ -17,12 +17,13 @@ import { ClasseModule } from './sprints/s1/criar/classe/routing/classe.module';
 import { DiretorModule } from './sprints/s1/criar/diretor/routing/diretor.module';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
