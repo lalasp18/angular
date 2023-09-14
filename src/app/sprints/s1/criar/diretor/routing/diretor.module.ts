@@ -15,7 +15,7 @@ import { AlertService } from 'src/app/_services/alert.service';
   ],
   imports: [
     CommonModule,
-    DiretorComponent,
+    DiretorRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule

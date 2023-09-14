@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from './_services/alert.service';
+import { ClasseModule } from './sprints/s1/criar/classe/routing/classe.module';
+import { DiretorModule } from './sprints/s1/criar/diretor/routing/diretor.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { AlertService } from './_services/alert.service';
     NgbModule,
 
     AtorModule,
+    ClasseModule,
+    DiretorModule
   ],
   providers: [
     AlertService
