@@ -6,12 +6,14 @@ import { ClasseService } from '../service/classe.service';
 import { ClasseRoutingModule } from './classe-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'src/app/_services/alert.service';
-// import { ClassesComponent } from '../../../listar/classes/classes.component';
+import { ClassesComponent } from '../../../listar/classes/classes.component';
+
+
 
 @NgModule({
   declarations: [
     ClasseComponent,
-    // ClassesComponent
+    ClassesComponent
   ],
   imports: [
     CommonModule,

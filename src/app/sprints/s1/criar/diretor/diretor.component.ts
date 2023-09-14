@@ -81,7 +81,7 @@ export class DiretorComponent implements OnInit {
       this.enviarFormDiretor();
       this.diretorform.reset();
     } else {
-      this.alertServ.error('Informação inválida. Preencha o campo!')
+      this.alertServ.warning('Informação inválida. Preencha o campo!')
     }
   }
 }

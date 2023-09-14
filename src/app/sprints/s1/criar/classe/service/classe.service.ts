@@ -21,7 +21,7 @@ export class ClasseService {
     }
 
     alterarClasse(record: Classe): Observable<Object> {
-        return this.http.post(this.API, record);
+        return this.http.post(this.API+"/editado", record);
     }
 
     pegarIdClasse(idClasse: number): Observable<Classe> {

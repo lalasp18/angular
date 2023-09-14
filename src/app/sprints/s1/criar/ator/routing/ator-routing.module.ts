@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AtorComponent } from '../ator.component';
 import { AtoresComponent } from '../../../listar/atores/atores.component';
+import { AtorEditComponent } from '../../../editar/ator/ator-edit.component';
 
 const routes: Routes = [
   { path: 'api/ator-create', redirectTo: 'cadastrar/ator', pathMatch: 'full' },
@@ -11,7 +12,8 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     // canDeactivate: [FormDeactivateGuard] 
   },
-  { path: 'listar-atores', component: AtoresComponent }
+  { path: 'listar-atores', component: AtoresComponent },
+  { path: 'editar/ator', component: AtorEditComponent }
 ];
 
 @NgModule({

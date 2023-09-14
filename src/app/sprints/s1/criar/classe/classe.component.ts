@@ -84,7 +84,7 @@ export class ClasseComponent implements OnInit {
       this.enviarFormClasse();
       this.classeform.reset();
     } else {
-      this.alertServ.error('Informação inválida. Preencha o campo!')
+      this.alertServ.warning('Informação inválida. Preencha o campo!')
     }
   }
 }

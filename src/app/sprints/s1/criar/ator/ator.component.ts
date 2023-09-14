@@ -81,7 +81,7 @@ export class AtorComponent implements OnInit {
       this.enviarFormAtor();
       this.atorform.reset();
     } else {
-      this.alertServ.error('Informação inválida. Preencha o campo!')
+      this.alertServ.warning('Informação inválida. Preencha o campo!')
     }
   }
 }

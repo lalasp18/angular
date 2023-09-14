@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DiretorComponent } from '../diretor.component';
-import { DiretoresComponent } from '../../../listar/diretor/diretor.component';
+import { DiretoresComponent } from '../../../listar/diretores/diretores.component';
 
 const routes: Routes = [
   { path: 'api/diretor-create', redirectTo: 'cadastrar/diretor', pathMatch: 'full' },
