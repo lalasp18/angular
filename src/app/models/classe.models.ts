@@ -1,5 +1,6 @@
 export interface Classe {
     idClasse: number;
-    nomeClasse: string;
+    nome: string;
+    valor: number;
     prazoDevolucao: Date;
 }

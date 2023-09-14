@@ -6,22 +6,22 @@ import { DiretorService } from '../service/diretor.service';
 import { DiretorRoutingModule } from './diretor-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'src/app/_services/alert.service';
-
-
+// import { DiretoresComponent } from '../../../listar/diretores/diretores.component';
 
 @NgModule({
   declarations: [
-    DiretorComponent
+    DiretorComponent,
+    // DiretoresComponent
   ],
   imports: [
     CommonModule,
-    DiretorComponent,
+    DiretorRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule
   ],
   providers: [
-    DiretorComponent,
+    DiretorService,
     // FormDeactivateGuard,
     AlertService
   ],
