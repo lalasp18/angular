@@ -1,1 +1,31 @@
-<p>classe works!</p>
+<div class="corpo mx-auto mt-4">
+    <h2>Editar Classe por ID: ...</h2>
+    <form id="meuFormulario" class="row g-3 mx-auto mt-4" [formGroup]="classeform " (ngSubmit)="onSubmit()">
+        <div class="col-md-8">
+            <label for="inputID" class="form-label">ID do Ator</label>
+            <input type="text" class="form-control" id="inputID" readonly>
+        </div>
+        <div class="col-md-8">
+            <label for="inputNome" class="form-label">Nome do Ator</label>
+            <input type="text" class="form-control" formControlName="nome" id="inputNome" required>
+        </div>
+        <div class="col-md-8">
+            <label for="inputValor" class="form-label">Valor</label>
+            <input type="number" class="form-control" formControlName="valor" id="inputValor" required>
+        </div>
+        <div class="col-md-8">
+            <label for="inputPrazoDevolucao" class="form-label">Prazo de Devolução</label>
+            <input type="date" class="form-control" formControlName="prazoDevolucao" id="inputPrazoDevolucao" required>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+    </form>
+</div>
+
+<div class="alerta w-50 my-5 mx-auto">
+    <ngb-alert #selfClosingAlert *ngIf="alertMessage"
+        [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error', 'alert-warning': alertType === 'warning'}"
+        (closed)="close()">{{ alertMessage }}</ngb-alert>
+</div>
