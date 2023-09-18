@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DiretorComponent } from './diretor-edit.component';
+import { DiretorEditComponent } from './diretor-edit.component';
 
-describe('DiretorComponent', () => {
-  let component: DiretorComponent;
-  let fixture: ComponentFixture<DiretorComponent>;
+describe('DiretorEditComponent', () => {
+  let component: DiretorEditComponent;
+  let fixture: ComponentFixture<DiretorEditComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DiretorComponent]
+      declarations: [DiretorEditComponent]
     });
-    fixture = TestBed.createComponent(DiretorComponent);
+    fixture = TestBed.createComponent(DiretorEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
