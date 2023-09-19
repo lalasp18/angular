@@ -3,7 +3,7 @@
     <form id="meuFormulario" class="row g-3 mx-auto mt-4" [formGroup]="classeform" (ngSubmit)="onSubmit()">
         <div class="col-md-8">
             <label for="inputID" class="form-label">ID da Classe</label>
-            <input type="text" class="form-control" formControlName="idClasse" id="inputID" readonly>
+            <input type="number" class="form-control" formControlName="idClasse" id="inputID" readonly>
         </div>
         <div class="col-md-8">
             <label for="inputNome" class="form-label">Nome da Classe</label>
@@ -15,7 +15,7 @@
         </div>
         <div class="col-md-8">
             <label for="inputPrazoDevolucao" class="form-label">Prazo de Devolução</label>
-            <input type="date" class="form-control" formControlName="prazoDevolucao" id="inputPrazoDevolucao" required>
+            <input type="date" class="form-control" formControlName="prazoDevolucao" placeholder="data" id="inputPrazoDevolucao" required>
         </div>
 
         <div class="col-12">
