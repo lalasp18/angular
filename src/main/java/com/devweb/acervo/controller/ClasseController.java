@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +34,7 @@ public class ClasseController {
         return new Classe(classe.getIdClasse(), classe.getNome(), classe.getValor(), classe.getPrazoDevolucao());
     }
 
-    @PostMapping("/editar")
+    @PutMapping("/editar")
     public Classe editarClasse(@RequestBody Classe grava) throws RelationTypeNotFoundException {
         Classe classe = clasServ.editAll(grava);
 
