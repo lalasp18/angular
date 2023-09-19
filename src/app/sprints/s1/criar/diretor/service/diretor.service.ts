@@ -21,7 +21,7 @@ export class DiretorService {
     }
 
     editarDiretor(record: Diretor[]): Observable<Object> {
-        return this.http.post(this.API + "/editar", record);
+        return this.http.put(this.API + "/editar", record);
     }
     pegarIdDiretor(idDiretor: number): Observable<Diretor> {
         return this.http.get<Diretor>(`${this.API}/${idDiretor}`);
