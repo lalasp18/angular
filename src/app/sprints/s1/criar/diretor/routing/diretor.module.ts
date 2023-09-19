@@ -7,13 +7,15 @@ import { DiretorRoutingModule } from './diretor-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'src/app/_services/alert.service';
 import { DiretoresComponent } from '../../../listar/diretores/diretores.component';
+import { DiretorEditComponent } from '../../../editar/diretor/diretor-edit.component';
 
 
 
 @NgModule({
   declarations: [
     DiretorComponent,
-    DiretoresComponent
+    DiretoresComponent,
+    DiretorEditComponent
   ],
   imports: [
     CommonModule,
