@@ -6,13 +6,13 @@
             <div class="card-body"> 
                 <h5 class="card-title">{{ ator.nome }}</h5> 
                 <button type="button" class="btn btn-warning me-2" (click)="editarID(ator.idAtor)">Editar</button> 
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Deletar</button> 
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(ator.idAtor)">Deletar</button> 
             </div> 
         </div>
     </div>
                 
                 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden)="limparIdParaDeletar()"> 
         <div class="modal-dialog modal-dialog-centered"> 
             <div class="modal-content"> 
                 <div class="modal-header"> 
@@ -27,7 +27,7 @@
                 
                 <div class="modal-footer"> 
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> 
-                    <!-- <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" (click)="deletarID(ator.idAtor)">Confirmar</button>  -->
+                    <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deletarID(atorParaDeletarId)">Confirmar</button> 
                 </div> 
             </div> 
         </div> 

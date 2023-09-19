@@ -1,5 +1,5 @@
 import { debounceTime, Subscription } from 'rxjs';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
@@ -12,10 +12,8 @@ import { AtorService } from '../../criar/ator/service/ator.service';
   templateUrl: './ator-edit.component.html',
   styleUrls: ['./ator-edit.component.scss']
 })
-export class AtorEditComponent implements OnInit {
+export class AtorEditComponent implements OnInit, OnDestroy {
   @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
-  @ViewChild('inputID', { static: false }) meuID!: ElementRef;
-  @ViewChild('inputNome', { static: false }) meuNome!: ElementRef;
   
   atorID!: Ator;
   atorEditado: Ator[] = [];
@@ -47,8 +45,9 @@ export class AtorEditComponent implements OnInit {
       next: (itens:any) => {
         const data = itens;
         this.atorID = data;
-        this.meuID.nativeElement.value = this.atorID.idAtor;
-        this.meuNome.nativeElement.value =this.atorID.nome;
+
+        this.atorform.get("idAtor")?.setValue(this.atorID.idAtor); 
+        this.atorform.get("nome")?.setValue(this.atorID.nome);
       },
       error: (err: any) => {
         this.alertServ.error('ERRO! Dados não encontrados!')
@@ -71,6 +70,10 @@ export class AtorEditComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.unsubscribe$.unsubscribe();
+  }
+
   close() {
     this.alertMessage = '';
   }
@@ -81,7 +84,7 @@ export class AtorEditComponent implements OnInit {
       next: (data:any) => {
         this.atorEditado = data;
         this.goToRoute();
-        this.alertServ.success('Editado com sucesso!');
+        this.alertServ.success('Ator editado com sucesso!');
       },
       error: (err: any) => {
         this.alertServ.error('Edição não enviada.')
@@ -94,7 +97,6 @@ export class AtorEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.atorform.valid);
     if(this.atorform.valid) {
       this.atorEditado = this.atorform.value;
       this.enviarFormAtor();

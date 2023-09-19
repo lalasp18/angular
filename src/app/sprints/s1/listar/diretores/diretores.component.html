@@ -6,15 +6,14 @@
             *ngFor="let diretor of diretorData; index as i">
             <div class="card-body">
                 <h5 class="card-title">{{ diretor.nome }}</h5>
-                <a href="#" class="btn btn-warning me-2">Editar</a>
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    (click)="deletarAluno(diretor.idDiretor)">Deletar</button>
+                <a class="btn btn-warning me-2" (click)="editarID(diretor.idDiretor)">Editar</a>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(diretor.idDiretor)">Deletar</button>
             </div>
         </div>
     </div>
 
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden)="limparIdParaDeletar()">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -29,7 +28,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary">Confirmar</button>
+                    <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deletarID(diretorParaDeletarId)">Confirmar</button>
                 </div>
             </div>
         </div>

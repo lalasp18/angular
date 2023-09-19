@@ -7,13 +7,15 @@ import { ClasseRoutingModule } from './classe-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ClassesComponent } from '../../../listar/classes/classes.component';
+import { ClasseEditComponent } from '../../../editar/classe/classe-edit.component';
 
 
 
 @NgModule({
   declarations: [
     ClasseComponent,
-    ClassesComponent
+    ClassesComponent,
+    ClasseEditComponent
   ],
   imports: [
     CommonModule,

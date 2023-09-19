@@ -65,7 +65,7 @@ export class ClasseComponent implements OnInit {
       next: (data: any) => {
         this.classes = data;
         this.goToRoute();
-        this.alertServ.success(' Classe cadastrada com sucesso!');
+        this.alertServ.success('Classe cadastrada com sucesso!');
       },
       error: (err: any) => {
         this.alertServ.error('Cadastro não enviado.')

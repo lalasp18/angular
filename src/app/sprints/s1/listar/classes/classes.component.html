@@ -7,14 +7,14 @@
                 <h5 class="card-title">{{ classe.nome }}</h5> 
                 <h6 class="card-subtitle my-2 text-body-secondary">Valor: {{ classe.valor }} </h6> 
                 <p class="card-text"> {{ classe.prazoDevolucao | date: 'dd/MM/yyyy' }} </p>
-                <a href="#" class="btn btn-warning me-2">Editar</a> 
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Deletar</button> 
+                <a class="btn btn-warning me-2" (click)="editarID(classe.idClasse)">Editar</a> 
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(classe.idClasse)">Deletar</button> 
             </div> 
         </div>
     </div>
             
                 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden)="limparIdParaDeletar()"> 
         <div class="modal-dialog modal-dialog-centered"> 
             <div class="modal-content"> 
                 <div class="modal-header"> 
@@ -29,7 +29,7 @@
                 
                 <div class="modal-footer"> 
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> 
-                    <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary">Confirmar</button> 
+                    <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deletarID(classeParaDeletarId)">Confirmar</button> 
                 </div> 
             </div> 
         </div> 
