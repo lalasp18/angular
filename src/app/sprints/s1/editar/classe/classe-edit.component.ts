@@ -35,8 +35,8 @@ export class ClasseEditComponent implements OnInit, OnDestroy {
     this.classeform = this.formBuilder.group({
       idClasse: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      valor: [null],
-      prazoDevolucao: [null]
+      valor: [null, [Validators.required, Validators.min(0)]],
+      prazoDevolucao: [null, [Validators.required,]]
     });
   }
 
@@ -49,7 +49,7 @@ export class ClasseEditComponent implements OnInit, OnDestroy {
           const data = itens;
           this.classeID = data;
 
-          this.classeform.get("idClasse")?.setValue(this.classeID.idClasse); 
+          this.classeform.get("idClasse")?.setValue(this.classeID.idClasse);
           this.classeform.get("nome")?.setValue(this.classeID.nome);
           this.classeform.get("valor")?.setValue(this.classeID.valor);
           this.classeform.get("prazoDevolucao")?.setValue(this.classeID.prazoDevolucao);
