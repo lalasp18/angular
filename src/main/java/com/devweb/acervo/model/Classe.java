@@ -22,7 +22,7 @@ public class Classe {
     private String nome;
 
     @Column(nullable = false)
-    private Number valor;
+    private Double valor;
 
     @Column(nullable = false)
     private Date prazoDevolucao;
@@ -30,13 +30,13 @@ public class Classe {
     public Classe() {
     }
 
-    public Classe(String nome, Number valor, Date prazoDevolucao) {
+    public Classe(String nome, Double valor, Date prazoDevolucao) {
         this.nome = nome;
         this.valor = valor;
         this.prazoDevolucao = prazoDevolucao;
     }
 
-    public Classe(Long idClasse, String nome, Number valor, Date prazoDevolucao) {
+    public Classe(Long idClasse, String nome, Double valor, Date prazoDevolucao) {
         this.idClasse = idClasse;
         this.nome = nome;
         this.valor = valor;
