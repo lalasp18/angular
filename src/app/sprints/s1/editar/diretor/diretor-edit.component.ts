@@ -1,5 +1,5 @@
 import { debounceTime, Subscription } from 'rxjs';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
@@ -12,10 +12,8 @@ import { DiretorService } from '../../criar/diretor/service/diretor.service';
   templateUrl: './diretor-edit.component.html',
   styleUrls: ['./diretor-edit.component.scss']
 })
-export class DiretorEditComponent implements OnInit {
+export class DiretorEditComponent implements OnInit, OnDestroy {
   @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
-  @ViewChild('inputID', { static: false }) meuID!: ElementRef;
-  @ViewChild('inputNome', { static: false }) meuNome!: ElementRef;
 
   diretorID!: Diretor;
   diretorEditado: Diretor[] = [];
@@ -34,7 +32,7 @@ export class DiretorEditComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.diretorform = this.formBuilder.group({
-      idAtor: [null],
+      idDiretor: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]]
     });
   }
@@ -47,8 +45,9 @@ export class DiretorEditComponent implements OnInit {
         next: (itens: any) => {
           const data = itens;
           this.diretorID = data;
-          this.meuID.nativeElement.value = this.diretorID.idDiretor;
-          this.meuNome.nativeElement.value = this.diretorID.nome;
+          
+          this.diretorform.get("idDiretor")?.setValue(this.diretorID.idDiretor); 
+          this.diretorform.get("nome")?.setValue(this.diretorID.nome);
         },
         error: (err: any) => {
           this.alertServ.error('ERRO! Dados não encontrados!')
@@ -69,6 +68,10 @@ export class DiretorEditComponent implements OnInit {
         this.alertType = undefined;
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.unsubscribe();
   }
 
   close() {

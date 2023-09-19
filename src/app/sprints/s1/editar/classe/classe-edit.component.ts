@@ -1,5 +1,5 @@
 import { debounceTime, Subscription } from 'rxjs';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
@@ -13,12 +13,9 @@ import { ClasseService } from '../../criar/classe/service/classe.service';
   templateUrl: './classe-edit.component.html',
   styleUrls: ['./classe-edit.component.scss']
 })
-export class ClasseEditComponent implements OnInit {
+export class ClasseEditComponent implements OnInit, OnDestroy {
   @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
-  @ViewChild('inputID', { static: false }) meuID!: ElementRef;
-  @ViewChild('inputNome', { static: false }) meuNome!: ElementRef;
-  @ViewChild('inputValor', { static: false }) meuValor!: ElementRef;
-  @ViewChild('inputPrazoDevolucao', { static: false }) meuPrazoDevolucao!: ElementRef;
+
   classeID!: Classe;
   classeEditado: Classe[] = [];
   classeform: FormGroup;
@@ -51,10 +48,11 @@ export class ClasseEditComponent implements OnInit {
         next: (itens: any) => {
           const data = itens;
           this.classeID = data;
-          this.meuID.nativeElement.value = this.classeID.idClasse;
-          this.meuNome.nativeElement.value = this.classeID.nome;
-          this.meuValor.nativeElement.value = this.classeID.valor;
-          this.meuPrazoDevolucao.nativeElement.value = this.classeID.prazoDevolucao;
+
+          this.classeform.get("idClasse")?.setValue(this.classeID.idClasse); 
+          this.classeform.get("nome")?.setValue(this.classeID.nome);
+          this.classeform.get("valor")?.setValue(this.classeID.valor);
+          this.classeform.get("prazoDevolucao")?.setValue(this.classeID.prazoDevolucao);
         },
         error: (err: any) => {
           this.alertServ.error('ERRO! Dados não encontrados!')
@@ -77,13 +75,17 @@ export class ClasseEditComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.unsubscribe$.unsubscribe();
+  }
+
   close() {
     this.alertMessage = '';
   }
 
   //  SALVA FORM PELO SERVICE DO BACK-END
   enviarFormClasse() {
-    this.classeService.alterarClasse(this.classeEditado).subscribe({
+    this.classeService.editarClasse(this.classeEditado).subscribe({
       next: (data: any) => {
         this.classeEditado = data;
         this.goToRoute();
@@ -100,7 +102,7 @@ export class ClasseEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.classeform.valid);
+    console.log(this.classeform.value)
     if (this.classeform.valid) {
       this.classeEditado = this.classeform.value;
       this.enviarFormClasse();

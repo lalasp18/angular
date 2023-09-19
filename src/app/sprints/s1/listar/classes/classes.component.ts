@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, debounceTime } from 'rxjs';
 import { AlertService } from 'src/app/_services/alert.service';
@@ -11,11 +11,12 @@ import { Router } from '@angular/router';
   templateUrl: './classes.component.html',
   styleUrls: ['./classes.component.scss']
 })
-export class ClassesComponent implements OnInit {
+export class ClassesComponent implements OnInit, OnDestroy {
   @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
   
   classeData: Classe[] = [];
   unsubscribe$!: Subscription;
+  classeParaDeletarId: number = -1;
 
   staticAlertClosed = false;
   alertMessage: string | undefined;
@@ -61,6 +62,18 @@ export class ClassesComponent implements OnInit {
 
   close() {
     this.alertMessage = '';
+  }
+
+  editarID(id: number) {
+    this.router.navigate(['api/classe-create', id]);
+  }
+
+  definirIdParaDeletar(id: number) {
+    this.classeParaDeletarId = id;
+  }
+
+  limparIdParaDeletar() {
+    this.classeParaDeletarId = -1;
   }
 
   deletarID(id: number){

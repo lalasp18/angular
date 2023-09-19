@@ -3,7 +3,7 @@
     <form id="meuFormulario" class="row g-3 mx-auto mt-4" [formGroup]="atorform" (ngSubmit)="onSubmit()">
         <div class="col-md-8">
             <label for="inputID" class="form-label">ID do Ator</label>
-            <input type="text" class="form-control" id="inputID" readonly>
+            <input type="text" class="form-control" formControlName="idAtor" id="inputID" readonly>
         </div>
         <div class="col-md-8">
             <label for="inputNome" class="form-label">Nome do Ator</label>

@@ -1,5 +1,5 @@
 import { debounceTime } from 'rxjs';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/_services/alert.service';
 import { AtorService } from '../../criar/ator/service/ator.service';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
@@ -12,11 +12,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './atores.component.html',
   styleUrls: ['./atores.component.scss']
 })
-export class AtoresComponent implements OnInit {
+export class AtoresComponent implements OnInit, OnDestroy {
   @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
   
   atorData: Ator[] = [];
   unsubscribe$!: Subscription;
+  atorParaDeletarId: number = -1;
 
   staticAlertClosed = false;
   alertMessage: string | undefined;
@@ -34,6 +35,9 @@ export class AtoresComponent implements OnInit {
       next: (itens:any) => {
         const data = itens;
         this.atorData = data.sort((a:any, b:any) => (a.nome < b.nome) ? -1 : 1);
+      },
+      error: (err: any) => {
+        this.alertServ.warning('Dados não encontrados.')
       }
     });
     
@@ -61,8 +65,16 @@ export class AtoresComponent implements OnInit {
     this.alertMessage = '';
   }
 
-  editarID(id: number) {
-    this.router.navigate(['api/ator-create', id]);
+  editarID(idAtor: number) {
+    this.router.navigate(['api/ator-create', idAtor]);
+  }
+
+  definirIdParaDeletar(id: number) {
+    this.atorParaDeletarId = id;
+  }
+
+  limparIdParaDeletar() {
+    this.atorParaDeletarId = -1;
   }
   
   deletarID(id: number){

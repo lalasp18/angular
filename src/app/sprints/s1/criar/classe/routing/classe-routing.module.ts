@@ -14,7 +14,8 @@ const routes: Routes = [
   },
   { path: 'listar-classes', component: ClassesComponent },
 
-  { path: 'editar/classe', component: ClasseEditComponent }
+  { path: 'api/classe-create/:id', redirectTo: 'editar/classe/:id', pathMatch: 'full' },
+  { path: 'editar/classe/:id', component: ClasseEditComponent }
 ];
 
 @NgModule({

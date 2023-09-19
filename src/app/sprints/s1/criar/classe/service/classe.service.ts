@@ -20,8 +20,8 @@ export class ClasseService {
         return this.http.post(this.API, record);
     }
 
-    alterarClasse(record: Classe[]): Observable<Object> {
-        return this.http.post(this.API + "/editado", record);
+    editarClasse(record: Classe[]): Observable<Object> {
+        return this.http.post(this.API + "/editar", record);
     }
 
     pegarIdClasse(idClasse: number): Observable<Classe> {
