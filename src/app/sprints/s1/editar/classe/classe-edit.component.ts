@@ -102,7 +102,7 @@ export class ClasseEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.classeform.value)
+    console.log(this.classeform.value);
     if (this.classeform.valid) {
       this.classeEditado = this.classeform.value;
       this.enviarFormClasse();

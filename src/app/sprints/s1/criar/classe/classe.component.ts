@@ -78,7 +78,7 @@ export class ClasseComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.classeform.valid);
+    console.log(this.classeform.value);
     if (this.classeform.valid) {
       this.classes = this.classeform.value;
       this.enviarFormClasse();
