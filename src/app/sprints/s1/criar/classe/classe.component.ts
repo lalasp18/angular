@@ -32,7 +32,7 @@ export class ClasseComponent implements OnInit {
     this.classeform = this.formBuilder.group({
       idClasse: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      valor: [null, [Validators.required, Validators.minLength(0)]],
+      valor: [null, [Validators.required, Validators.min(0)]],
       prazoDevolucao: [null, [Validators.required]]
     });
   }
