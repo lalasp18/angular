@@ -12,7 +12,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     // canDeactivate: [FormDeactivateGuard] 
   },
-  { path: 'listar-itens', component: TitulosComponent },
+  { path: 'listar-titulos', component: TitulosComponent },
 
   { path: 'api/titulo-create/:id', redirectTo: 'editar/titulo/:id', pathMatch: 'full' },
   { path: 'editar/titulo/:id', component: TituloEditComponent }
