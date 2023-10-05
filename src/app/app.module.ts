@@ -15,14 +15,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from './_services/alert.service';
 import { ClasseModule } from './sprints/s1/criar/classe/routing/classe.module';
 import { DiretorModule } from './sprints/s1/criar/diretor/routing/diretor.module';
+import { TituloModule } from './sprints/s2/criar/titulo/routing/titulo.module';
+import { ItemModule } from './sprints/s2/criar/item/routing/item.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     FooterComponent,
-    HomeComponent,
-
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +37,10 @@ import { DiretorModule } from './sprints/s1/criar/diretor/routing/diretor.module
 
     AtorModule,
     ClasseModule,
-    DiretorModule
+    DiretorModule,
+
+    TituloModule,
+    ItemModule
   ],
   providers: [
     AlertService
