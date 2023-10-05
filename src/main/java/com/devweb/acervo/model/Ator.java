@@ -1,10 +1,13 @@
 package com.devweb.acervo.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
@@ -18,8 +21,13 @@ public class Ator {
 
     @Column(length = 100, nullable = false)
     private String nome;
-    
-    public Ator() {    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Titulo titulo;
+
+    public Ator() {
+
+    }
 
     public Ator(String nome) {
         this.nome = nome;

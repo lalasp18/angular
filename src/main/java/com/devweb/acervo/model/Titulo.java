@@ -35,13 +35,13 @@ public class Titulo {
     @Column(length = 100, nullable = false)
     private String categoria;
 
-    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "titulo")
     private List<Ator> atores;
 
-    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private Diretor diretor;
 
-    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private Classe classe;
 
     public Titulo() {

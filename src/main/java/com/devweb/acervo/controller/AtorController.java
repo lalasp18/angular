@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.management.relation.RelationTypeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,7 +52,13 @@ public class AtorController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletarAtor(@PathVariable Long id) throws RelationTypeNotFoundException {
-        atServ.deleteId(id);
+    public ResponseEntity<String> deletarAtor(@PathVariable Long id) {
+        try {
+            atServ.deleteId(id);
+            return ResponseEntity.ok("Ator deletado com sucesso");
+        } catch (RelationTypeNotFoundException erro) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: " + erro.getMessage());
+        }
     }
 }
