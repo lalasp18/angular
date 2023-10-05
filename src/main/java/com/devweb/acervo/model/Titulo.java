@@ -2,14 +2,16 @@ package com.devweb.acervo.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
@@ -35,13 +37,16 @@ public class Titulo {
     @Column(length = 100, nullable = false)
     private String categoria;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "titulo")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "tituloAtor", joinColumns = @JoinColumn(name = "titulo"), inverseJoinColumns = @JoinColumn(name = "atores"))
     private List<Ator> atores;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "diretor")
     private Diretor diretor;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "classe")
     private Classe classe;
 
     public Titulo() {

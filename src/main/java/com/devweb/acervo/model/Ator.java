@@ -22,9 +22,6 @@ public class Ator {
     @Column(length = 100, nullable = false)
     private String nome;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Titulo titulo;
-
     public Ator() {
 
     }
