@@ -22,14 +22,14 @@ import com.devweb.acervo.service.ItemService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/item-create")
+@RequestMapping("/api/item")
 @AllArgsConstructor
 public class ItemController {
 
     @Autowired
     private final ItemService itemServ;
 
-    @PostMapping
+    @PostMapping("/criar")
     public Item salvarItem(@RequestBody Item grava) throws RelationTypeNotFoundException {
         return itemServ.saveAll(grava);
 
@@ -41,18 +41,18 @@ public class ItemController {
 
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Item> listarItem() {
         return itemServ.listAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/listar/{id}")
     public Item pegarIdItem(@PathVariable Long id) throws RelationTypeNotFoundException {
         return itemServ.listId(id);
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarItem(@PathVariable Long id) {
         try {
             itemServ.deleteId(id);

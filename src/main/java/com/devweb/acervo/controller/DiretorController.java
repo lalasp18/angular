@@ -22,14 +22,14 @@ import com.devweb.acervo.service.DiretorService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/diretor-create")
+@RequestMapping("/api/diretor")
 @AllArgsConstructor
 public class DiretorController {
 
     @Autowired
     private final DiretorService dirServ;
 
-    @PostMapping
+    @PostMapping("/criar")
     public Diretor salvarDiretor(@RequestBody Diretor grava) throws RelationTypeNotFoundException {
         return dirServ.saveAll(grava);
 
@@ -41,18 +41,18 @@ public class DiretorController {
 
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Diretor> listarAtor() {
         return dirServ.listAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/listar/{id}")
     public Diretor pegarId(@PathVariable Long id) throws RelationTypeNotFoundException {
         return dirServ.listId(id);
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarDiretor(@PathVariable Long id) {
         try {
             dirServ.deleteId(id);

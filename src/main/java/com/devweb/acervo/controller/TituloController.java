@@ -22,37 +22,37 @@ import com.devweb.acervo.service.TituloService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/titulo-create")
+@RequestMapping("/api/titulo")
 @AllArgsConstructor
 public class TituloController {
 
     @Autowired
     private final TituloService tituloServ;
 
-    @PostMapping
+    @PostMapping("/criar")
     public Titulo salvarTitulo(@RequestBody Titulo grava) throws RelationTypeNotFoundException {
         return tituloServ.saveAll(grava);
 
     }
 
-    @PutMapping("/editar")
+    @PutMapping("/editar/{id}")
     public Titulo editarTitulo(@RequestBody Titulo grava) throws RelationTypeNotFoundException {
         return tituloServ.editAll(grava);
 
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Titulo> listarTitulo() {
         return tituloServ.listAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/listar/{id}")
     public Titulo pegarIdTitulo(@PathVariable Long id) throws RelationTypeNotFoundException {
         return tituloServ.listId(id);
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarTitulo(@PathVariable Long id) {
         try {
             tituloServ.deleteId(id);

@@ -22,14 +22,14 @@ import com.devweb.acervo.service.ClasseService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/classe-create")
+@RequestMapping("/api/classe")
 @AllArgsConstructor
 public class ClasseController {
 
     @Autowired
     private final ClasseService clasServ;
 
-    @PostMapping
+    @PostMapping("/criar")
     public Classe salvarClasse(@RequestBody Classe grava) throws RelationTypeNotFoundException {
         return clasServ.saveAll(grava);
 
@@ -41,18 +41,18 @@ public class ClasseController {
 
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Classe> listarClasse() {
         return clasServ.listAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/listar/{id}")
     public Classe pegarIdClasse(@PathVariable Long id) throws RelationTypeNotFoundException {
         return clasServ.listId(id);
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarClasse(@PathVariable Long id) {
         try {
             clasServ.deleteId(id);

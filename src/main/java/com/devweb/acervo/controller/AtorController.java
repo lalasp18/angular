@@ -21,37 +21,37 @@ import com.devweb.acervo.service.AtorService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/ator-create")
+@RequestMapping("/api/ator")
 @AllArgsConstructor
 public class AtorController {
 
     @Autowired
     private final AtorService atServ;
 
-    @PostMapping
+    @PostMapping("/criar")
     public Ator salvarAtor(@RequestBody Ator grava) throws RelationTypeNotFoundException {
         return atServ.saveAll(grava);
 
     }
 
-    @PutMapping("/editar")
+    @PutMapping("/editar/{id}")
     public Ator editarAtor(@RequestBody Ator grava) throws RelationTypeNotFoundException {
         return atServ.editAll(grava);
 
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Ator> listarAtor() {
         return atServ.listAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/listar/{id}")
     public Ator pegarIdAtor(@PathVariable Long id) throws RelationTypeNotFoundException {
         return atServ.listId(id);
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarAtor(@PathVariable Long id) {
         try {
             atServ.deleteId(id);
