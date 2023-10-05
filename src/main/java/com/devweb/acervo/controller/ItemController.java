@@ -14,44 +14,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.devweb.acervo.model.Diretor;
-import com.devweb.acervo.service.DiretorService;
+import com.devweb.acervo.model.Item;
+import com.devweb.acervo.service.ItemService;
 
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/diretor-create")
+@RequestMapping("/api/item-create")
 @AllArgsConstructor
-public class DiretorController {
+public class ItemController {
 
     @Autowired
-    private final DiretorService dirServ;
+    private final ItemService itemServ;
 
     @PostMapping
-    public Diretor salvarDiretor(@RequestBody Diretor grava) throws RelationTypeNotFoundException {
-        return dirServ.saveAll(grava);
+    public Item salvarItem(@RequestBody Item grava) throws RelationTypeNotFoundException {
+        return itemServ.saveAll(grava);
 
     }
 
     @PutMapping("/editar")
-    public Diretor editarDiretor(@RequestBody Diretor grava) throws RelationTypeNotFoundException {
-        return dirServ.editAll(grava);
+    public Item editarItem(@RequestBody Item grava) throws RelationTypeNotFoundException {
+        return itemServ.editAll(grava);
 
     }
 
     @GetMapping
-    public List<Diretor> listarAtor() {
-        return dirServ.listAll();
+    public List<Item> listarItem() {
+        return itemServ.listAll();
     }
 
     @GetMapping("/{id}")
-    public Diretor pegarId(@PathVariable Long id) throws RelationTypeNotFoundException {
-        return dirServ.listId(id);
+    public Item pegarIdItem(@PathVariable Long id) throws RelationTypeNotFoundException {
+        return itemServ.listId(id);
 
     }
 
     @DeleteMapping("/{id}")
-    public void deletarDiretor(@PathVariable Long id) throws RelationTypeNotFoundException {
-        dirServ.deleteId(id);
+    public void deletarItem(@PathVariable Long id) throws RelationTypeNotFoundException {
+        itemServ.deleteId(id);
     }
 }

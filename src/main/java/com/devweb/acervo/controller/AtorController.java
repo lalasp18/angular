@@ -3,7 +3,6 @@ package com.devweb.acervo.controller;
 import java.util.List;
 
 import javax.management.relation.RelationTypeNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,33 +27,30 @@ public class AtorController {
     private final AtorService atServ;
 
     @PostMapping
-    public Ator salvarAtor(@RequestBody Ator grava) throws RelationTypeNotFoundException{
-        Ator ator = atServ.saveAll(grava);
-        
-        return new Ator(ator.getIdAtor(), ator.getNome());
+    public Ator salvarAtor(@RequestBody Ator grava) throws RelationTypeNotFoundException {
+        return atServ.saveAll(grava);
+
     }
 
     @PutMapping("/editar")
-    public Ator editarAtor(@RequestBody Ator grava) throws RelationTypeNotFoundException{
-        Ator ator = atServ.editAll(grava);
-        
-        return new Ator(ator.getIdAtor(), ator.getNome());
+    public Ator editarAtor(@RequestBody Ator grava) throws RelationTypeNotFoundException {
+        return atServ.editAll(grava);
+
     }
 
     @GetMapping
-    public List<Ator> listarAtor(){
+    public List<Ator> listarAtor() {
         return atServ.listAll();
     }
 
     @GetMapping("/{id}")
     public Ator pegarIdAtor(@PathVariable Long id) throws RelationTypeNotFoundException {
-        Ator ator = atServ.listId(id);
-        
-        return new Ator(ator.getIdAtor(), ator.getNome());
+        return atServ.listId(id);
+
     }
 
     @DeleteMapping("/{id}")
-    public void deletarAtor(@PathVariable Long id) throws RelationTypeNotFoundException{
+    public void deletarAtor(@PathVariable Long id) throws RelationTypeNotFoundException {
         atServ.deleteId(id);
     }
 }

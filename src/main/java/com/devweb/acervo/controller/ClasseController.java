@@ -29,16 +29,14 @@ public class ClasseController {
 
     @PostMapping
     public Classe salvarClasse(@RequestBody Classe grava) throws RelationTypeNotFoundException {
-        Classe classe = clasServ.saveAll(grava);
+        return clasServ.saveAll(grava);
 
-        return new Classe(classe.getIdClasse(), classe.getNome(), classe.getValor(), classe.getPrazoDevolucao());
     }
 
     @PutMapping("/editar")
     public Classe editarClasse(@RequestBody Classe grava) throws RelationTypeNotFoundException {
-        Classe classe = clasServ.editAll(grava);
+        return clasServ.editAll(grava);
 
-        return new Classe(classe.getIdClasse(), classe.getNome(), classe.getValor(), classe.getPrazoDevolucao());
     }
 
     @GetMapping
@@ -48,9 +46,8 @@ public class ClasseController {
 
     @GetMapping("/{id}")
     public Classe pegarIdClasse(@PathVariable Long id) throws RelationTypeNotFoundException {
-        Classe classe = clasServ.listId(id);
+        return clasServ.listId(id);
 
-        return new Classe(classe.getIdClasse(), classe.getNome(), classe.getValor(), classe.getPrazoDevolucao());
     }
 
     @DeleteMapping("/{id}")
