@@ -78,8 +78,14 @@ export class AtoresComponent implements OnInit, OnDestroy {
   }
   
   deletarID(id: number){
-    this.atorService.deletarAtor(id).subscribe(data => {
-      this.ngOnInit();
+    this.atorService.deletarAtor(id).subscribe({
+      next: (data:any) => {
+        this.ngOnInit();
+        console.error('s'+data);
+      },
+      error: (err:any) => {
+        console.error('e'+err);
+      }
     });
   }
 }

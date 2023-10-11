@@ -8,27 +8,28 @@ import { Diretor } from 'src/app/models/diretor.models';
 })
 export class DiretorService {
 
-    private readonly API = '/api/diretor-create';
+    private readonly API = '/api/diretor';
 
     constructor(private http: HttpClient) { }
 
-    listarDiretor(): Observable<Diretor[]> {
-        return this.http.get<Diretor[]>(`${this.API}`);
-    }
-
     salvarDiretor(record: Diretor[]): Observable<Object> {
-        return this.http.post(this.API, record);
+        return this.http.post(`${this.API}/criar`, record);
     }
 
     editarDiretor(record: Diretor[]): Observable<Object> {
-        return this.http.put(this.API + "/editar", record);
+        return this.http.put(`${this.API}/editar`, record);
     }
+
+    listarDiretor(): Observable<Diretor[]> {
+        return this.http.get<Diretor[]>(`${this.API}/listar`);
+    }
+
     pegarIdDiretor(idDiretor: number): Observable<Diretor> {
-        return this.http.get<Diretor>(`${this.API}/${idDiretor}`);
+        return this.http.get<Diretor>(`${this.API}/listar/${idDiretor}`);
     }
 
     deletarDiretor(idDiretor: number): Observable<Object> {
-        return this.http.delete(`${this.API}/${idDiretor}`);
+        return this.http.delete(`${this.API}/deletar/${idDiretor}`);
     }
 }
 

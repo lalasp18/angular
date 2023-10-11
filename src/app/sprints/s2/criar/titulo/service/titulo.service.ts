@@ -8,28 +8,28 @@ import { Titulo } from 'src/app/models/titulo.models';
 })
 export class TituloService {
 
-  private readonly API = '/api/titulo-create';
+  private readonly API = '/api/titulo';
 
   constructor(private http: HttpClient) { }
 
-  listarTitulo(): Observable<Titulo[]> {
-    return this.http.get<Titulo[]>(`${this.API}`);
+  salvarTitulo(record: Titulo[]): Observable<Object> {
+    return this.http.post(`${this.API}/criar`, record);
   }
 
   editarTitulo(record: Titulo[]): Observable<Object> {
     return this.http.put(`${this.API}/editar`, record);
   }
 
-  salvarTitulo(record: Titulo[]): Observable<Object> {
-    return this.http.post(this.API, record);
+  listarTitulo(): Observable<Titulo[]> {
+    return this.http.get<Titulo[]>(`${this.API}/listar`);
   }
 
   pegarIdTitulo(idTitulo: number): Observable<Titulo> {
-    return this.http.get<Titulo>(`${this.API}/${idTitulo}`);
+    return this.http.get<Titulo>(`${this.API}/listar/${idTitulo}`);
   }
 
   deletarTitulo(idTitulo: number): Observable<Object> {
-    return this.http.delete(`${this.API}/${idTitulo}`);
+    return this.http.delete(`${this.API}/deletar/${idTitulo}`);
   }
 }
 

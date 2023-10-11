@@ -8,28 +8,28 @@ import { Item } from 'src/app/models/item.models';
 })
 export class ItemService {
 
-  private readonly API = '/api/item-create';
+  private readonly API = '/api/item';
 
   constructor(private http: HttpClient) { }
 
-  listarItem(): Observable<Item[]> {
-    return this.http.get<Item[]>(`${this.API}`);
+  salvarItem(record: Item[]): Observable<Object> {
+    return this.http.post(`${this.API}/criar`, record);
   }
 
   editarItem(record: Item[]): Observable<Object> {
     return this.http.put(`${this.API}/editar`, record);
   }
 
-  salvarItem(record: Item[]): Observable<Object> {
-    return this.http.post(this.API, record);
+  listarItem(): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.API}/listar`);
   }
 
   pegarIdItem(idItem: number): Observable<Item> {
-    return this.http.get<Item>(`${this.API}/${idItem}`);
+    return this.http.get<Item>(`${this.API}/listar/${idItem}`);
   }
 
   deletarItem(idItem: number): Observable<Object> {
-    return this.http.delete(`${this.API}/${idItem}`);
+    return this.http.delete(`${this.API}/deletar/${idItem}`);
   }
 }
 
