@@ -34,7 +34,7 @@ public class AtorController {
 
     }
 
-    @PutMapping("/editar/{id}")
+    @PutMapping("/editar")
     public Ator editarAtor(@RequestBody Ator grava) throws RelationTypeNotFoundException {
         return atServ.editAll(grava);
 

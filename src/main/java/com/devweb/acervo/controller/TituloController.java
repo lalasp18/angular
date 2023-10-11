@@ -35,7 +35,7 @@ public class TituloController {
 
     }
 
-    @PutMapping("/editar/{id}")
+    @PutMapping("/editar")
     public Titulo editarTitulo(@RequestBody Titulo grava) throws RelationTypeNotFoundException {
         return tituloServ.editAll(grava);
 
