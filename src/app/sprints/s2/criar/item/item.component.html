@@ -1,1 +1,29 @@
-<p>item works!</p>
+<div class="corpo mx-auto mt-4">
+    <h2>Cadastrar Item</h2>
+    <form id="meuFormulario" class="row g-3 mx-auto mt-4" [formGroup]="itemform" (ngSubmit)="onSubmit()">
+        <div class="col-md-8">
+            <label for="inputNumSerie" class="form-label">Número de Série</label>
+            <input type="number" class="form-control" formControlName="numSerie" id="inputNumSerie" required min=0>
+        </div>
+        <div class="col-md-8">
+            <label for="inputTipoItem" class="form-label">Tipo</label>
+            <input type="text" class="form-control" formControlName="tipoItem" id="inputTipoItem" required>
+        </div>
+
+
+        <div class="col-md-8">
+            <label for="inputDtAquisicao" class="form-label">Data de Aquisicão</label>
+            <input type="date" class="form-control" formControlName="dtAquisicao" id="inputDtAquisicao" required>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-success me-4">Enviar</button>
+            <button type="reset" class="btn btn-secondary" id="resetaForm">Resetar</button>
+        </div>
+    </form>
+</div>
+
+<div class="alerta w-50 my-5 mx-auto">
+    <ngb-alert #selfClosingAlert *ngIf="alertMessage"
+        [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error'}"
+        (closed)="close()">{{ alertMessage }}</ngb-alert>
+</div>

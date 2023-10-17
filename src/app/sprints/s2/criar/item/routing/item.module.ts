@@ -4,29 +4,30 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'src/app/_services/alert.service';
 import { ItemComponent } from '../item.component';
-import { ItensComponent } from '../../../listar/itens/itens.component';
 import { ItemEditComponent } from '../../../editar/item-edit/item-edit.component';
-import { ItemService } from '../service/item.service';
 import { ItemRoutingModule } from './item-routing.module';
+import { ItemService } from '../service/item.service';
+
+
 
 @NgModule({
   declarations: [
+
     ItemComponent,
-    ItensComponent,
     ItemEditComponent
   ],
   imports: [
     CommonModule,
+    ItemRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
-    ItemRoutingModule
+    NgbModule
   ],
   providers: [
     ItemService,
     // FormDeactivateGuard,
     AlertService
   ],
-  exports:[ItemComponent]
+  exports: [ItemComponent]
 })
 export class ItemModule { }
