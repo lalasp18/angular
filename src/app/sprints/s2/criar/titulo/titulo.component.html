@@ -6,18 +6,28 @@
             <input type="text" class="form-control" formControlName="nome" id="inputNome" required>
         </div>
 
+
         <div class="col-md-8">
-            <select class="form-select" aria-label="Seleção de Atores">
-                <option selected>Selecione Atores..</option>
-                <option *ngFor="let ator of atorList" onclick="pegarAtores($event)" value="{{ator.idAtor}}">
-                    {{ator.nome}}</option>
-            </select>
+            <button class="btn btn-success col-12 dropdown-toggle" type="button" id="dropdownMenuLink"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Selecione Atores..
+            </button>
+
+            <div class="dropdown-menu col-md-4" aria-labelledby="dropdownMenuLink">
+                <div *ngFor="let ator of atorList; index as i">
+                    <input class="form-check-input mx-2" type="checkbox" id="flexCheck"
+                        (change)="pegarAtores($event,ator,i)">
+                    <label class="form-check-label me-3" for="flexCheck">
+                        {{ator.nome}}
+                    </label>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-8">
-            <select class="form-select" aria-label="Seleção de Diretor">
+            <select class="form-select" aria-label="Seleção de Diretor" (change)="pegarDiretor($event.target.value)">
                 <option selected>Selecione um Diretor..</option>
-                <option *ngFor="let diretor of diretorList" value="{{diretor.idDiretor}}">
+                <option *ngFor="let diretor of diretorList" [value]="diretor">
                     {{diretor.nome}} </option>
             </select>
         </div>

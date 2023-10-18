@@ -71,7 +71,7 @@ export class TituloComponent implements OnInit {
 
 
   //  ADICIONA NOVO ÍNDICE NOS ATRIBUTOS ARRAY
-  addAtor() {
+  addAtor(id: any) {
     this.getAtor().push(new FormControl());
   }
 
@@ -148,8 +148,26 @@ export class TituloComponent implements OnInit {
   }
 
 
-  pegarAtores(evento: any) {
-    this.auxiliarAtor = evento.target.value
+  pegarAtores(evento: any, ator: Ator, index: number) {
+    if (evento.target.checked) {
+      console.log("entrou no evento com index:", index)
+      console.log("entrou no evento com index:", ator)
+      this.addAtor(index)
+    } else {
+      console.log("removeu da seleção com index:", index)
+      this.removeAtor(index)
+    }
+
+  }
+
+  pegarDiretor(evento: any) {
+    console.log("entrou na funcao do diretor")
+
+    if (evento.target.value) {
+
+      console.log("entrou no evento com index:", evento.target.value)
+      this.tituloform.get("diretor")?.setValue(evento.target.value)
+    }
 
   }
 
