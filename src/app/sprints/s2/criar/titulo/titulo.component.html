@@ -6,24 +6,27 @@
             <input type="text" class="form-control" formControlName="nome" id="inputNome" required>
         </div>
 
-        <div class="select-menu">
-            <select class="form-select" multiple aria-label="Seleção de Atores" size="1">
+        <div class="col-md-8">
+            <select class="form-select" aria-label="Seleção de Atores">
                 <option selected>Selecione Atores..</option>
-                <option *ngFor="let ator of atorList" value="{{ator.idAtor}}">{{ator.nome}}</option>
+                <option *ngFor="let ator of atorList" onclick="pegarAtores($event)" value="{{ator.idAtor}}">
+                    {{ator.nome}}</option>
             </select>
         </div>
 
-        <div class="select-menu">
+        <div class="col-md-8">
             <select class="form-select" aria-label="Seleção de Diretor">
                 <option selected>Selecione um Diretor..</option>
-                <option *ngFor="let diretor of diretorList" value="{{diretor.idDiretor}}">{{diretor.nome}}</option>
+                <option *ngFor="let diretor of diretorList" value="{{diretor.idDiretor}}">
+                    {{diretor.nome}} </option>
             </select>
         </div>
 
-        <div class="select-menu">
+        <div class="col-md-8">
             <select class="form-select" aria-label="Seleção de Classe">
                 <option selected>Selecione uma Classe..</option>
-                <option *ngFor="let classe of classeList" value="{{classe.idClasse}}">{{classe.nome}}</option>
+                <option *ngFor="let classe of classeList" value="{{classe.idClasse}}">
+                    {{classe.nome}}</option>
             </select>
         </div>
 
@@ -39,7 +42,7 @@
 
         <div class="col-md-8">
             <label for="labelContextArea" class="form-label">Sinopse</label>
-            <textarea class="form-control" id="labelContextArea" rows="5"></textarea>
+            <textarea class="form-control" formControlName="sinopse" id="labelContextArea" rows="5"></textarea>
         </div>
 
 

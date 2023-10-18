@@ -27,6 +27,8 @@ export class TituloComponent implements OnInit {
   classeList: Classe[] = [];
   tituloform: FormGroup;
 
+  auxiliarAtor: any[] = [];
+
   staticAlertClosed = false;
   alertMessage: string | undefined;
   alertType: string | undefined;
@@ -103,7 +105,8 @@ export class TituloComponent implements OnInit {
     this.diretorService.listarDiretor().subscribe(
       {
         next: (data: any) => {
-          this.diretorList = data.rseverse();
+          this.diretorList = data.reverse();
+
         },
         error: (err: any) => {
 
@@ -144,8 +147,53 @@ export class TituloComponent implements OnInit {
     this.alertMessage = '';
   }
 
+
+  pegarAtores(evento: any) {
+    this.auxiliarAtor = evento.target.value
+
+  }
+
+  convertNameToObject() {
+    this.tituloform.updateValueAndValidity();
+
+    if (!this.tituloform.valid) {
+      const atoresControl = this.auxiliarAtor;
+      let auxRetornoAtor: any;
+      for (let j = 0; j < atoresControl.length; j++) {
+
+        console.log("Veio Ator id:", atoresControl[j].value)
+        const id = atoresControl[j].value
+        auxRetornoAtor = this.atorList.find(atoraux => atoraux.idAtor == id)
+        console.log("Recebeu o retorno Ator:", auxRetornoAtor)
+
+      }
+      this.tituloform.get("atores")?.setValue(auxRetornoAtor);
+
+      const diretoresControl = this.tituloform.get("diretor")?.value;
+      const diretorvalue = diretoresControl.map((diretor: any) => {
+        console.log("Veio Diretor id:", diretor.value)
+        const id = diretor.value
+        return this.diretorList.find(diretoraux => diretoraux.idDiretor == id)
+      })
+
+      this.tituloform.get("diretor")?.setValue(diretorvalue);
+
+      const classesControl = this.tituloform.get("classe")?.value;
+      const classevalue = classesControl.map((classe: any) => {
+        console.log("Veio Classe id:", classe.value)
+        const id = classe.value
+        return this.classeList.find(classeaux => classeaux.idClasse == id)
+      })
+
+      this.tituloform.get("classe")?.setValue(classevalue);
+
+    }
+
+  }
+
   //  SALVA FORM PELO SERVICE DO BACK-END
   enviarFormTitulo() {
+
     this.tituloService.salvarTitulo(this.titulos).subscribe({
       next: (data: any) => {
         this.titulos = data;
@@ -163,6 +211,7 @@ export class TituloComponent implements OnInit {
   }
 
   onSubmit() {
+    this.convertNameToObject();
     console.log(this.tituloform.value);
     if (this.tituloform.valid) {
       this.titulos = this.tituloform.value;

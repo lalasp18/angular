@@ -8,6 +8,8 @@ import { debounceTime } from 'rxjs';
 
 import { Item } from 'src/app/models/item.models';
 import { ItemService } from './service/item.service';
+import { Titulo } from 'src/app/models/titulo.models';
+import { TituloService } from '../titulo/service/titulo.service';
 
 @Component({
   selector: 'app-classe',
@@ -18,6 +20,7 @@ export class ItemComponent implements OnInit {
   @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
 
   itens: Item[] = [];
+  tituloList: Titulo[] = [];
   itemform: FormGroup;
 
   staticAlertClosed = false;
@@ -29,18 +32,30 @@ export class ItemComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private alertServ: AlertService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private tituloService: TituloService
   ) {
     this.itemform = this.formBuilder.group({
       idItem: [null],
       numSerie: [null, [Validators.required, Validators.min(0)]],
       dtAquisicao: [null, [Validators.required]],
       tipoItem: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-
+      titulo: [null, [Validators.required]]
     });
   }
 
   ngOnInit() {
+    this.tituloService.listarTitulo().subscribe(
+      {
+        next: (data: any) => {
+          this.tituloList = data.reverse();
+        },
+        error: (err: any) => {
+
+        }
+      }
+    )
+
 
     this.alertServ.getMessage().subscribe(message => {
       if (message) {
