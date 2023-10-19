@@ -11,4 +11,5 @@ export interface Titulo {
     atores: Array<Ator>;
     diretor: Diretor;
     classe: Classe;
+    imagem: String;
 }

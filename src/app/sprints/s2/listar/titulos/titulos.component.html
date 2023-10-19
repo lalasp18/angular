@@ -1,1 +1,87 @@
-<p>titulos works!</p>
+<div class="corpo mx-auto mt-4">
+    <h2>Lista De Títulos</h2>
+
+
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="true">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+    <div id="listaTitulos" class="row row-cols-2 row-cols-lg-5 align-items-center" *ngIf="tituloData.length > 0">
+        <div class="card mb-3 col me-4  shadow bg-body-tertiary rounded "
+            style="width: 700px;cursor: pointer;max-height: fit-content;" *ngFor="let titulo of tituloData; index as i">
+            <div class="row g-0">
+                <div class="col-md-4 my-auto mx-auto">
+                    <img style="max-width: 230px; max-height: 230px;" src="{{titulo.imagem}}"
+                        class="img-fluid rounded-start mx-auto">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h2 class="card-title">{{titulo.nome}}</h2>
+                        <p class="card-text">{{titulo.sinopse}}</p>
+                        <p class="card-text"><small class="text-body-secondary">{{titulo.ano}}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--     
+        <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;" *ngFor="let titulo of tituloData; index as i"> 
+            <div class="card-body"> 
+                <h5 class="card-title">{{ titulo.nome }}</h5> 
+                
+                <h6 class="card-subtitle my-2 text-body-secondary">Valor: {{ classe.valor }} </h6> 
+                <p class="card-text"> {{ classe.prazoDevolucao | date: 'dd/MM/yyyy' }} </p>
+                <a class="btn btn-warning me-2" (click)="editarID(classe.idClasse)">Editar</a> 
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(classe.idClasse)">Deletar</button> 
+            </div> 
+        </div>
+    </div> -->
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        (hidden)="limparIdParaDeletar()">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Você está prestes a excluir este item.</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <h3 id="modalAlert">Esta ação é irreversível.</h3>
+                    <p>Você deseja continuar?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        (click)="deletarID(titulosParaDeletarId)">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alerta w-50 my-5 mx-auto">
+    <ngb-alert #selfClosingAlert *ngIf="alertMessage"
+        [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error', 'alert-warning': alertType === 'warning'}"
+        (closed)="close()">{{ alertMessage }}</ngb-alert>
+</div>

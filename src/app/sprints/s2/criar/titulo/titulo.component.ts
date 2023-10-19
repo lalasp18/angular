@@ -26,6 +26,9 @@ export class TituloComponent implements OnInit {
   diretorList: Diretor[] = [];
   classeList: Classe[] = [];
   tituloform: FormGroup;
+  message: any;
+  imagePath: any;
+  imgURL: any;
 
   auxiliarAtor: any[] = [];
 
@@ -50,10 +53,31 @@ export class TituloComponent implements OnInit {
       diretor: [null, Validators.required],
       classe: [null, [Validators.required]],
       ano: [null, [Validators.required]],
-      sinopse: [null, [Validators.required]],
-      categoria: [null, [Validators.required]]
+      sinopse: [null, [Validators.required, Validators.maxLength(5000)]],
+      categoria: [null, [Validators.required]],
+      imagem: [null, [Validators.required]]
     });
   }
+
+  preview(files: any) {
+    if (files.length === 0)
+      return;
+
+    let mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Apenas Imagens são suportadas.";
+      return;
+    }
+
+    let reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+      this.tituloform.get('imagem')?.setValue(reader.result);
+    }
+  }
+
 
   RequiredArrayValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -71,13 +95,16 @@ export class TituloComponent implements OnInit {
 
 
   //  ADICIONA NOVO ÍNDICE NOS ATRIBUTOS ARRAY
-  addAtor(id: any) {
-    this.getAtor().push(new FormControl());
+  addAtor(ator: Ator) {
+    this.getAtor().push(new FormControl(ator));
+    console.log(this.getAtor())
   }
 
   //  APAGA ELEMENTOS DE ARRAY PELO ÍNDICE INDICADO
   removeAtor(i: number) {
+    console.log(this.getAtor().at(i))
     this.getAtor().removeAt(i);
+
   }
 
 
@@ -152,7 +179,7 @@ export class TituloComponent implements OnInit {
     if (evento.target.checked) {
       console.log("entrou no evento com index:", index)
       console.log("entrou no evento com index:", ator)
-      this.addAtor(index)
+      this.addAtor(ator)
     } else {
       console.log("removeu da seleção com index:", index)
       this.removeAtor(index)
@@ -160,54 +187,83 @@ export class TituloComponent implements OnInit {
 
   }
 
-  pegarDiretor(evento: any) {
-    console.log("entrou na funcao do diretor")
+  pegarDiretor(event: any) {
 
-    if (evento.target.value) {
+    let diretorSelecionado = event.target.value;
+    console.log("veio no evento target value:", event.target.value)
+    console.log("veio no evento target:", event.target)
 
-      console.log("entrou no evento com index:", evento.target.value)
-      this.tituloform.get("diretor")?.setValue(evento.target.value)
-    }
+    if (diretorSelecionado) {
+      this.diretorService.pegarIdDiretor(diretorSelecionado).subscribe({
+        next: (dir: any) => {
+          diretorSelecionado = dir;
+          console.log("Diretor selecionado:", diretorSelecionado);
+          this.tituloform.get("diretor")?.setValue(diretorSelecionado);
 
-  }
-
-  convertNameToObject() {
-    this.tituloform.updateValueAndValidity();
-
-    if (!this.tituloform.valid) {
-      const atoresControl = this.auxiliarAtor;
-      let auxRetornoAtor: any;
-      for (let j = 0; j < atoresControl.length; j++) {
-
-        console.log("Veio Ator id:", atoresControl[j].value)
-        const id = atoresControl[j].value
-        auxRetornoAtor = this.atorList.find(atoraux => atoraux.idAtor == id)
-        console.log("Recebeu o retorno Ator:", auxRetornoAtor)
-
-      }
-      this.tituloform.get("atores")?.setValue(auxRetornoAtor);
-
-      const diretoresControl = this.tituloform.get("diretor")?.value;
-      const diretorvalue = diretoresControl.map((diretor: any) => {
-        console.log("Veio Diretor id:", diretor.value)
-        const id = diretor.value
-        return this.diretorList.find(diretoraux => diretoraux.idDiretor == id)
+        }
       })
 
-      this.tituloform.get("diretor")?.setValue(diretorvalue);
+    }
+  }
 
-      const classesControl = this.tituloform.get("classe")?.value;
-      const classevalue = classesControl.map((classe: any) => {
-        console.log("Veio Classe id:", classe.value)
-        const id = classe.value
-        return this.classeList.find(classeaux => classeaux.idClasse == id)
+
+  pegarClasse(event: any) {
+
+    let classeSelecionada = event.target.value;
+    console.log("veio no evento target value:", event.target.value)
+    console.log("veio no evento target:", event.target)
+
+    if (classeSelecionada) {
+      this.classeService.pegarIdClasse(classeSelecionada).subscribe({
+        next: (clas: any) => {
+          classeSelecionada = clas;
+          console.log("Classeonado:", classeSelecionada);
+          this.tituloform.get("classe")?.setValue(classeSelecionada);
+
+        }
       })
 
-      this.tituloform.get("classe")?.setValue(classevalue);
-
     }
-
   }
+
+
+  // convertNameToObject() {
+  //   this.tituloform.updateValueAndValidity();
+
+  //   if (!this.tituloform.valid) {
+  //     const atoresControl = this.auxiliarAtor;
+  //     let auxRetornoAtor: any;
+  //     for (let j = 0; j < atoresControl.length; j++) {
+
+  //       console.log("Veio Ator id:", atoresControl[j].value)
+  //       const id = atoresControl[j].value
+  //       auxRetornoAtor = this.atorList.find(atoraux => atoraux.idAtor == id)
+  //       console.log("Recebeu o retorno Ator:", auxRetornoAtor)
+
+  //     }
+  //     this.tituloform.get("atores")?.setValue(auxRetornoAtor);
+
+  //     const diretoresControl = this.tituloform.get("diretor")?.value;
+  //     const diretorvalue = diretoresControl.map((diretor: any) => {
+  //       console.log("Veio Diretor id:", diretor.value)
+  //       const id = diretor.value
+  //       return this.diretorList.find(diretoraux => diretoraux.idDiretor == id)
+  //     })
+
+  //     this.tituloform.get("diretor")?.setValue(diretorvalue);
+
+  //     const classesControl = this.tituloform.get("classe")?.value;
+  //     const classevalue = classesControl.map((classe: any) => {
+  //       console.log("Veio Classe id:", classe.value)
+  //       const id = classe.value
+  //       return this.classeList.find(classeaux => classeaux.idClasse == id)
+  //     })
+
+  //     this.tituloform.get("classe")?.setValue(classevalue);
+
+  //   }
+
+  // }
 
   //  SALVA FORM PELO SERVICE DO BACK-END
   enviarFormTitulo() {
@@ -229,7 +285,7 @@ export class TituloComponent implements OnInit {
   }
 
   onSubmit() {
-    this.convertNameToObject();
+    // this.convertNameToObject();
     console.log(this.tituloform.value);
     if (this.tituloform.valid) {
       this.titulos = this.tituloform.value;

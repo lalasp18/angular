@@ -25,18 +25,20 @@
         </div>
 
         <div class="col-md-8">
-            <select class="form-select" aria-label="Seleção de Diretor" (change)="pegarDiretor($event.target.value)">
-                <option selected>Selecione um Diretor..</option>
-                <option *ngFor="let diretor of diretorList" [value]="diretor">
-                    {{diretor.nome}} </option>
+            <select class="form-select" aria-label="Seleção de Diretor" (change)="pegarDiretor($event)">
+                <option selected>Selecione um(a) Diretor(a)..</option>
+                <option *ngFor="let diretor of diretorList" [value]="diretor.idDiretor">
+                    {{diretor.nome}}
+                </option>
             </select>
         </div>
 
         <div class="col-md-8">
-            <select class="form-select" aria-label="Seleção de Classe">
+            <select class="form-select" aria-label="Seleção de Classe" (change)="pegarClasse($event)">
                 <option selected>Selecione uma Classe..</option>
-                <option *ngFor="let classe of classeList" value="{{classe.idClasse}}">
-                    {{classe.nome}}</option>
+                <option *ngFor="let classe of classeList" [value]="classe.idClasse">
+                    {{classe.nome}}
+                </option>
             </select>
         </div>
 
@@ -52,10 +54,14 @@
 
         <div class="col-md-8">
             <label for="labelContextArea" class="form-label">Sinopse</label>
-            <textarea class="form-control" formControlName="sinopse" id="labelContextArea" rows="5"></textarea>
+            <textarea class="form-control" formControlName="sinopse" id="labelContextArea" rows="5"
+                maxlength="5000"></textarea>
         </div>
 
-
+        <div class="col-md-8">
+            <img src="{{imgURL}}" class="img-thumbnail">
+            <input class="form-control" accept="image/*" #file (change)="preview(file.files)" type="file" id="formFile">
+        </div>
 
         <div class="col-12">
             <button type="submit" class="btn btn-success me-4">Enviar</button>

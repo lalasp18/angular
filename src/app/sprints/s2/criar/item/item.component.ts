@@ -77,6 +77,25 @@ export class ItemComponent implements OnInit {
     this.alertMessage = '';
   }
 
+  pegarTitulo(event: any) {
+
+    let tituloSelecionado = event.target.value;
+    console.log("veio no evento target value:", event.target.value)
+    console.log("veio no evento target:", event.target)
+
+    if (tituloSelecionado) {
+      this.tituloService.pegarIdTitulo(tituloSelecionado).subscribe({
+        next: (titulo: any) => {
+          tituloSelecionado = titulo;
+          console.log("Titulo selecionado:", tituloSelecionado);
+          this.itemform.get("titulo")?.setValue(tituloSelecionado);
+
+        }
+      })
+
+    }
+  }
+
   //  SALVA FORM PELO SERVICE DO BACK-END
   enviarFormItem() {
     this.itemService.salvarItem(this.itens).subscribe({

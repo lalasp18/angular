@@ -8,9 +8,9 @@
                 <h5 class="card-title">{{ item.numSerie }}</h5>
                 <h6 class="card-subtitle my-2 text-body-secondary">Valor: {{ item.valor }} </h6>
                 <p class="card-text"> {{ item.dtAquisicao | date: 'dd/MM/yyyy' }} </p>
-                <a class="btn btn-warning me-2" (click)="editarID(classe.idClasse)">Editar</a>
+                <a class="btn btn-warning me-2" (click)="editarID(item.idItem)">Editar</a>
                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    (click)="definirIdParaDeletar(classe.idClasse)">Deletar</button>
+                    (click)="definirIdParaDeletar(item.idItem)">Deletar</button>
             </div>
         </div>
     </div>
