@@ -18,6 +18,10 @@ export class TitulosComponent implements OnInit, OnDestroy {
   tituloData: Titulo[] = [];
   unsubscribe$!: Subscription;
   titulosParaDeletarId: number = -1;
+  show1: boolean = true;
+  show2: boolean = false;
+  show3: boolean = false;
+
 
   staticAlertClosed = false;
   alertMessage: string | undefined;
@@ -55,6 +59,15 @@ export class TitulosComponent implements OnInit, OnDestroy {
         this.alertType = undefined;
       }
     });
+  }
+
+
+
+
+  mudarTab(tab: string) {
+    this.show1 = tab === 'tab1';
+    this.show2 = tab === 'tab2';
+    this.show3 = tab === 'tab3';
   }
 
   ngOnDestroy() {

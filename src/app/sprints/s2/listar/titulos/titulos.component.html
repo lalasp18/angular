@@ -2,45 +2,112 @@
     <h2>Lista De Títulos</h2>
 
 
-    <div class="card text-center">
+    <div class="card text-center mb-4" *ngFor="let titulo of tituloData; index as i" style="width: 750px;">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="true">Active</a>
+                <li class="nav-item active" aria-current="page" [class.active]="show1" (click)="mudarTab('tab1')">
+                    <a class="nav-link link-success" data-toggle="tab"> <i class="fa-solid fa-film"></i></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                <li class="nav-item" [class.active]="show2" (click)="mudarTab('tab2')">
+                    <a class="nav-link link-success" data-toggle="tab"><i class="fa-solid fa-masks-theater">
+                            ELENCO</i></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                <li class="nav-item" [class.active]="show3" (click)="mudarTab('tab3')">
+                    <a class="nav-link link-success" data-toggle="tab"><i class="fa-solid fa-pen-to-square">
+                            AÇÕES</i></a>
                 </li>
             </ul>
         </div>
         <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
+            <div class="tab-content">
+                <div id="tab1" class="tab-pane" [class.active]="show1">
+                    <div class="card-body my-auto mx-auto">
+                        <div id="listaTitulos" class="row row-cols-2 row-cols-lg-5 align-items-center"
+                            *ngIf="tituloData.length > 0">
+                            <div class="card mb-3 col me-4  shadow bg-body-tertiary rounded "
+                                style="width: 700px;cursor: pointer;max-height: fit-content;">
+                                <div class="row g-0">
+                                    <div class="col-md-4 my-auto mx-auto">
+                                        <img style="max-width: 230px; max-height: 230px;" src="{{titulo.imagem}}"
+                                            class="img-fluid rounded-start mx-auto">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h2 class="card-title">{{titulo.nome}}</h2>
+                                            <p class="card-text">{{titulo.sinopse}}</p>
+                                            <p class="card-text"><strong>Categoria: </strong>{{titulo.categoria}}</p>
+                                            <p class="card-text"><small class="text-body-secondary"><strong>Ano de
+                                                        Lançamento:</strong>
+                                                    {{titulo.ano}}</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-    <div id="listaTitulos" class="row row-cols-2 row-cols-lg-5 align-items-center" *ngIf="tituloData.length > 0">
-        <div class="card mb-3 col me-4  shadow bg-body-tertiary rounded "
-            style="width: 700px;cursor: pointer;max-height: fit-content;" *ngFor="let titulo of tituloData; index as i">
-            <div class="row g-0">
-                <div class="col-md-4 my-auto mx-auto">
-                    <img style="max-width: 230px; max-height: 230px;" src="{{titulo.imagem}}"
-                        class="img-fluid rounded-start mx-auto">
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h2 class="card-title">{{titulo.nome}}</h2>
-                        <p class="card-text">{{titulo.sinopse}}</p>
-                        <p class="card-text"><small class="text-body-secondary">{{titulo.ano}}</small></p>
+                <div id="tab2" class="tab-pane" [class.active]="show2">
+                    <div class="card-body my-auto mx-auto">
+                        <div id="listaTitulos" class="row row-cols-2 row-cols-lg-5 align-items-center"
+                            *ngIf="tituloData.length > 0">
+                            <div class="card mb-3 col me-4  shadow bg-body-tertiary rounded "
+                                style="width: 700px;cursor: pointer;max-height: fit-content;">
+                                <div class="row g-0">
+                                    <div class="col-md-4 my-auto mx-auto">
+                                        <img style="max-width: 230px; max-height: 230px;" src="{{titulo.imagem}}"
+                                            class="img-fluid rounded-start mx-auto">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h2 class="card-title">{{titulo.nome}}</h2>
+                                            <p><strong> Atores/Atrizes:</strong> </p>
+                                            <p class="card-text" *ngFor="let atores of titulo.atores;">{{atores.nome}}
+                                            </p>
+                                            <p class="card-text"><strong>Diretor(a):</strong> {{titulo.diretor.nome}}
+                                            </p>
+                                            <p class="card-text"><strong>Classe:</strong> {{titulo.classe.nome}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="tab3" class="tab-pane" [class.active]="show3">
+                    <div class="card-body my-auto mx-auto">
+                        <div id="listaTitulos" class="row row-cols-2 row-cols-lg-5 align-items-center"
+                            *ngIf="tituloData.length > 0">
+                            <div class="card mb-3 col me-4  shadow bg-body-tertiary rounded "
+                                style="width: 700px;cursor: pointer;max-height: fit-content;">
+                                <div class="row g-0">
+                                    <div class="col-md-4 my-auto mx-auto">
+                                        <img style="max-width: 230px; max-height: 230px;" src="{{titulo.imagem}}"
+                                            class="img-fluid rounded-start mx-auto">
+                                    </div>
+                                    <div class="col-md-8 align-self-center">
+                                        <div class="card-body ">
+                                            <a class="btn btn-warning me-5"
+                                                (click)="editarID(titulo.idTitulo)">Editar</a>
+                                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                                (click)="definirIdParaDeletar(titulo.idTitulo)">Deletar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
 
     <!--     
         <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;" *ngFor="let titulo of tituloData; index as i"> 
