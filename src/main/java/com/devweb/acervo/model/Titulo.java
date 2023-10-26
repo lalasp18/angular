@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -31,7 +32,7 @@ public class Titulo {
     @Column(nullable = false)
     private Integer ano;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 5000, nullable = false)
     private String sinopse;
 
     @Column(length = 100, nullable = false)
@@ -49,10 +50,15 @@ public class Titulo {
     @JoinColumn(name = "classe")
     private Classe classe;
 
+    @Column(nullable = false)
+    @Lob
+    private String imagem;
+
     public Titulo() {
     }
 
-    public Titulo(String nome, Integer ano, String sinopse, String categoria, Diretor diretor, Classe classe) {
+    public Titulo(String nome, Integer ano, String sinopse, String categoria, Diretor diretor, Classe classe,
+            String imagem) {
         this.nome = nome;
         this.ano = ano;
         this.sinopse = sinopse;
@@ -60,15 +66,17 @@ public class Titulo {
         this.diretor = diretor;
         this.classe = classe;
         this.atores = new ArrayList<Ator>();
+        this.imagem = imagem;
     }
 
-    public Titulo(Long idTitulo, String nome, Integer ano, String sinopse, String categoria) {
+    public Titulo(Long idTitulo, String nome, Integer ano, String sinopse, String categoria, String imagem) {
         this.idTitulo = idTitulo;
         this.nome = nome;
         this.ano = ano;
         this.sinopse = sinopse;
         this.categoria = categoria;
         this.atores = new ArrayList<Ator>();
+        this.imagem = imagem;
     }
 
 }

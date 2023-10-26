@@ -33,6 +33,7 @@ public class TituloService {
         editado.setAtores(titulo.getAtores());
         editado.setDiretor(titulo.getDiretor());
         editado.setClasse(titulo.getClasse());
+        editado.setImagem(titulo.getImagem());
         return tituloRepo.save(editado);
     }
 
