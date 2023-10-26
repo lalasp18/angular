@@ -5,6 +5,7 @@ import { AlertService } from 'src/app/_services/alert.service';
 import { Router } from '@angular/router';
 import { Titulo } from 'src/app/models/titulo.models';
 import { TituloService } from '../../criar/titulo/service/titulo.service';
+import { Ator } from 'src/app/models/ator.models';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class TitulosComponent implements OnInit, OnDestroy {
   show1: boolean = true;
   show2: boolean = false;
   show3: boolean = false;
-
+  atores: any;
 
   staticAlertClosed = false;
   alertMessage: string | undefined;
@@ -39,6 +40,7 @@ export class TitulosComponent implements OnInit, OnDestroy {
         next: (itens: any) => {
           const data = itens;
           this.tituloData = data.sort((a: any, b: any) => (a.nome < b.nome) ? -1 : 1);
+
         },
         error: (err: any) => {
           this.alertServ.warning('Dados não encontrados.')
@@ -95,5 +97,9 @@ export class TitulosComponent implements OnInit, OnDestroy {
     this.tituloService.deletarTitulo(id).subscribe(data => {
       this.ngOnInit();
     });
+  }
+
+  formatarAtores(atores: Ator[]) {
+    return atores.map(ator => ator.nome).join(', ');
   }
 }
