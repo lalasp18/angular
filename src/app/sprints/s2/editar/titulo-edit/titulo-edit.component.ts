@@ -10,11 +10,11 @@ import { Titulo } from 'src/app/models/titulo.models';
 import { TituloService } from '../../criar/titulo/service/titulo.service';
 
 @Component({
-  selector: 'item-edit',
-  templateUrl: './item-edit.component.html',
-  styleUrls: ['./item-edit.component.scss']
+  selector: 'titulo-edit',
+  templateUrl: './titulo-edit.component.html',
+  styleUrls: ['./titulo-edit.component.scss']
 })
-export class ItemEditComponent implements OnInit, OnDestroy {
+export class TituloEditComponent implements OnInit, OnDestroy {
   @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
 
   itemID!: Item;

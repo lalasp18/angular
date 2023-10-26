@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TituloComponent } from '../titulo.component';
 import { TitulosComponent } from '../../../listar/titulos/titulos.component';
-import { TitutloEditComponent } from '../../../editar/titulo-edit/titulo-edit.component';
+import { TituloEditComponent } from '../../../editar/titulo-edit/titulo-edit.component';
 
 const routes: Routes = [
   { path: 'api/titulo-create', redirectTo: 'cadastrar/titulo', pathMatch: 'full' },
@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'listar-titulos', component: TitulosComponent },
 
   { path: 'api/titulo-create/:id', redirectTo: 'editar/titulo/:id', pathMatch: 'full' },
-  { path: 'editar/titulo/:id', component: TitutloEditComponent }
+  { path: 'editar/titulo/:id', component: TituloEditComponent }
 
 ];
 

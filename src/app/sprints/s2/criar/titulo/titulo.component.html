@@ -15,9 +15,8 @@
 
             <div class="dropdown-menu col-md-4" aria-labelledby="dropdownMenuLink">
                 <div *ngFor="let ator of atorList; index as i">
-                    <input class="form-check-input mx-2" type="checkbox" id="flexCheck"
-                        (change)="pegarAtores($event,ator,i)">
-                    <label class="form-check-label me-3" for="flexCheck">
+                    <input class="form-check-input mx-2" type="checkbox" id="flexCheck{{i}}" (change)="pegarAtores($event,ator,i)">
+                    <label class="form-check-label me-3" for="flexCheck{{i}}">
                         {{ator.nome}}
                     </label>
                 </div>
@@ -26,7 +25,7 @@
 
         <div class="col-md-8">
             <label class="form-label">Seleção de Diretor(a)</label>
-            <select class="form-select" aria-label="Seleção de Diretor" (change)="pegarDiretor($event)">
+            <select id="selectDiretor" class="form-select" aria-label="Seleção de Diretor" (change)="pegarDiretor($event)">
                 <option selected>Selecione um(a) Diretor(a)..</option>
                 <option *ngFor="let diretor of diretorList" [value]="diretor.idDiretor">
                     {{diretor.nome}}
@@ -36,7 +35,7 @@
 
         <div class="col-md-8">
             <label class="form-label">Seleção de Classe</label>
-            <select class="form-select" aria-label="Seleção de Classe" (change)="pegarClasse($event)">
+            <select id="selectClasse" class="form-select" aria-label="Seleção de Classe" (change)="pegarClasse($event)">
                 <option selected>Selecione uma Classe..</option>
                 <option *ngFor="let classe of classeList" [value]="classe.idClasse">
                     {{classe.nome}}

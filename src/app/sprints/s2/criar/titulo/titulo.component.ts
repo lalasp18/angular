@@ -294,5 +294,18 @@ export class TituloComponent implements OnInit {
     } else {
       this.alertServ.warning('Informação inválida. Preencha o campo!')
     }
+    
+    this.imgURL=null;
+    for (let i = 0; i < this.atorList.length; i++) {
+      const selectAtor = document.getElementById(`flexCheck${i}`) as HTMLInputElement;
+      if (selectAtor) {
+        selectAtor.checked = false;
+      }
+    }
+    
+    const selectDiretor = document.getElementById('selectDiretor') as HTMLInputElement;
+    selectDiretor.value = "Selecione um(a) Diretor(a)..";
+    const selectClasse = document.getElementById('selectClasse') as HTMLInputElement;
+    selectClasse.value = "Selecione uma Classe..";
   }
 }
