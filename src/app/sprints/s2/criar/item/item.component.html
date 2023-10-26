@@ -7,7 +7,8 @@
         </div>
 
         <div class="col-md-8">
-            <select class="form-select" aria-label="Seleção de Titulo" (change)="pegarTitulo($event)">
+            <label class="form-label">Seleção de Título</label>
+            <select class="form-select" aria-label="Seleção de Titulo" (change)="pegarTitulo($event) ">
                 <option selected>Selecione um Título..</option>
                 <option *ngFor="let titulo of tituloList" [value]="titulo.idTitulo">
                     {{titulo.nome}}

@@ -3,18 +3,21 @@
 
     <div id="listaItens" class="row row-cols-2 row-cols-lg-5 align-items-center" *ngIf="itemData.length > 0">
         <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;"
-            *ngFor="let item of itemData; index as i">
+            *ngFor="let itens of itemData; index as i">
             <div class="card-body">
-                <h5 class="card-title">{{ item.numSerie }}</h5>
-                <h6 class="card-subtitle my-2 text-body-secondary">Valor: {{ item.valor }} </h6>
-                <p class="card-text"> {{ item.dtAquisicao | date: 'dd/MM/yyyy' }} </p>
-                <a class="btn btn-warning me-2" (click)="editarID(item.idItem)">Editar</a>
+                <i class="fa-solid fa-compact-disc" style="color: #000000;"></i>
+                <h3 class="card-title"><strong>Numero de Série:</strong> {{ itens.numSerie }}</h3>
+                <h4 class="card-subtitle my-2 text-body-secondary"><strong>Título: </strong>{{ itens.titulo.nome }}
+                </h4>
+                <p class="card-text">Tipo: {{ itens.tipoItem}} </p>
+                <p class="card-text">Data de Aquisisção: {{ itens.dtAquisicao | date: 'dd/MM/yyyy' }}
+                </p>
+                <a class="btn btn-warning me-2" (click)="editarID(itens.idItem)">Editar</a>
                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    (click)="definirIdParaDeletar(item.idItem)">Deletar</button>
+                    (click)="definirIdParaDeletar(itens.idItem)">Deletar</button>
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
         (hidden)="limparIdParaDeletar()">
@@ -33,7 +36,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                     <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        (click)="deletarID(classeParaDeletarId)">Confirmar</button>
+                        (click)="deletarID(itemParaDeletarId)">Confirmar</button>
                 </div>
             </div>
         </div>

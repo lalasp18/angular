@@ -39,7 +39,7 @@ export class ItemComponent implements OnInit {
       idItem: [null],
       numSerie: [null, [Validators.required, Validators.min(0)]],
       dtAquisicao: [null, [Validators.required]],
-      tipoItem: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      tipoItem: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
       titulo: [null, [Validators.required]]
     });
   }
@@ -111,7 +111,7 @@ export class ItemComponent implements OnInit {
   }
 
   goToRoute() {
-    this.router.navigate(['api/item-create']);
+    this.router.navigate(['api/item-criar']);
   }
 
   onSubmit() {
@@ -122,6 +122,8 @@ export class ItemComponent implements OnInit {
       this.itemform.reset();
     } else {
       this.alertServ.warning('Informação inválida. Preencha o campo!')
+      console.log("entrou no else, o itemform esta inválido.")
+      console.log("o form:", this.itemform)
     }
   }
 }

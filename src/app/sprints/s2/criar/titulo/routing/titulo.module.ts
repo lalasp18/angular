@@ -5,15 +5,16 @@ import { TituloRoutingModule } from './titulo-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'src/app/_services/alert.service';
 import { TituloComponent } from '../titulo.component';
-import { TitulosComponent } from '../../../listar/titulos/titulos.component';
-import { TituloEditComponent } from '../../../editar/titulo-edit/titulo-edit.component';
 import { TituloService } from '../service/titulo.service';
+import { TitulosComponent } from '../../../listar/titulos/titulos.component';
+
 
 @NgModule({
   declarations: [
     TituloComponent,
-    TitulosComponent,
-    TituloEditComponent
+
+    TitulosComponent
+
   ],
   imports: [
     CommonModule,
@@ -27,6 +28,6 @@ import { TituloService } from '../service/titulo.service';
     // FormDeactivateGuard,
     AlertService
   ],
-  exports:[TituloComponent]
+  exports: [TituloComponent]
 })
 export class TituloModule { }

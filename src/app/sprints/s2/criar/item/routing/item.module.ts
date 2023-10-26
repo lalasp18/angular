@@ -7,6 +7,7 @@ import { ItemComponent } from '../item.component';
 import { ItemEditComponent } from '../../../editar/item-edit/item-edit.component';
 import { ItemRoutingModule } from './item-routing.module';
 import { ItemService } from '../service/item.service';
+import { ItensComponent } from '../../../listar/itens/itens.component';
 
 
 
@@ -14,6 +15,7 @@ import { ItemService } from '../service/item.service';
   declarations: [
 
     ItemComponent,
+    ItensComponent,
     ItemEditComponent
   ],
   imports: [

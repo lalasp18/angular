@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ItemComponent } from '../item.component';
+import { ItensComponent } from '../../../listar/itens/itens.component';
+import { ItemEditComponent } from '../../../editar/item-edit/item-edit.component';
 
 
 const routes: Routes = [
@@ -11,10 +13,10 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     // canDeactivate: [FormDeactivateGuard] 
   },
-  { path: 'listar-itens', component: ItemComponent },
+  { path: 'listar-itens', component: ItensComponent },
 
   { path: 'api/item-create/:id', redirectTo: 'editar/item/:id', pathMatch: 'full' },
-  { path: 'editar/item/:id', component: ItemComponent }
+  { path: 'editar/item/:id', component: ItemEditComponent }
 ];
 
 @NgModule({
