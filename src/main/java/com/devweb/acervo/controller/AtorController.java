@@ -18,40 +18,58 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devweb.acervo.model.Ator;
 import com.devweb.acervo.service.AtorService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/ator")
 @AllArgsConstructor
+@Tag(name = "AtorController", description = "Fornece serviços web REST para acesso e manipulação de dados de atores.")
 public class AtorController {
 
     @Autowired
     private final AtorService atServ;
 
     @PostMapping("/criar")
-    public Ator salvarAtor(@RequestBody Ator grava) throws RelationTypeNotFoundException {
+    @Operation(description = "Dado o nome, cadastra um novo ator.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o ator seja incluído com sucesso."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public Ator salvarAtor(@RequestBody Ator grava) {
         return atServ.saveAll(grava);
 
     }
 
     @PutMapping("/editar")
+    @Operation(description = "Dado o nome, o ator é editado.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o ator seja editado com sucesso."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
     public Ator editarAtor(@RequestBody Ator grava) throws RelationTypeNotFoundException {
         return atServ.editAll(grava);
 
     }
 
     @GetMapping("/listar")
+    @Operation (description="Retorna todos os atores cadastrados.")
     public List<Ator> listarAtor() {
         return atServ.listAll();
     }
 
     @GetMapping("/listar/{id}")
+    @Operation (description="Retorna todo o ator cadastrado por id.")
     public Ator pegarIdAtor(@PathVariable Long id) throws RelationTypeNotFoundException {
         return atServ.listId(id);
 
     }
 
     @DeleteMapping("/deletar/{id}")
+    @Operation(description = "Dado o id, deleta o ator.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o ator seja deletado com sucesso."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
     public ResponseEntity<String> deletarAtor(@PathVariable Long id) {
         try {
             atServ.deleteId(id);
