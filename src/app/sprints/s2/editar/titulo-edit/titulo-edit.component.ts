@@ -1,6 +1,6 @@
 import { debounceTime, Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'src/app/_services/alert.service';
@@ -8,6 +8,12 @@ import { Item } from 'src/app/models/item.models';
 import { ItemService } from '../../criar/item/service/item.service';
 import { Titulo } from 'src/app/models/titulo.models';
 import { TituloService } from '../../criar/titulo/service/titulo.service';
+import { Ator } from 'src/app/models/ator.models';
+import { Classe } from 'src/app/models/classe.models';
+import { Diretor } from 'src/app/models/diretor.models';
+import { AtorService } from 'src/app/sprints/s1/criar/ator/service/ator.service';
+import { ClasseService } from 'src/app/sprints/s1/criar/classe/service/classe.service';
+import { DiretorService } from 'src/app/sprints/s1/criar/diretor/service/diretor.service';
 
 @Component({
   selector: 'titulo-edit',
@@ -17,11 +23,16 @@ import { TituloService } from '../../criar/titulo/service/titulo.service';
 export class TituloEditComponent implements OnInit, OnDestroy {
   @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
 
-  itemID!: Item;
-  itemEditado: Item[] = [];
-  tituloList: Titulo[] = [];
+  tituloID!: Titulo;
+  tituloEditado: Titulo[] = [];
+  atorList: Ator[] = [];
+  classeList: Classe[] = [];
+  diretorList: Diretor[] = [];
+  message: any;
+  imagePath: any;
+  imgURL: any;
 
-  itemform: FormGroup;
+  tituloform: FormGroup;
   unsubscribe$!: Subscription;
 
   staticAlertClosed = false;
@@ -32,25 +43,94 @@ export class TituloEditComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private router: Router,
     private alertServ: AlertService,
-    private itemService: ItemService,
+
     private tituloService: TituloService,
+    private atorSeruice: AtorService,
+    private classeService: ClasseService,
+    private diretorService: DiretorService,
     private route: ActivatedRoute
   ) {
-    this.itemform = this.formBuilder.group({
-      idItem: [null],
-      numSerie: [null, [Validators.required, Validators.min(0)]],
-      dtAquisicao: [null, [Validators.required]],
-      tipoItem: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
-      titulo: [null, [Validators.required]]
+    this.tituloform = this.formBuilder.group({
+      idTitulo: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      atores: this.formBuilder.array([null, [this.RequiredArrayValidator()]]),
+      diretor: [null, Validators.required],
+      classe: [null, [Validators.required]],
+      ano: [null, [Validators.required]],
+      sinopse: [null, [Validators.required, Validators.maxLength(5000)]],
+      categoria: [null, [Validators.required]],
+      imagem: [null, [Validators.required]]
     });
+  }
+
+
+  RequiredArrayValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      const required = value && value.length > 0;
+      return required ? null : { required: true }
+    }
+  }
+
+  //  RETORNA ARRAY PARA O FORM PROJETO
+  getAtor(): FormArray {
+    return this.tituloform.get('atores') as FormArray;
+  }
+
+
+
+  //  ADICIONA NOVO ÍNDICE NOS ATRIBUTOS ARRAY
+  addAtor(ator: Ator) {
+    this.getAtor().push(new FormControl(ator));
+    console.log(this.getAtor())
+  }
+
+  //  APAGA ELEMENTOS DE ARRAY PELO ÍNDICE INDICADO
+  removeAtor(i: number) {
+    console.log(this.getAtor().at(i))
+    this.getAtor().removeAt(i);
+
+  }
+
+
+  //  SALVA ELEMENTO E ÍNDICE NO ARRAY FORM
+  ator(e: any, id: number) {
+    const selectedAtor = e.target.value;
+    const atorSelecionado = this.atorList.find(x => x.nome === selectedAtor);
+    if (atorSelecionado) {
+      this.getAtor().at(id).setValue(atorSelecionado);
+    }
   }
 
   ngOnInit() {
 
-    this.tituloService.listarTitulo().subscribe(
+    this.atorSeruice.listarAtor().subscribe(
       {
         next: (data: any) => {
-          this.tituloList = data.reverse();
+          this.atorList = data.reverse();
+        },
+        error: (err: any) => {
+
+        }
+      }
+    )
+
+    this.diretorService.listarDiretor().subscribe(
+      {
+        next: (data: any) => {
+          this.diretorList = data.reverse();
+
+        },
+        error: (err: any) => {
+
+        }
+      }
+    )
+
+    this.classeService.listarClasse().subscribe(
+      {
+        next: (data: any) => {
+          this.classeList = data.reverse();
         },
         error: (err: any) => {
 
@@ -61,17 +141,21 @@ export class TituloEditComponent implements OnInit, OnDestroy {
 
     const id = + this.route.snapshot.paramMap.get('id')!;
 
-    this.unsubscribe$ = this.itemService.pegarIdItem(id)
+    this.unsubscribe$ = this.tituloService.pegarIdTitulo(id)
       .subscribe({
         next: (itens: any) => {
           const data = itens;
-          this.itemID = data;
+          this.tituloID = data;
 
-          this.itemform.get("idItem")?.setValue(this.itemID.idItem);
-          this.itemform.get("numSerie")?.setValue(this.itemID.numSerie);
-          this.itemform.get("dtAquisicao")?.setValue(this.itemID.dtAquisicao);
-          this.itemform.get("tipoItem")?.setValue(this.itemID.tipoItem);
-          this.itemform.get("titulo")?.setValue(this.itemID.titulo);
+          this.tituloform.get("idTitulo")?.setValue(this.tituloID.idTitulo);
+          this.tituloform.get("nome")?.setValue(this.tituloID.nome);
+          this.tituloform.get("ano")?.setValue(this.tituloID.ano);
+          this.tituloform.get("sinopse")?.setValue(this.tituloID.sinopse);
+          this.tituloform.get("categoria")?.setValue(this.tituloID.categoria);
+          this.tituloform.get("imagem")?.setValue(this.tituloID.imagem);
+          this.tituloform.get("atores")?.setValue(this.tituloID.atores);
+          this.tituloform.get("diretor")?.setValue(this.tituloID.diretor);
+          this.tituloform.get("classe")?.setValue(this.tituloID.classe);
         },
         error: (err: any) => {
           this.alertServ.error('ERRO! Dados não encontrados!')
@@ -95,25 +179,57 @@ export class TituloEditComponent implements OnInit, OnDestroy {
   }
 
 
+  pegarAtores(evento: any, ator: Ator, index: number) {
+    if (evento.target.checked) {
+      console.log("entrou no evento com index:", index)
+      console.log("entrou no evento com index:", ator)
+      this.addAtor(ator)
+    } else {
+      console.log("removeu da seleção com index:", index)
+      this.removeAtor(index)
+    }
 
-  pegarTitulo(event: any) {
+  }
 
-    let tituloSelecionado = event.target.value;
+  pegarDiretor(event: any) {
+
+    let diretorSelecionado = event.target.value;
     console.log("veio no evento target value:", event.target.value)
     console.log("veio no evento target:", event.target)
 
-    if (tituloSelecionado) {
-      this.tituloService.pegarIdTitulo(tituloSelecionado).subscribe({
-        next: (titulo: any) => {
-          tituloSelecionado = titulo;
-          console.log("Titulo selecionado:", tituloSelecionado);
-          this.itemform.get("titulo")?.setValue(tituloSelecionado);
+    if (diretorSelecionado) {
+      this.diretorService.pegarIdDiretor(diretorSelecionado).subscribe({
+        next: (dir: any) => {
+          diretorSelecionado = dir;
+          console.log("Diretor selecionado:", diretorSelecionado);
+          this.tituloform.get("diretor")?.setValue(diretorSelecionado);
 
         }
       })
 
     }
   }
+
+
+  pegarClasse(event: any) {
+
+    let classeSelecionada = event.target.value;
+    console.log("veio no evento target value:", event.target.value)
+    console.log("veio no evento target:", event.target)
+
+    if (classeSelecionada) {
+      this.classeService.pegarIdClasse(classeSelecionada).subscribe({
+        next: (clas: any) => {
+          classeSelecionada = clas;
+          console.log("Classeonado:", classeSelecionada);
+          this.tituloform.get("classe")?.setValue(classeSelecionada);
+
+        }
+      })
+
+    }
+  }
+
 
 
   ngOnDestroy() {
@@ -125,12 +241,12 @@ export class TituloEditComponent implements OnInit, OnDestroy {
   }
 
   //  SALVA FORM PELO SERVICE DO BACK-END
-  enviarFormItem() {
-    this.itemService.editarItem(this.itemEditado).subscribe({
+  enviarFormTitulo() {
+    this.tituloService.editarTitulo(this.tituloEditado).subscribe({
       next: (data: any) => {
-        this.itemEditado = data;
+        this.tituloEditado = data;
         this.goToRoute();
-        this.alertServ.success('Item editado com sucesso!');
+        this.alertServ.success('Título editado com sucesso!');
       },
       error: (err: any) => {
         this.alertServ.error('Edição não enviada.')
@@ -139,17 +255,48 @@ export class TituloEditComponent implements OnInit, OnDestroy {
   }
 
   goToRoute() {
-    this.router.navigate(['api/item-create/editar']);
+    this.router.navigate(['api/titulo-create/editar']);
+  }
+  preview(files: any) {
+    if (files.length === 0)
+      return;
+
+    let mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Apenas Imagens são suportadas.";
+      return;
+    }
+
+    let reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+      this.tituloform.get('imagem')?.setValue(reader.result);
+    }
   }
 
+
   onSubmit() {
-    console.log(this.itemform.value);
-    if (this.itemform.valid) {
-      this.itemEditado = this.itemform.value;
-      this.enviarFormItem();
-      this.itemform.reset();
+    console.log(this.tituloform.value);
+    if (this.tituloform.valid) {
+      this.tituloEditado = this.tituloform.value;
+      this.enviarFormTitulo();
+      this.tituloform.reset();
     } else {
       this.alertServ.warning('Informação inválida. Preencha o campo!')
     }
+    this.imgURL = null;
+    for (let i = 0; i < this.atorList.length; i++) {
+      const selectAtor = document.getElementById(`flexCheck${i}`) as HTMLInputElement;
+      if (selectAtor) {
+        selectAtor.checked = false;
+      }
+    }
+
+    const selectDiretor = document.getElementById('selectDiretor') as HTMLInputElement;
+    selectDiretor.value = "Selecione um(a) Diretor(a)..";
+    const selectClasse = document.getElementById('selectClasse') as HTMLInputElement;
+    selectClasse.value = "Selecione uma Classe..";
   }
 }

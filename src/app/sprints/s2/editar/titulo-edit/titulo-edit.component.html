@@ -1,154 +1,80 @@
-<!-- <div class="corpo mx-auto mt-4">
-    <h2>Lista De Títulos</h2>
-
-
-    <div class="card text-center mb-4" *ngFor="let titulo of tituloData; index as i" style="width: 750px;">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item active" aria-current="page" [class.active]="show1" (click)="mudarTab('tab1')">
-                    <a class="nav-link link-success" data-toggle="tab"> <i class="fa-solid fa-film"></i></a>
-                </li>
-                <li class="nav-item" [class.active]="show2" (click)="mudarTab('tab2')">
-                    <a class="nav-link link-success" data-toggle="tab"><i class="fa-solid fa-masks-theater">
-                            ELENCO</i></a>
-                </li>
-                <li class="nav-item" [class.active]="show3" (click)="mudarTab('tab3')">
-                    <a class="nav-link link-success" data-toggle="tab"><i class="fa-solid fa-pen-to-square">
-                            AÇÕES</i></a>
-                </li>
-            </ul>
+<div class="corpo mx-auto mt-4">
+    <h2>Cadastrar Título</h2>
+    <form id="meuFormulario" class="row g-3 mx-auto mt-4" [formGroup]="tituloform" (ngSubmit)="onSubmit()">
+        <div class="col-md-8">
+            <label for="inputNome" class="form-label">Nome do Título</label>
+            <input type="text" class="form-control" formControlName="nome" id="inputNome" required>
         </div>
-        <div class="card-body">
-            <div class="tab-content">
-                <div id="tab1" class="tab-pane" [class.active]="show1">
-                    <div class="card-body my-auto mx-auto">
-                        <div id="listaTitulos" class="row row-cols-2 row-cols-lg-5 align-items-center"
-                            *ngIf="tituloData.length > 0">
-                            <div class="card mb-3 col me-4  shadow bg-body-tertiary rounded "
-                                style="width: 700px;cursor: pointer;max-height: fit-content;">
-                                <div class="row g-0">
-                                    <div class="col-md-4 my-auto mx-auto">
-                                        <img style="max-width: 230px; max-height: 230px;" src="{{titulo.imagem}}"
-                                            class="img-fluid rounded-start mx-auto">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h2 class="card-title">{{titulo.nome}}</h2>
-                                            <p class="card-text">{{titulo.sinopse}}</p>
-                                            <p class="card-text"><strong>Categoria: </strong>{{titulo.categoria}}</p>
-                                            <p class="card-text"><small class="text-body-secondary"><strong>Ano de
-                                                        Lançamento:</strong>
-                                                    {{titulo.ano}}</small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-                <div id="tab2" class="tab-pane" [class.active]="show2">
-                    <div class="card-body my-auto mx-auto">
-                        <div id="listaTitulos" class="row row-cols-2 row-cols-lg-5 align-items-center"
-                            *ngIf="tituloData.length > 0">
-                            <div class="card mb-3 col me-4  shadow bg-body-tertiary rounded "
-                                style="width: 700px;cursor: pointer;max-height: fit-content;">
-                                <div class="row g-0">
-                                    <div class="col-md-4 my-auto mx-auto">
-                                        <img style="max-width: 230px; max-height: 230px;" src="{{titulo.imagem}}"
-                                            class="img-fluid rounded-start mx-auto">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h2 class="card-title">{{titulo.nome}}</h2>
-                                            <p><strong> Atores/Atrizes:</strong> </p>
-                                            <p class="card-text" *ngFor="let atores of titulo.atores;">{{atores.nome}}
-                                            </p>
-                                            <p class="card-text"><strong>Diretor(a):</strong> {{titulo.diretor.nome}}
-                                            </p>
-                                            <p class="card-text"><strong>Classe:</strong> {{titulo.classe.nome}}</p>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="col-md-8">
+            <button class="btn btn-success col-12 dropdown-toggle" type="button" id="dropdownMenuLink"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Selecione Atores..
+            </button>
 
-                    </div>
-                </div>
-                <div id="tab3" class="tab-pane" [class.active]="show3">
-                    <div class="card-body my-auto mx-auto">
-                        <div id="listaTitulos" class="row row-cols-2 row-cols-lg-5 align-items-center"
-                            *ngIf="tituloData.length > 0">
-                            <div class="card mb-3 col me-4  shadow bg-body-tertiary rounded "
-                                style="width: 700px;cursor: pointer;max-height: fit-content;">
-                                <div class="row g-0">
-                                    <div class="col-md-4 my-auto mx-auto">
-                                        <img style="max-width: 230px; max-height: 230px;" src="{{titulo.imagem}}"
-                                            class="img-fluid rounded-start mx-auto">
-                                    </div>
-                                    <div class="col-md-8 align-self-center">
-                                        <div class="card-body ">
-                                            <a class="btn btn-warning me-5"
-                                                (click)="editarID(titulo.idTitulo)">Editar</a>
-                                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal"
-                                                (click)="definirIdParaDeletar(titulo.idTitulo)">Deletar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+            <div class="dropdown-menu col-md-4" aria-labelledby="dropdownMenuLink">
+                <div *ngFor="let ator of atorList; index as i">
+                    <input class="form-check-input mx-2" type="checkbox" id="flexCheck{{i}}"
+                        (change)="pegarAtores($event,ator,i)">
+                    <label class="form-check-label me-3" for="flexCheck{{i}}">
+                        {{ator.nome}}
+                    </label>
                 </div>
             </div>
         </div>
-    </div> -->
 
-
-
-
-    <!--     
-        <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;" *ngFor="let titulo of tituloData; index as i"> 
-            <div class="card-body"> 
-                <h5 class="card-title">{{ titulo.nome }}</h5> 
-                
-                <h6 class="card-subtitle my-2 text-body-secondary">Valor: {{ classe.valor }} </h6> 
-                <p class="card-text"> {{ classe.prazoDevolucao | date: 'dd/MM/yyyy' }} </p>
-                <a class="btn btn-warning me-2" (click)="editarID(classe.idClasse)">Editar</a> 
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(classe.idClasse)">Deletar</button> 
-            </div> 
+        <div class="col-md-8">
+            <label class="form-label">Seleção de Diretor(a)</label>
+            <select id="selectDiretor" class="form-select" aria-label="Seleção de Diretor"
+                (change)="pegarDiretor($event)">
+                <option selected>Selecione um(a) Diretor(a)..</option>
+                <option *ngFor="let diretor of diretorList" [value]="diretor.idDiretor">
+                    {{diretor.nome}}
+                </option>
+            </select>
         </div>
-    </div> -->
 
-
-    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-        (hidden)="limparIdParaDeletar()">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Você está prestes a excluir este item.</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                <div class="modal-body">
-                    <h3 id="modalAlert">Esta ação é irreversível.</h3>
-                    <p>Você deseja continuar?</p>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        (click)="deletarID(titulosParaDeletarId)">Confirmar</button>
-                </div>
-            </div>
+        <div class="col-md-8">
+            <label class="form-label">Seleção de Classe</label>
+            <select id="selectClasse" class="form-select" aria-label="Seleção de Classe" (change)="pegarClasse($event)">
+                <option selected>Selecione uma Classe..</option>
+                <option *ngFor="let classe of classeList" [value]="classe.idClasse">
+                    {{classe.nome}}
+                </option>
+            </select>
         </div>
-    </div>
+
+        <div class="col-md-8">
+            <label for="inputCategoria" class="form-label">Categoria</label>
+            <input type="text" class="form-control" formControlName="categoria" id="inputCategoria">
+        </div>
+
+        <div class="col-md-8">
+            <label for="inputAno" class="form-label">Ano</label>
+            <input type="number" class="form-control" formControlName="ano" id="inputAno" required min=0>
+        </div>
+
+        <div class="col-md-8">
+            <label for="labelContextArea" class="form-label">Sinopse</label>
+            <textarea class="form-control" formControlName="sinopse" id="labelContextArea" rows="5"
+                maxlength="5000"></textarea>
+        </div>
+
+        <div class="col-md-8">
+            <img src="{{imgURL}}" class="img-thumbnail">
+            <input class="form-control" accept="image/*" #file (change)="preview(file.files)" type="file" id="formFile">
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-success me-4">Enviar</button>
+            <button type="reset" class="btn btn-secondary" id="resetaForm">Resetar</button>
+        </div>
+    </form>
 </div>
 
 <div class="alerta w-50 my-5 mx-auto">
     <ngb-alert #selfClosingAlert *ngIf="alertMessage"
-        [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error', 'alert-warning': alertType === 'warning'}"
+        [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error'}"
         (closed)="close()">{{ alertMessage }}</ngb-alert>
-</div> -->
+</div>
