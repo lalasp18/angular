@@ -5,6 +5,7 @@ import { AlertService } from 'src/app/_services/alert.service';
 import { Router } from '@angular/router';
 import { Titulo } from 'src/app/models/titulo.models';
 import { TituloService } from '../../criar/titulo/service/titulo.service';
+import { Ator } from 'src/app/models/ator.models';
 
 
 @Component({
@@ -64,10 +65,10 @@ export class TitulosComponent implements OnInit, OnDestroy {
 
 
 
-  mudarTab(tab: string, index: number) {
-    this.show1 = tab === `tab1_${index}`;
-    this.show2 = tab === `tab2_${index}`;
-    this.show3 = tab === `tab3_${index}`;
+  mudarTab(tab: string) {
+    this.show1 = tab === 'tab1';
+    this.show2 = tab === 'tab2';
+    this.show3 = tab === 'tab3';
   }
 
   ngOnDestroy() {
@@ -90,10 +91,13 @@ export class TitulosComponent implements OnInit, OnDestroy {
     this.titulosParaDeletarId = -1;
   }
 
-
   deletarID(id: number) {
     this.tituloService.deletarTitulo(id).subscribe(data => {
       this.ngOnInit();
     });
+  }
+  
+  formatarAtores(atores: Ator[]): string {
+    return atores.map(ator => ator.nome).join(', ');
   }
 }

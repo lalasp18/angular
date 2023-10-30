@@ -1,5 +1,5 @@
 <div class="corpo mx-auto mt-4">
-    <h2>Cadastrar Item</h2>
+    <h2>Editar Item por ID: ...</h2>
     <form id="meuFormulario" class="row g-3 mx-auto mt-4" [formGroup]="itemform" (ngSubmit)="onSubmit()">
         <div class="col-md-8">
             <label for="inputNumSerie" class="form-label">Número de Série</label>
@@ -8,8 +8,8 @@
 
         <div class="col-md-8">
             <label class="form-label">Seleção de Título</label>
-            <select class="form-select" aria-label="Seleção de Titulo" (change)="pegarTitulo($event) ">
-                <option selected>Selecione um Título..</option>
+            <select id="selectTitulo" class="form-select" aria-label="Seleção de Titulo" (change)="pegarTitulo($event) ">
+                <option>Selecione um Título..</option>
                 <option *ngFor="let titulo of tituloList" [value]="titulo.idTitulo">
                     {{titulo.nome}}
                 </option>

@@ -1,5 +1,5 @@
 import { debounceTime, Subscription } from 'rxjs';
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
@@ -23,6 +23,7 @@ export class ItemEditComponent implements OnInit, OnDestroy {
 
   itemform: FormGroup;
   unsubscribe$!: Subscription;
+  selectedTitulo:any;
 
   staticAlertClosed = false;
   alertMessage: string | undefined;
@@ -34,7 +35,8 @@ export class ItemEditComponent implements OnInit, OnDestroy {
     private alertServ: AlertService,
     private itemService: ItemService,
     private tituloService: TituloService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private el: ElementRef, private renderer: Renderer2
   ) {
     this.itemform = this.formBuilder.group({
       idItem: [null],
@@ -72,6 +74,14 @@ export class ItemEditComponent implements OnInit, OnDestroy {
           this.itemform.get("dtAquisicao")?.setValue(this.itemID.dtAquisicao);
           this.itemform.get("tipoItem")?.setValue(this.itemID.tipoItem);
           this.itemform.get("titulo")?.setValue(this.itemID.titulo);
+          
+          // const selectTitulo = document.getElementById('selectTitulo') as HTMLInputElement;
+          // selectTitulo.value = this.itemID.titulo.idTitulo.toString();
+          // this.selectedTitulo = this.itemID.titulo.nome;
+
+          
+    const selectTitulo = this.el.nativeElement.querySelector('#selectTitulo');
+    this.renderer.setProperty(selectTitulo, 'value', this.itemID.titulo.idTitulo.toString());
         },
         error: (err: any) => {
           this.alertServ.error('ERRO! Dados não encontrados!')

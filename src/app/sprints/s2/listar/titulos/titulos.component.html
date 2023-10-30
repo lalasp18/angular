@@ -2,17 +2,17 @@
     <h2>Lista De Títulos</h2>
 
 
-<!--     <div class="card text-center mb-4" *ngFor="let titulo of tituloData; index as i" style="width: 750px;">
+    <div class="card text-center mb-4" *ngFor="let titulo of tituloData; index as i" style="width: 750px;">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item active" aria-current="page" [class.active]="show1" (click)="mudarTab('tab', i)">
+                <li class="nav-item active" aria-current="page" [class.active]="show1" (click)="mudarTab('tab1')">
                     <a class="nav-link link-success" data-toggle="tab"> <i class="fa-solid fa-film"></i></a>
                 </li>
-                <li class="nav-item" [class.active]="show2" (click)="mudarTab('tab', i)">
+                <li class="nav-item" [class.active]="show2" (click)="mudarTab('tab2')">
                     <a class="nav-link link-success" data-toggle="tab"><i class="fa-solid fa-masks-theater">
                             ELENCO</i></a>
                 </li>
-                <li class="nav-item" [class.active]="show3" (click)="mudarTab('tab', i)">
+                <li class="nav-item" [class.active]="show3" (click)="mudarTab('tab3')">
                     <a class="nav-link link-success" data-toggle="tab"><i class="fa-solid fa-pen-to-square">
                             AÇÕES</i></a>
                 </li>
@@ -20,7 +20,7 @@
         </div>
         <div class="card-body">
             <div class="tab-content">
-                <div id="tab1_{{i}}" class="tab-pane" [class.active]="show1">
+                <div id="tab1" class="tab-pane" [class.active]="show1">
                     <div class="card-body my-auto mx-auto">
                         <div id="listaTitulos" class="row row-cols-2 row-cols-lg-5 align-items-center"
                             *ngIf="tituloData.length > 0">
@@ -47,7 +47,7 @@
 
                     </div>
                 </div>
-                <div id="tab2_{{i}}" class="tab-pane" [class.active]="show2">
+                <div id="tab2" class="tab-pane" [class.active]="show2">
                     <div class="card-body my-auto mx-auto">
                         <div id="listaTitulos" class="row row-cols-2 row-cols-lg-5 align-items-center"
                             *ngIf="tituloData.length > 0">
@@ -62,7 +62,8 @@
                                         <div class="card-body">
                                             <h2 class="card-title">{{titulo.nome}}</h2>
                                             <p><strong> Atores/Atrizes:</strong> </p>
-                                            <p class="card-text" *ngFor="let atores of titulo.atores;">{{atores.nome}}
+                                            <p class="card-text">
+                                                {{ formatarAtores(titulo.atores) }}
                                             </p>
                                             <p class="card-text"><strong>Diretor(a):</strong> {{titulo.diretor.nome}}
                                             </p>
@@ -76,7 +77,7 @@
 
                     </div>
                 </div>
-                <div id="tab3_{{i}}" class="tab-pane" [class.active]="show3">
+                <div id="tab3" class="tab-pane" [class.active]="show3">
                     <div class="card-body my-auto mx-auto">
                         <div id="listaTitulos" class="row row-cols-2 row-cols-lg-5 align-items-center"
                             *ngIf="tituloData.length > 0">
@@ -104,58 +105,23 @@
                 </div>
             </div>
         </div>
-    </div>-->
-
-
-    <div class = "wrapper pre">
-  
     </div>
-    <div class="wrapper">
-      <div class="title">
-        CSS Tabs
-        <div class="line"></div>
-      </div>
-      <div class="container">
-        <div class="card tabs">
-          <input id="tab-1" type="radio" class="tab tab-selector" checked="checked" name="tab" />
-          <label for="tab-1" class="tab tab-primary">Product</label>
-          <input id="tab-2" type="radio" class="tab tab-selector" name="tab" />
-          <label for="tab-2" class="tab tab-success">Options</label>
-          <input id="tab-3" type="radio" class="tab tab-selector" name="tab" />
-          <label for="tab-3" class="tab tab-default">Shipping</label>
-          <input id="tab-4" type="radio" class="tab tab-selector" name="tab" />
-          <label for="tab-4" class="tab tab-warning">Published</label>
-          <div class="tabsShadow"></div>
-          <div class="glider"></div>
-          <section class="content">
-            <div class="item" id="content-1">
-              <h2 class="tab-title tab-primary">Sweep + Slide Dog Toy</h2>
-              <p>
-                <span class = "numit">1</span> The Sweep + Slide is an indoor dog toy with a sleek base designed to glide across any floor. Not only does this toy stimulate your dog's natural chase instincts, but it also sweeps away floor dust and grime with a replaceable sweeper bottom cover.
-              </p>
-            </div>
-            <div class="item" id="content-2">
-              <h2 class="tab-title tab-success">Tab 2</h2>
-              <p>
-                <span class = "numit">2</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor </p>
-            </div>
-            <div class="item" id="content-3">
-              <h2 class="tab-title tab-default">Tab 3</h2>
-              <p>
-                <span class = "numit">3</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis </p>
-            </div>
-            <div class="item" id="content-4">
-              <h2 class="tab-title tab-warning">Tab 4</h2>
-              <p>
-                <span class = "numit">4</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-            </div>
-          </section>
-    
+
+
+
+
+    <!--     
+        <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;" *ngFor="let titulo of tituloData; index as i"> 
+            <div class="card-body"> 
+                <h5 class="card-title">{{ titulo.nome }}</h5> 
+                
+                <h6 class="card-subtitle my-2 text-body-secondary">Valor: {{ classe.valor }} </h6> 
+                <p class="card-text"> {{ classe.prazoDevolucao | date: 'dd/MM/yyyy' }} </p>
+                <a class="btn btn-warning me-2" (click)="editarID(classe.idClasse)">Editar</a> 
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(classe.idClasse)">Deletar</button> 
+            </div> 
         </div>
-      </div>
-    </div>
-      
-
+    </div> -->
 
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -187,5 +153,3 @@
         [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error', 'alert-warning': alertType === 'warning'}"
         (closed)="close()">{{ alertMessage }}</ngb-alert>
 </div>
-
-
