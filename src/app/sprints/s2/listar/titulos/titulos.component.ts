@@ -63,9 +63,6 @@ export class TitulosComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
-
   mudarTab(tab: string) {
     this.show1 = tab === 'tab1';
     this.show2 = tab === 'tab2';
@@ -97,13 +94,8 @@ export class TitulosComponent implements OnInit, OnDestroy {
       this.ngOnInit();
     });
   }
-<<<<<<< HEAD
-  
-  formatarAtores(atores: Ator[]): string {
-=======
 
   formatarAtores(atores: Ator[]) {
->>>>>>> 971499b0c2e78c064b99d9262d77a3db516af0a7
     return atores.map(ator => ator.nome).join(', ');
   }
 }

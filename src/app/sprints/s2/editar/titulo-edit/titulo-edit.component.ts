@@ -4,8 +4,6 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from 'src/app/_services/alert.service';
-import { Item } from 'src/app/models/item.models';
-import { ItemService } from '../../criar/item/service/item.service';
 import { Titulo } from 'src/app/models/titulo.models';
 import { TituloService } from '../../criar/titulo/service/titulo.service';
 import { Ator } from 'src/app/models/ator.models';
@@ -53,7 +51,7 @@ export class TituloEditComponent implements OnInit, OnDestroy {
     this.tituloform = this.formBuilder.group({
       idTitulo: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      atores: this.formBuilder.array([null, [this.RequiredArrayValidator()]]),
+      atores: this.formBuilder.array([null], [this.RequiredArrayValidator()]),
       diretor: [null, Validators.required],
       classe: [null, [Validators.required]],
       ano: [null, [Validators.required]],
@@ -156,6 +154,23 @@ export class TituloEditComponent implements OnInit, OnDestroy {
           this.tituloform.get("atores")?.setValue(this.tituloID.atores);
           this.tituloform.get("diretor")?.setValue(this.tituloID.diretor);
           this.tituloform.get("classe")?.setValue(this.tituloID.classe);
+
+          this.imgURL = this.tituloID.imagem;
+
+          for(let i = 0; i < this.atorList.length; i++) {
+            for (let ator of this.tituloID.atores) {
+              if(this.atorList[i].nome === ator.nome) {
+                const dropAtor = document.getElementById("flexCheck"+i) as HTMLInputElement;
+                dropAtor.checked = true;
+                console.log(ator.nome)
+              }
+            }
+          }
+          const selectDiretor = document.getElementById('selectDiretor') as HTMLInputElement;
+          selectDiretor.value = this.tituloID.diretor.idDiretor.toString();
+          console.log(this.tituloID.diretor.nome)
+          const selectClasse = document.getElementById('selectClasse') as HTMLInputElement;
+          selectClasse.value = this.tituloID.classe.idClasse.toString();
         },
         error: (err: any) => {
           this.alertServ.error('ERRO! Dados não encontrados!')
