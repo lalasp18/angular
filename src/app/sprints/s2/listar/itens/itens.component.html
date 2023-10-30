@@ -5,7 +5,9 @@
         <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;"
             *ngFor="let itens of itemData; index as i">
             <div class="card-body">
-                <i class="fa-solid fa-compact-disc" style="color: #000000;"></i>
+
+                <img src="{{itens.titulo.imagem}}" class="img-thumbnail "><!--
+                -->
                 <h3 class="card-title"><strong>Numero de Série:</strong> {{ itens.numSerie }}</h3>
                 <h4 class="card-subtitle my-2 text-body-secondary"><strong>Título: </strong>{{ itens.titulo.nome }}
                 </h4>
