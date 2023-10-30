@@ -22,7 +22,7 @@ export class TitulosComponent implements OnInit, OnDestroy {
   show1: boolean = true;
   show2: boolean = false;
   show3: boolean = false;
-
+  atores: any;
 
   staticAlertClosed = false;
   alertMessage: string | undefined;
@@ -40,6 +40,7 @@ export class TitulosComponent implements OnInit, OnDestroy {
         next: (itens: any) => {
           const data = itens;
           this.tituloData = data.sort((a: any, b: any) => (a.nome < b.nome) ? -1 : 1);
+
         },
         error: (err: any) => {
           this.alertServ.warning('Dados não encontrados.')
@@ -96,8 +97,13 @@ export class TitulosComponent implements OnInit, OnDestroy {
       this.ngOnInit();
     });
   }
+<<<<<<< HEAD
   
   formatarAtores(atores: Ator[]): string {
+=======
+
+  formatarAtores(atores: Ator[]) {
+>>>>>>> 971499b0c2e78c064b99d9262d77a3db516af0a7
     return atores.map(ator => ator.nome).join(', ');
   }
 }

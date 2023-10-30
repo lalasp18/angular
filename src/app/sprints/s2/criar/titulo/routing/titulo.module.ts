@@ -7,11 +7,13 @@ import { AlertService } from 'src/app/_services/alert.service';
 import { TituloComponent } from '../titulo.component';
 import { TituloService } from '../service/titulo.service';
 import { TitulosComponent } from '../../../listar/titulos/titulos.component';
+import { TituloEditComponent } from '../../../editar/titulo-edit/titulo-edit.component';
 
 
 @NgModule({
   declarations: [
     TituloComponent,
+    TituloEditComponent,
 
     TitulosComponent
 

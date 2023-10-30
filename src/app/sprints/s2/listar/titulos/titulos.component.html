@@ -1,7 +1,16 @@
 <div class="corpo mx-auto mt-4">
-    <h2>Lista De Títulos</h2>
 
+    <h2 style="color: white;">Lista De Títulos</h2>
+    <div class="movie_card" *ngFor="let titulo of tituloData; index as i">
+        <div class="info_section">
+            <div class="movie_header">
+                <img class="locandina" src="{{titulo.imagem}}" />
+                <h1>{{titulo.nome}}</h1>
+                <h4>{{titulo.ano}}, {{titulo.diretor.nome}}</h4>
+                <p>{{ formatarAtores(titulo.atores) }}
+                </p>
 
+<<<<<<< HEAD
     <div class="card text-center mb-4" *ngFor="let titulo of tituloData; index as i" style="width: 750px;">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
@@ -143,11 +152,55 @@
                     <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                         (click)="deletarID(titulosParaDeletarId)">Confirmar</button>
                 </div>
+=======
+                <span class="minutes">{{titulo.classe.nome}}</span>
+                <span class="minutes">{{titulo.categoria}}</span>
+
+            </div>
+            <div class="movie_desc">
+                <p class="text">
+                    {{titulo.sinopse}}
+                </p>
+            </div>
+            <div class="movie_social">
+                <ul>
+
+                    <a class="btn btn-warning me-2" (click)="editarID(titulo.idTitulo)">Editar</a>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" (click)="definirIdParaDeletar(titulo.idTitulo)">Deletar</button>
+                </ul>
+            </div>
+        </div>
+        <div class="blur_back ">
+            <img class="imgblur  float-start ms-5" src=" {{titulo.imagem}}" />
+            <img class="imgblur float-end ms-5" src="{{titulo.imagem}}" />
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    (hidden)="limparIdParaDeletar()">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Você está prestes a excluir este
+                    item.</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <h3 id="modalAlert">Esta ação é irreversível.</h3>
+                <p>Você deseja continuar?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="deletarID(titulosParaDeletarId)">Confirmar</button>
+>>>>>>> 971499b0c2e78c064b99d9262d77a3db516af0a7
             </div>
         </div>
     </div>
 </div>
-
 <div class="alerta w-50 my-5 mx-auto">
     <ngb-alert #selfClosingAlert *ngIf="alertMessage"
         [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error', 'alert-warning': alertType === 'warning'}"
