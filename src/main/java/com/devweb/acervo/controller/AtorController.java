@@ -20,13 +20,11 @@ import com.devweb.acervo.service.AtorService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/ator")
 @AllArgsConstructor
-@Tag(name = "AtorController", description = "Fornece serviços web REST para acesso e manipulação de dados de atores.")
 public class AtorController {
 
     @Autowired
@@ -35,6 +33,7 @@ public class AtorController {
     @PostMapping("/criar")
     @Operation(description = "Dado o nome, cadastra um novo ator.", responses = {
         @ApiResponse(responseCode = "200", description = "Caso o ator seja incluído com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
         @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public Ator salvarAtor(@RequestBody Ator grava) {
@@ -45,6 +44,7 @@ public class AtorController {
     @PutMapping("/editar")
     @Operation(description = "Dado o nome, o ator é editado.", responses = {
         @ApiResponse(responseCode = "200", description = "Caso o ator seja editado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
         @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public Ator editarAtor(@RequestBody Ator grava) throws RelationTypeNotFoundException {
@@ -53,13 +53,21 @@ public class AtorController {
     }
 
     @GetMapping("/listar")
-    @Operation (description="Retorna todos os atores cadastrados.")
+    @Operation (description="Retorna todos os atores cadastrados.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o ator seja listado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
     public List<Ator> listarAtor() {
         return atServ.listAll();
     }
 
     @GetMapping("/listar/{id}")
-    @Operation (description="Retorna todo o ator cadastrado por id.")
+    @Operation (description="Retorna o ator cadastrado por id.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o ator ID seja listado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
     public Ator pegarIdAtor(@PathVariable Long id) throws RelationTypeNotFoundException {
         return atServ.listId(id);
 
@@ -68,6 +76,7 @@ public class AtorController {
     @DeleteMapping("/deletar/{id}")
     @Operation(description = "Dado o id, deleta o ator.", responses = {
         @ApiResponse(responseCode = "200", description = "Caso o ator seja deletado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
         @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public ResponseEntity<String> deletarAtor(@PathVariable Long id) {

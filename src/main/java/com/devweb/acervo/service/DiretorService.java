@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.devweb.acervo.model.Diretor;
 import com.devweb.acervo.repository.DiretorRepository;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @Service
+@Tag(name = "DiretorService", description = "Fornece serviços web REST para acesso e manipulação de dados de diretores.")
 public class DiretorService {
 
     @Autowired

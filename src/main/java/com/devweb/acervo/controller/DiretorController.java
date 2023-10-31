@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devweb.acervo.model.Diretor;
 import com.devweb.acervo.service.DiretorService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -30,29 +32,54 @@ public class DiretorController {
     private final DiretorService dirServ;
 
     @PostMapping("/criar")
-    public Diretor salvarDiretor(@RequestBody Diretor grava) throws RelationTypeNotFoundException {
+    @Operation(description = "Dado o nome, cadastra um novo diretor.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o diretor seja incluído com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public Diretor salvarDiretor(@RequestBody Diretor grava) {
         return dirServ.saveAll(grava);
 
     }
 
     @PutMapping("/editar")
+    @Operation(description = "Dado o nome, o diretor é editado.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o diretor seja editado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
     public Diretor editarDiretor(@RequestBody Diretor grava) throws RelationTypeNotFoundException {
         return dirServ.editAll(grava);
 
     }
 
     @GetMapping("/listar")
-    public List<Diretor> listarAtor() {
+    @Operation(description = "Retorna todos os diretores cadastrados.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o diretor seja listado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public List<Diretor> listardiretor() {
         return dirServ.listAll();
     }
 
     @GetMapping("/listar/{id}")
+    @Operation(description = "Retorna o diretor cadastrado por id.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o diretor ID seja listado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
     public Diretor pegarId(@PathVariable Long id) throws RelationTypeNotFoundException {
         return dirServ.listId(id);
 
     }
 
     @DeleteMapping("/deletar/{id}")
+    @Operation(description = "Dado o id, deleta o diretor.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o diretor seja deletado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
     public ResponseEntity<String> deletarDiretor(@PathVariable Long id) {
         try {
             dirServ.deleteId(id);

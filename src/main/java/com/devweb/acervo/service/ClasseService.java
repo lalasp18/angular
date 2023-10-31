@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.devweb.acervo.model.Classe;
 import com.devweb.acervo.repository.ClasseRepository;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @Service
+@Tag(name = "ClasseService", description = "Fornece serviços web REST para acesso e manipulação de dados de classes.")
 public class ClasseService {
 
     @Autowired

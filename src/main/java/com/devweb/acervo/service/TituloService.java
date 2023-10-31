@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.devweb.acervo.model.Titulo;
 import com.devweb.acervo.repository.TituloRepository;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @Service
+@Tag(name = "TituloService", description = "Fornece serviços web REST para acesso e manipulação de dados de títulos.")
 public class TituloService {
 
     @Autowired

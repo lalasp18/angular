@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devweb.acervo.model.Item;
 import com.devweb.acervo.service.ItemService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -30,29 +32,54 @@ public class ItemController {
     private final ItemService itemServ;
 
     @PostMapping("/criar")
-    public Item salvarItem(@RequestBody Item grava) throws RelationTypeNotFoundException {
+    @Operation(description = "Dado o nome, cadastra um novo item.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o item seja incluído com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public Item salvarItem(@RequestBody Item grava) {
         return itemServ.saveAll(grava);
 
     }
 
     @PutMapping("/editar")
+    @Operation(description = "Dado o nome, o item é editado.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o item seja editado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
     public Item editarItem(@RequestBody Item grava) throws RelationTypeNotFoundException {
         return itemServ.editAll(grava);
 
     }
 
     @GetMapping("/listar")
+    @Operation(description = "Retorna todos os itemes cadastrados.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o item seja listado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
     public List<Item> listarItem() {
         return itemServ.listAll();
     }
 
     @GetMapping("/listar/{id}")
+    @Operation(description = "Retorna o item cadastrado por id.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o item ID seja listado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
     public Item pegarIdItem(@PathVariable Long id) throws RelationTypeNotFoundException {
         return itemServ.listId(id);
 
     }
 
     @DeleteMapping("/deletar/{id}")
+    @Operation(description = "Dado o id, deleta o item.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o item seja deletado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
     public ResponseEntity<String> deletarItem(@PathVariable Long id) {
         try {
             itemServ.deleteId(id);

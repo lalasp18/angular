@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.devweb.acervo.model.Item;
 import com.devweb.acervo.repository.ItemRepository;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @Service
+@Tag(name = "ItemService", description = "Fornece serviços web REST para acesso e manipulação de dados de itens.")
 public class ItemService {
 
     @Autowired
