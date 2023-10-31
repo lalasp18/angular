@@ -78,8 +78,19 @@ export class DiretoresComponent implements OnInit, OnDestroy {
   }
 
   deletarID(id: number) {
-    this.diretorService.deletarDiretor(id).subscribe(data => {
-      this.ngOnInit();
-    });
+    this.diretorService.deletarDiretor(id)
+    .subscribe(
+      data => {
+        console.log(data);
+        this.ngOnInit();
+      },
+      error => {
+        if (error.status) {
+          alert('Erro: Não foi possível deletar Diretor associado à Título.');
+        } else {
+          console.log('Erro desconhecido:', error);
+        }
+      }
+    );
   }
 }

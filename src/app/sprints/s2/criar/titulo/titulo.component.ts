@@ -101,9 +101,16 @@ export class TituloComponent implements OnInit {
   }
 
   //  APAGA ELEMENTOS DE ARRAY PELO ÍNDICE INDICADO
-  removeAtor(i: number) {
-    console.log(this.getAtor().at(i))
-    this.getAtor().removeAt(i);
+  removeAtor(ator: Ator) {
+    const atoresArray = this.getAtor();
+    const index = atoresArray.controls.findIndex(control => control.value === ator);
+    console.log('index do ator para remover',index)
+
+    if (index !== -1) {
+      atoresArray.removeAt(index);
+    } else {
+      console.error('Ator não encontrado no FormArray.');
+    }
 
   }
 
@@ -180,9 +187,11 @@ export class TituloComponent implements OnInit {
       console.log("entrou no evento com index:", index)
       console.log("entrou no evento com index:", ator)
       this.addAtor(ator)
+      console.log(this.getAtor().value)
     } else {
       console.log("removeu da seleção com index:", index)
-      this.removeAtor(index)
+      this.removeAtor(ator)
+      console.log(this.getAtor().value)
     }
 
   }

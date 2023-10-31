@@ -35,7 +35,7 @@ export class AtorService {
   }
 
   deletarAtor(idAtor: number): Observable<Object> {
-    return this.http.delete(`${this.API}/deletar/${idAtor}`);
+    return this.http.delete(`${this.API}/deletar/${idAtor}`, {observe: 'response'});
   }
 }
 

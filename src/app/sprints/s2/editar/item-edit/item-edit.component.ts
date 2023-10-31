@@ -75,13 +75,8 @@ export class ItemEditComponent implements OnInit, OnDestroy {
           this.itemform.get("tipoItem")?.setValue(this.itemID.tipoItem);
           this.itemform.get("titulo")?.setValue(this.itemID.titulo);
           
-          // const selectTitulo = document.getElementById('selectTitulo') as HTMLInputElement;
-          // selectTitulo.value = this.itemID.titulo.idTitulo.toString();
-          // this.selectedTitulo = this.itemID.titulo.nome;
-
-          
-    const selectTitulo = this.el.nativeElement.querySelector('#selectTitulo');
-    this.renderer.setProperty(selectTitulo, 'value', this.itemID.titulo.idTitulo.toString());
+          const selectTitulo = document.getElementById('selectTitulo') as HTMLInputElement;
+          selectTitulo.value = this.itemID.titulo.idTitulo.toString();
         },
         error: (err: any) => {
           this.alertServ.error('ERRO! Dados não encontrados!')

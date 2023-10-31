@@ -77,8 +77,19 @@ export class ClassesComponent implements OnInit, OnDestroy {
   }
 
   deletarID(id: number){
-    this.classeService.deletarClasse(id).subscribe(data => {
-      this.ngOnInit();
-    });
+    this.classeService.deletarClasse(id)
+    .subscribe(
+      data => {
+        console.log(data);
+        this.ngOnInit();
+      },
+      error => {
+        if (error.status) {
+          alert('Erro: Não foi possível deletar Classe associada à Título.');
+        } else {
+          console.log('Erro desconhecido:', error);
+        }
+      }
+    );
   }
 }

@@ -77,15 +77,20 @@ export class AtoresComponent implements OnInit, OnDestroy {
     this.atorParaDeletarId = -1;
   }
   
-  deletarID(id: number){
-    this.atorService.deletarAtor(id).subscribe({
-      next: (data:any) => {
-        this.ngOnInit();
-        console.error('s'+data);
-      },
-      error: (err:any) => {
-        console.error('e'+err);
-      }
-    });
+  deletarID(id: number) {
+    this.atorService.deletarAtor(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.ngOnInit();
+        },
+        error => {
+          if (error.status) {
+            alert('Erro: Não foi possível deletar Ator associado à Título.');
+          } else {
+            console.log('Erro desconhecido:', error);
+          }
+        }
+      );
   }
 }

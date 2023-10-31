@@ -83,22 +83,35 @@ export class TituloEditComponent implements OnInit, OnDestroy {
     console.log(this.getAtor())
   }
 
-  //  APAGA ELEMENTOS DE ARRAY PELO ÍNDICE INDICADO
-  removeAtor(i: number) {
-    console.log(this.getAtor().at(i))
-    this.getAtor().removeAt(i);
+  compareAtores(atorA: Ator, atorB: Ator): boolean {
+    console.log('atorA: ',atorA)
+    console.log('atorB: ',atorB)
+    return atorA.idAtor === atorB.idAtor;
+  }
 
+  //  APAGA ELEMENTOS DE ARRAY PELO ÍNDICE INDICADO
+  removeAtor(ator: Ator) {
+    const atoresArray = this.getAtor();
+    console.log(atoresArray)
+    const index = atoresArray.controls.findIndex(control => this.compareAtores(control.value, ator));
+    console.log('index do ator para remover',index)
+
+    if (index !== -1) {
+      atoresArray.removeAt(index);
+    } else {
+      console.error('Ator não encontrado no FormArray.');
+    }
   }
 
 
   //  SALVA ELEMENTO E ÍNDICE NO ARRAY FORM
-  ator(e: any, id: number) {
-    const selectedAtor = e.target.value;
-    const atorSelecionado = this.atorList.find(x => x.nome === selectedAtor);
-    if (atorSelecionado) {
-      this.getAtor().at(id).setValue(atorSelecionado);
-    }
-  }
+  // ator(e: any, id: number) {
+  //   const selectedAtor = e.target.value;
+  //   const atorSelecionado = this.atorList.find(x => x.nome === selectedAtor);
+  //   if (atorSelecionado) {
+  //     this.getAtor().at(id).setValue(atorSelecionado);
+  //   }
+  // }
 
   ngOnInit() {
 
@@ -150,7 +163,7 @@ export class TituloEditComponent implements OnInit, OnDestroy {
           this.tituloform.get("ano")?.setValue(this.tituloID.ano);
           this.tituloform.get("sinopse")?.setValue(this.tituloID.sinopse);
           this.tituloform.get("categoria")?.setValue(this.tituloID.categoria);
-          this.tituloform.get("imagem")?.setValue(this.tituloID.imagem);
+          this.tituloform.get("imagem")?.patchValue(this.tituloID.imagem);
           this.tituloform.get("atores")?.setValue(this.tituloID.atores);
           this.tituloform.get("diretor")?.setValue(this.tituloID.diretor);
           this.tituloform.get("classe")?.setValue(this.tituloID.classe);
@@ -162,7 +175,6 @@ export class TituloEditComponent implements OnInit, OnDestroy {
               if(this.atorList[i].nome === ator.nome) {
                 const dropAtor = document.getElementById("flexCheck"+i) as HTMLInputElement;
                 dropAtor.checked = true;
-                console.log(ator.nome)
               }
             }
           }
@@ -199,9 +211,11 @@ export class TituloEditComponent implements OnInit, OnDestroy {
       console.log("entrou no evento com index:", index)
       console.log("entrou no evento com index:", ator)
       this.addAtor(ator)
+      console.log(this.getAtor().value)
     } else {
       console.log("removeu da seleção com index:", index)
-      this.removeAtor(index)
+      this.removeAtor(ator)
+      console.log(this.getAtor().value)
     }
 
   }

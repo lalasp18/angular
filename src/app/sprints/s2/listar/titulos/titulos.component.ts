@@ -90,9 +90,20 @@ export class TitulosComponent implements OnInit, OnDestroy {
   }
 
   deletarID(id: number) {
-    this.tituloService.deletarTitulo(id).subscribe(data => {
-      this.ngOnInit();
-    });
+    this.tituloService.deletarTitulo(id)
+    .subscribe(
+      data => {
+        console.log(data);
+        this.ngOnInit();
+      },
+      error => {
+        if (error.status) {
+          alert('Erro: Não foi possível deletar Título associado à Item.');
+        } else {
+          console.log('Erro desconhecido:', error);
+        }
+      }
+    );
   }
 
   formatarAtores(atores: Ator[]) {
