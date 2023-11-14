@@ -67,6 +67,7 @@ public class Locacao {
         this.multaCobrada = multaCobrada;
         this.itens = new ArrayList<Item>();
         this.cliente = cliente;
+
     }
 
     public Locacao(Long idLocacao, Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva,
