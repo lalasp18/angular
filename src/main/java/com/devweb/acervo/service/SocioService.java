@@ -52,6 +52,7 @@ public class SocioService {
                 .filter(Dependente::isEstahAtivo)
                 .count();
     
+                // TÁ ERRADO A LÓGICA
         if (countActiveDependents <= 3) {
             if(socio.isEstahAtivo() == false && dependentes.size() > 0) {
                 for (Dependente dependente : dependentes) {
