@@ -36,6 +36,7 @@ public class LocacaoService {
         editado.setMultaCobrada(locacao.getMultaCobrada());
         editado.setValorCobrado(locacao.getValorCobrado());
         editado.setItens(locacao.getItens());
+        editado.setCliente(locacao.getCliente());
 
         return locacaoRepo.save(editado);
 

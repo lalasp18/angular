@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.integration.IntegrationProperties.RSocket.Client;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -47,12 +49,16 @@ public class Locacao {
     @JoinTable(name = "ItemLocacao", joinColumns = @JoinColumn(name = "item"), inverseJoinColumns = @JoinColumn(name = "itens"))
     private List<Item> itens;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente")
+    private Cliente cliente;
+
     public Locacao() {
 
     }
 
     public Locacao(Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva, Float valorCobrado,
-            Float multaCobrada) {
+            Float multaCobrada, Cliente cliente) {
 
         this.dtLocacao = dtLocacao;
         this.dtDevolucaoPrevista = dtDevolucaoPrevista;
@@ -60,11 +66,12 @@ public class Locacao {
         this.valorCobrado = valorCobrado;
         this.multaCobrada = multaCobrada;
         this.itens = new ArrayList<Item>();
+        this.cliente = cliente;
     }
 
     public Locacao(Long idLocacao, Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva,
             Float valorCobrado,
-            Float multaCobrada) {
+            Float multaCobrada, Cliente cliente) {
 
         this.idLocacao = idLocacao;
         this.dtLocacao = dtLocacao;
@@ -73,6 +80,7 @@ public class Locacao {
         this.valorCobrado = valorCobrado;
         this.multaCobrada = multaCobrada;
         this.itens = new ArrayList<Item>();
+        this.cliente = cliente;
     }
 
 }
