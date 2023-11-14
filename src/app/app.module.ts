@@ -12,11 +12,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxMaskDirective } from 'ngx-mask';
 import { AlertService } from './_services/alert.service';
 import { ClasseModule } from './sprints/s1/criar/classe/routing/classe.module';
 import { DiretorModule } from './sprints/s1/criar/diretor/routing/diretor.module';
 import { TituloModule } from './sprints/s2/criar/titulo/routing/titulo.module';
 import { ItemModule } from './sprints/s2/criar/item/routing/item.module';
+import { ClienteModule } from './sprints/s3/criar/cliente/routing/cliente.module';
 
 @NgModule({
   declarations: [
@@ -34,13 +36,16 @@ import { ItemModule } from './sprints/s2/criar/item/routing/item.module';
     HttpClientModule,
     RouterModule,
     NgbModule,
+    NgxMaskDirective,
 
     AtorModule,
     ClasseModule,
     DiretorModule,
 
     TituloModule,
-    ItemModule
+    ItemModule,
+
+    ClienteModule
   ],
   providers: [
     AlertService

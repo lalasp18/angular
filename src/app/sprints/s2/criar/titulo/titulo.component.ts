@@ -116,13 +116,13 @@ export class TituloComponent implements OnInit {
 
 
   //  SALVA ELEMENTO E ÍNDICE NO ARRAY FORM
-  ator(e: any, id: number) {
-    const selectedAtor = e.target.value;
-    const atorSelecionado = this.atorList.find(x => x.nome === selectedAtor);
-    if (atorSelecionado) {
-      this.getAtor().at(id).setValue(atorSelecionado);
-    }
-  }
+  // ator(e: any, id: number) {
+  //   const selectedAtor = e.target.value;
+  //   const atorSelecionado = this.atorList.find(x => x.nome === selectedAtor);
+  //   if (atorSelecionado) {
+  //     this.getAtor().at(id).setValue(atorSelecionado);
+  //   }
+  // }
 
   ngOnInit() {
     this.atorSeruice.listarAtor().subscribe(

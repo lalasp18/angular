@@ -1,0 +1,92 @@
+<div class="corpo mx-auto mt-4">
+    <h2>Cadastrar Cliente</h2>
+
+    <div class="d-flex flex-row mb-2">
+        <div class="form-check me-4">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioRede" (change)="onChange($event); formularioSocio.reset" checked>
+            <label class="form-check-label text-light" for="flexRadioRede">
+                Dependente
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioOrienta" (change)="onChange($event); formularioDependente.reset">
+            <label class="form-check-label text-light" for="flexRadioOrienta">
+                Sócio
+            </label>
+        </div>
+    </div>
+
+    <form class="meuFormulario row g-3 mx-auto mt-4" [formGroup]="formularioDependente" (ngSubmit)="onSubmit()" *ngIf="showForm">
+        <div class="col-md-8">
+            <label for="inputNome" class="form-label">Nome do Cliente</label>
+            <input type="text" class="form-control" formControlName="nome" id="inputNome" maxlength="100" required>
+        </div>
+        
+        <div class="col-md-8">
+            <label for="inputDt" class="form-label">Data de Nascimento</label>
+            <input type="date" class="form-control" formControlName="dtNascimento" id="inputDt" required>
+        </div>
+        
+        <div class="col-md-8">
+            <label for="inputSexo" class="form-label">Sexo</label>
+            <input type="text" class="form-control" formControlName="sexo" id="inputSexo" maxlength="20" required>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-success me-4">Enviar</button>
+            <button type="reset" class="btn btn-secondary" id="resetaForm">Resetar</button>
+        </div>
+    </form>
+
+    <form class="meuFormulario row g-3 mx-auto mt-4" [formGroup]="formularioSocio" (ngSubmit)="onSubmit()" *ngIf="!showForm">
+        <div class="col-md-8">
+            <label for="inputNome" class="form-label">Nome do Cliente</label>
+            <input type="text" class="form-control" formControlName="nome" id="inputNome" maxlength="100" required>
+        </div>
+        
+        <div class="col-md-8">
+            <label for="inputDt" class="form-label">Data de Nascimento</label>
+            <input type="date" class="form-control" formControlName="dtNascimento" id="inputDt" required>
+        </div>
+        
+        <div class="col-md-8">
+            <label for="inputSexo" class="form-label">Sexo</label>
+            <input type="text" class="form-control" formControlName="sexo" id="inputSexo" maxlength="20" required>
+        </div>
+
+        <div class="col-md-8">
+            <label for="inputCpf" class="form-label">CPF</label>
+            <input type="text" class="form-control" formControlName="cpf" id="inputCpf" maxlength="20" mask="000.000.000-00" placeholder="___.___.___-__">
+        </div>
+        
+        <div class="col-md-8">
+            <label for="inputEndereco" class="form-label">Endereço</label>
+            <input type="text" class="form-control" formControlName="endereco" id="inputEndereco" maxlength="100" required>
+        </div>
+
+        <div class="col-md-8">
+            <button class="btn btn-success col-12 dropdown-toggle" type="button" id="dropdownMenuLink"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Selecione Dependentes..
+            </button>
+
+            <div class="dropdown-menu col-md-4" aria-labelledby="dropdownMenuLink">
+                <div *ngFor="let dependente of listagemClienteDependente; index as i">
+                    <input class="form-check-input mx-2" type="checkbox" id="flexCheck{{i}}" (change)="pegarDependentes($event,dependente,i)">
+                    <label class="form-check-label me-3" for="flexCheck{{i}}">
+                        {{dependente.nome}}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-success me-4">Enviar</button>
+            <button type="reset" class="btn btn-secondary" id="resetaForm">Resetar</button>
+        </div>
+    </form>
+</div>
+
+<div class="alerta w-50 my-5 mx-auto">
+    <ngb-alert #selfClosingAlert *ngIf="alertMessage" [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error'}" (closed)="close()">{{ alertMessage }}</ngb-alert>
+</div>
