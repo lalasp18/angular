@@ -1,5 +1,6 @@
 package com.devweb.acervo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.management.relation.RelationTypeNotFoundException;
@@ -45,28 +46,9 @@ public class SocioService {
         socio.setCpf(socioEntra.getCpf());
         socio.setEndereco(socioEntra.getEndereco());
         socio.setTel(socioEntra.getTel());
-        List<Dependente> dependentes = socioEntra.getDependentes();
-        
-        long countActiveDependents = socioEntra.getDependentes()
-                .stream()
-                .filter(Dependente::isEstahAtivo)
-                .count();
-    
-                // TÁ ERRADO A LÓGICA
-        if (countActiveDependents <= 3) {
-            if(socio.isEstahAtivo() == false && dependentes.size() > 0) {
-                for (Dependente dependente : dependentes) {
-                    dependente.setEstahAtivo(false);
-                }
-            } else if (socioEntra.isEstahAtivo() == false && socio.isEstahAtivo() == true && dependentes.size() > 0) {
-                for (Dependente dependente : dependentes) {
-                    dependente.setEstahAtivo(true);
-                }
-            }
-            return socioRepository.save(socio);
-        } else {
-            throw new IllegalArgumentException("O número de dependentes ativos não pode exceder 3.");
-        }
+        socio.setDependentes(socioEntra.getDependentes());
+
+        return socioRepository.save(socio);
     }
 
     public List<Socio> listAllSocios() {
