@@ -33,7 +33,7 @@ export class ClasseComponent implements OnInit {
       idClasse: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       valor: [null, [Validators.required, Validators.min(0)]],
-      prazoDevolucao: [null, [Validators.required]]
+      prazoDevolucao: [null, [Validators.required, Validators.min(1)]]
     });
   }
 
