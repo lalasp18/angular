@@ -33,9 +33,9 @@ public class ClasseController {
 
     @PostMapping("/criar")
     @Operation(description = "Dado o nome, cadastra um nova classe.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso a classe seja incluído com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso a classe seja incluído com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public Classe salvarClasse(@RequestBody Classe grava) {
         return clasServ.saveAll(grava);
@@ -44,9 +44,9 @@ public class ClasseController {
 
     @PutMapping("/editar")
     @Operation(description = "Dado o nome, a classe é editada.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso a classe seja editado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso a classe seja editado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public Classe editarClasse(@RequestBody Classe grava) throws RelationTypeNotFoundException {
         return clasServ.editAll(grava);
@@ -55,9 +55,9 @@ public class ClasseController {
 
     @GetMapping("/listar")
     @Operation(description = "Retorna todos os atores cadastrados.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso a classe seja listado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso a classe seja listado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public List<Classe> listarClasse() {
         return clasServ.listAll();
@@ -65,9 +65,9 @@ public class ClasseController {
 
     @GetMapping("/listar/{id}")
     @Operation(description = "Retorna a classe cadastrado por id.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso a classe ID seja listado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso a classe ID seja listado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public Classe pegarIdClasse(@PathVariable Long id) throws RelationTypeNotFoundException {
         return clasServ.listId(id);
@@ -76,9 +76,9 @@ public class ClasseController {
 
     @DeleteMapping("/deletar/{id}")
     @Operation(description = "Dado o id, deleta a classe.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso a classe seja deletado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso a classe seja deletado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public ResponseEntity<String> deletarClasse(@PathVariable Long id) {
         try {
