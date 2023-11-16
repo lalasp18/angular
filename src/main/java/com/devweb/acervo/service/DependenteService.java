@@ -36,7 +36,9 @@ public class DependenteService {
     }
 
     public List<Dependente> listAllDependentes() {
-        return dependenteRepository.findAll();
+        List<Dependente> vg = dependenteRepository.findByDependentes();
+        System.out.println(vg);
+        return vg;
     }
 
     public Dependente listIdDependente(Long id) throws RelationTypeNotFoundException {
