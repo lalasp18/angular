@@ -32,19 +32,19 @@ public class Classe {
     private Double valor;
 
     @Column(nullable = false)
-    private Date prazoDevolucao;
+    private Integer prazoDevolucao;
 
     public Classe() {
 
     }
 
-    public Classe(String nome, Double valor, Date prazoDevolucao) {
+    public Classe(String nome, Double valor, Integer prazoDevolucao) {
         this.nome = nome;
         this.valor = valor;
         this.prazoDevolucao = prazoDevolucao;
     }
 
-    public Classe(Long idClasse, String nome, Double valor, Date prazoDevolucao) {
+    public Classe(Long idClasse, String nome, Double valor, Integer prazoDevolucao) {
         this.idClasse = idClasse;
         this.nome = nome;
         this.valor = valor;
