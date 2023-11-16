@@ -8,6 +8,7 @@ import { SocioService } from '../service/socio.service';
 import { DependenteService } from '../service/dependente.service';
 import { ClienteRoutingModule } from './cliente-routing.module';
 import { AlertService } from 'src/app/_services/alert.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { AlertService } from 'src/app/_services/alert.service';
     ClienteRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    // NgbModule
+    NgbModule
   ],
   providers: [
     SocioService,

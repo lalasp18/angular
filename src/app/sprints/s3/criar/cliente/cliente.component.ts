@@ -42,7 +42,7 @@ export class ClienteComponent implements OnInit, OnDestroy {
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       dtNascimento: [null, Validators.required],
       sexo: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      estahAtivo: [null, [Validators.required]],
+      estahAtivo: [1, [Validators.required]],
       cpf: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       endereco: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       tel: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
@@ -54,15 +54,16 @@ export class ClienteComponent implements OnInit, OnDestroy {
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       dtNascimento: [null, Validators.required],
       sexo: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      estahAtivo: [null, [Validators.required]]
+      estahAtivo: [1, [Validators.required]]
     });
   }
 
   ngOnInit() {
     this.unsubscribe$ = this.dependenteService.listarDependente().subscribe({
       next: (itens) => {
-      const data = itens;
-      this.listagemClienteDependente = data;
+      this.listagemClienteDependente = itens;
+      console.log('itens ',itens)
+      console.log('lsitagem, ', this.listagemClienteDependente)
       },
       error: (err: any) => {
         this.alertServ.error('Opções para dependente não foram encontrados! Servidor não está respondendo.')
@@ -98,6 +99,8 @@ export class ClienteComponent implements OnInit, OnDestroy {
       this.showForm = true;
     } else {
       this.showForm = false;
+      this.ngOnInit();
+      // window.location.reload();
     }
   }
 
@@ -112,10 +115,18 @@ export class ClienteComponent implements OnInit, OnDestroy {
 
   pegarDependentes(evento: any, dependente: Dependente, index: number) {
     if (evento.target.checked) {
-      console.log("entrou no evento com index:", index)
-      console.log("entrou no evento com index:", dependente)
-      this.addDependente(dependente)
-      console.log(this.getDependente().value)
+      console.log('size = ', this.getDependente().length <= 3)
+      if (this.getDependente().length < 3) {
+        console.log("entrou no evento com index:", index)
+        console.log("entrou no evento com index:", dependente)
+        this.addDependente(dependente)
+        console.log(this.getDependente().value)
+      } else {
+        alert("Você já tem 3 dependentes selecionados. Não é possível adicionar mais.");
+        console.log('evento antes -> ',evento.target.checked)
+        evento.target.checked = false;
+        console.log('evento depois -> ',evento.target.checked)
+      }
     } else {
       console.log("removeu da seleção com index:", index)
       this.removeDependente(dependente)
@@ -139,7 +150,7 @@ export class ClienteComponent implements OnInit, OnDestroy {
     this.socioService.salvarSocio(this.clienteSocio).subscribe({
       next: (data: any) => {
         this.clienteSocio = data;
-        this.goToRoute();
+        this.goToRouteS();
         this.alertServ.success('Cliente cadastrado com sucesso!');
       },
       error: (err: any) => {
@@ -148,29 +159,54 @@ export class ClienteComponent implements OnInit, OnDestroy {
     });
   }
 
-  goToRoute() {
-    this.router.navigate(['api/cliente/criar']);
+  goToRouteS() {
+    this.router.navigate(['api/socio/criar']);
+  }
+
+  enviarFormDependente() {
+    this.dependenteService.salvarDependente(this.clienteDependente).subscribe({
+      next: (data: any) => {
+        this.clienteDependente = data;
+        this.goToRouteD();
+        this.alertServ.success('Cliente cadastrado com sucesso!');
+      },
+      error: (err: any) => {
+        this.alertServ.error('Cadastro não enviado.')
+      }
+    });
+  }
+
+  goToRouteD() {
+    this.router.navigate(['api/dependente/criar']);
   }
   
   onSubmit() {
+    console.log('socio: ',this.formularioSocio.value)
+    console.log('dependente: ',this.formularioDependente.value)
+    this.formularioSocio.get('estahAtivo')?.setValue(1)
+    this.formularioDependente.get('estahAtivo')?.setValue(1)
     if (this.formularioSocio.valid) {
       this.clienteSocio = this.formularioSocio.value;
       this.enviarFormSocio();
       this.formularioSocio.reset();
+    
+      for (let i = 0; i < this.listagemClienteDependente.length; i++) {
+        const selectDependente = document.getElementById(`flexCheck${i}`) as HTMLInputElement;
+        if (selectDependente) {
+          selectDependente.checked = false;
+        }
+      }
+      
+      while(this.getDependente().length !== 0) {
+        this.getDependente().removeAt(0)
+      }
+      this.ngOnInit();
+    } else if (this.formularioDependente.valid) {
+      this.clienteDependente = this.formularioDependente.value;
+      this.enviarFormDependente();
+      this.formularioDependente.reset();
     } else {
       this.alertServ.warning('Informação inválida. Preencha o campo!')
     }
-    
-    // for (let i = 0; i < this.atorList.length; i++) {
-    //   const selectAtor = document.getElementById(`flexCheck${i}`) as HTMLInputElement;
-    //   if (selectAtor) {
-    //     selectAtor.checked = false;
-    //   }
-    // }
-    
-    const selectDiretor = document.getElementById('selectDiretor') as HTMLInputElement;
-    selectDiretor.value = "Selecione um(a) Diretor(a)..";
-    const selectClasse = document.getElementById('selectClasse') as HTMLInputElement;
-    selectClasse.value = "Selecione uma Classe..";
   }
 }

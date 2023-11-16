@@ -6,7 +6,7 @@ import { ItemEditComponent } from '../../../editar/item-edit/item-edit.component
 
 
 const routes: Routes = [
-  { path: 'api/item-create', redirectTo: 'cadastrar/item', pathMatch: 'full' },
+  { path: 'api/item/criar', redirectTo: 'cadastrar/item', pathMatch: 'full' },
   {
     path: 'cadastrar/item',
     component: ItemComponent,

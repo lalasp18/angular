@@ -12,5 +12,5 @@ export interface Socio extends Cliente {
     cpf: string;
     endereco: string;
     tel: string;
-    dependentes: Array<Dependente>;
+    dependentes?: Array<Dependente>;
 }
