@@ -1,0 +1,66 @@
+<div class="corpo mx-auto mt-4">
+    <h2>Locar Filme</h2>
+    <form id="meuFormulario" class="row g-3 mx-auto mt-4" [formGroup]="locacaoform" (ngSubmit)="onSubmit()">
+        <div class="col-md-8">
+            <button class="btn btn-success col-12 dropdown-toggle" type="button" id="dropdownMenuLink"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Selecionar Filme..
+            </button>
+
+            <div class="dropdown-menu col-md-4" aria-labelledby="dropdownMenuLink">
+                <div *ngFor="let item of itemList; index as i">
+                    <input class="form-check-input mx-2" type="checkbox" id="flexCheck{{i}}"
+                        (change)="pegarItem($event,item,i)">
+                    <label class="form-check-label me-3" for="flexCheck{{i}}">
+                        {{item.titulo.nome}}/{{item.tipo}}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <label class="form-label">Seleção de Cliente</label>
+            <select id="selectCliente" class="form-select" aria-label="Seleção de Cliente"
+                (change)="pegarCliente($event)">
+                <option selected>Selecione um(a) Cliente..</option>
+                <option *ngFor="let cliente of clienteList" [value]="cliente.num_inscricao">
+                    {{cliente.nome}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-8">
+            <label for="inputDtLocacao" class="form-label">Date de Locação</label>
+            <input type="date" class="form-control" formControlName="dtLocacao" id="inputDtLocacao" required>
+        </div>
+
+        <div class="col-md-8">
+            <label for="inputDevolucaoPrevista" class="form-label">Date de Devolução Prevista</label>
+            <input type="date" class="form-control" formControlName="dtDevolucaoPrevista" id="inputDtDevoluvaoPrevista" required>
+        </div>
+
+
+
+        <div class="col-md-8">
+            <label for="inputAno" class="form-label">Valor Cobrado</label>
+            <input type="number" class="form-control" formControlName="ano" id="inputAno" required min=0>
+        </div>
+
+
+        <div class="col-md-8">
+            <img src="{{imgURL}}" class="img-thumbnail">
+            <input class="form-control" accept="image/*" #file (change)="preview(file.files)" type="file" id="formFile">
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-success me-4">Enviar</button>
+            <button type="reset" class="btn btn-secondary" id="resetaForm">Resetar</button>
+        </div>
+    </form>
+</div>
+
+<div class="alerta w-50 my-5 mx-auto">
+    <ngb-alert #selfClosingAlert *ngIf="alertMessage"
+        [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error'}"
+        (closed)="close()">{{ alertMessage }}</ngb-alert>
+</div>PINTO CU BOSTA MIJO TE AMO
