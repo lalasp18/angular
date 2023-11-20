@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Lob;
 import lombok.Data;
 
 @Data
@@ -34,13 +35,18 @@ public abstract class Cliente {
     @Column(nullable = false)
     private boolean estahAtivo;
 
+    @Column(nullable = false)
+    @Lob
+    private String imagem;
+
     public Cliente () {}
 
-    public Cliente (Long numInscricao, String nome, Date dtNascimento, String sexo, boolean estahAtivo) {
+    public Cliente (Long numInscricao, String nome, Date dtNascimento, String sexo, boolean estahAtivo, String imagem) {
         this.numInscricao = numInscricao;
         this.nome = nome;
         this.dtNascimento = dtNascimento;
         this.sexo = sexo;
         this.estahAtivo = estahAtivo;
+        this.imagem = imagem;
     }
 }

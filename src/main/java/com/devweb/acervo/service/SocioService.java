@@ -7,6 +7,8 @@ import javax.management.relation.RelationTypeNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.devweb.acervo.model.Dependente;
 import com.devweb.acervo.model.Socio;
@@ -47,12 +49,19 @@ public class SocioService {
         socio.setEndereco(socioEntra.getEndereco());
         socio.setTel(socioEntra.getTel());
         socio.setDependentes(socioEntra.getDependentes());
+        socio.setImagem(socioEntra.getImagem());
 
         return socioRepository.save(socio);
     }
-
-    public List<Socio> listAllSocios() {
-        return socioRepository.findAll();
+    
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public List<Socio> listAllSociosAtivos() {
+        return socioRepository.findAllBySocioAtivo();
+    }
+    
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public List<Socio> listAllSociosInativos() {
+        return socioRepository.findAllBySocioInativo();
     }
 
     public Socio listIdSocio(Long id) throws RelationTypeNotFoundException {

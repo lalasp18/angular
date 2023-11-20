@@ -53,14 +53,24 @@ public class SocioController {
 
     }
 
-    @GetMapping("/listar")
-    @Operation (description="Retorna todos os sócioes cadastrados.", responses = {
+    @GetMapping("/listar/ativo")
+    @Operation (description="Retorna todos os sócios ativos cadastrados.", responses = {
         @ApiResponse(responseCode = "200", description = "Caso o sócio seja listado com sucesso."),
         @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
         @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
-    public List<Socio> listarSocio() {
-        return socioService.listAllSocios();
+    public List<Socio> listarSocioAtivos() {
+        return socioService.listAllSociosAtivos();
+    }
+
+    @GetMapping("/listar/inativo")
+    @Operation (description="Retorna todos os sócios inativos cadastrados.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o sócio seja listado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public List<Socio> listarSocioInativos() {
+        return socioService.listAllSociosInativos();
     }
 
     @GetMapping("/listar/{id}")

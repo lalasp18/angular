@@ -63,6 +63,26 @@ public class DependenteController {
         return dependenteService.listAllDependentes();
     }
 
+    @GetMapping("/listar/ativo")
+    @Operation (description="Retorna todos os dependentees cadastrados.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o dependente seja listado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public List<Dependente> listarDependenteAtivo() {
+        return dependenteService.listAllDependentesQuery2();
+    }
+
+    @GetMapping("/listar/inativo")
+    @Operation (description="Retorna todos os dependentees cadastrados.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o dependente seja listado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public List<Dependente> listarDependenteInativo() {
+        return dependenteService.listAllDependentesQuery3();
+    }
+
     @GetMapping("/listar/{id}")
     @Operation (description="Retorna o dependente cadastrado por id.", responses = {
         @ApiResponse(responseCode = "200", description = "Caso o dependente ID seja listado com sucesso."),

@@ -6,6 +6,8 @@ import javax.management.relation.RelationTypeNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.devweb.acervo.model.Dependente;
 import com.devweb.acervo.repository.DependenteRepository;
@@ -19,26 +21,36 @@ public class DependenteService {
     @Autowired
     private DependenteRepository dependenteRepository;
 
-    public Dependente saveDependente(Dependente socioEntra) {
-        return dependenteRepository.save(socioEntra);
+    public Dependente saveDependente(Dependente dependenteEntra) {
+        return dependenteRepository.save(dependenteEntra);
     }
 
-    public Dependente editDependente(Dependente socioEntra) throws RelationTypeNotFoundException {
-        Dependente dependente = dependenteRepository.findById(socioEntra.getNumInscricao())
-                    .orElseThrow(() -> new RelationTypeNotFoundException("Dependente não existe com número de inscrição:" + socioEntra.getNumInscricao()));
-        dependente.setNumInscricao(socioEntra.getNumInscricao());
-        dependente.setNome(socioEntra.getNome());
-        dependente.setDtNascimento(socioEntra.getDtNascimento());
-        dependente.setSexo(socioEntra.getSexo());
-        dependente.setEstahAtivo(socioEntra.isEstahAtivo());
+    public Dependente editDependente(Dependente dependenteEntra) throws RelationTypeNotFoundException {
+        Dependente dependente = dependenteRepository.findById(dependenteEntra.getNumInscricao())
+                    .orElseThrow(() -> new RelationTypeNotFoundException("Dependente não existe com número de inscrição:" + dependenteEntra.getNumInscricao()));
+        dependente.setNumInscricao(dependenteEntra.getNumInscricao());
+        dependente.setNome(dependenteEntra.getNome());
+        dependente.setDtNascimento(dependenteEntra.getDtNascimento());
+        dependente.setSexo(dependenteEntra.getSexo());
+        dependente.setEstahAtivo(dependenteEntra.isEstahAtivo());
+        dependente.setImagem(dependenteEntra.getImagem());
         
         return dependenteRepository.save(dependente);
     }
-
+    
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Dependente> listAllDependentes() {
-        List<Dependente> vg = dependenteRepository.findByDependentes();
-        System.out.println(vg);
-        return vg;
+        return dependenteRepository.findByDependentesOption();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public List<Dependente> listAllDependentesQuery2() {
+        return dependenteRepository.findAllByDependentesAtivos();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public List<Dependente> listAllDependentesQuery3() {
+        return dependenteRepository.findAllByDependentesInativos();
     }
 
     public Dependente listIdDependente(Long id) throws RelationTypeNotFoundException {
