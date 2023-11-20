@@ -32,6 +32,11 @@
             <input type="text" class="form-control" formControlName="sexo" id="inputSexo" maxlength="20" required>
         </div>
 
+        <div class="col-md-8">
+            <img src="{{imgURL}}" class="img-thumbnail">
+            <input class="form-control" accept="image/*" #file (change)="preview(file.files)" type="file" id="formFile">
+        </div>
+
         <div class="col-12">
             <button type="submit" class="btn btn-success me-4">Enviar</button>
             <button type="reset" class="btn btn-secondary" id="resetaForm">Resetar</button>
@@ -56,7 +61,7 @@
 
         <div class="col-md-8">
             <label for="inputCpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" formControlName="cpf" id="inputCpf" maxlength="20" mask="000.000.000-00" placeholder="___.___.___-__">
+            <input type="text" class="form-control" formControlName="cpf" id="inputCpf" maxlength="20">
         </div>
         
         <div class="col-md-8">
@@ -83,6 +88,11 @@
                     </label>
                 </div>
             </div>
+        </div>
+
+        <div class="col-md-8">
+            <img src="{{imgURL}}" class="img-thumbnail">
+            <input class="form-control" accept="image/*" #file (change)="preview(file.files)" type="file" id="formFile">
         </div>
 
         <div class="col-12">

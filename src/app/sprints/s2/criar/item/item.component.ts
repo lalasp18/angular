@@ -111,7 +111,7 @@ export class ItemComponent implements OnInit {
   }
 
   goToRoute() {
-    this.router.navigate(['api/item-criar']);
+    this.router.navigate(['api/item/criar']);
   }
 
   onSubmit() {

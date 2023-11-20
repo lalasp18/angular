@@ -71,7 +71,7 @@ export class DiretorComponent implements OnInit {
   }
 
   goToRoute() {
-    this.router.navigate(['api/diretor-create']);
+    this.router.navigate(['api/diretor/criar']);
   }
 
   onSubmit() {

@@ -5,16 +5,17 @@ import { AtoresComponent } from '../../../listar/atores/atores.component';
 import { AtorEditComponent } from '../../../editar/ator-edit/ator-edit.component';
 
 const routes: Routes = [
-  { path: 'api/ator-create', redirectTo: 'cadastrar/ator', pathMatch: 'full' },
+  { path: 'api/ator/criar', redirectTo: 'cadastrar/ator', pathMatch: 'full' },
   { 
     path: 'cadastrar/ator', 
     component: AtorComponent,
     // canActivate: [AuthGuard],
     // canDeactivate: [FormDeactivateGuard] 
   },
-  { path: 'listar-atores', component: AtoresComponent },
+  { path: 'api/ator/listar', redirectTo: 'listar/ator', pathMatch: 'full' },
+  { path: 'listar/ator', component: AtoresComponent },
 
-  { path: 'api/ator-create/:id', redirectTo: 'editar/ator/:id', pathMatch: 'full' },
+  { path: 'api/ator/listar/:id', redirectTo: 'editar/ator/:id', pathMatch: 'full' },
   { path: 'editar/ator/:id', component: AtorEditComponent }
 
 ];

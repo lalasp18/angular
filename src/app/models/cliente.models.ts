@@ -4,6 +4,7 @@ export interface Cliente {
     dtNascimento: Date;
     sexo: string;
     estahAtivo: boolean;
+    imagem: string;
 }
 
 export interface Dependente extends Cliente {}

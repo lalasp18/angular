@@ -66,7 +66,7 @@ export class DiretoresComponent implements OnInit, OnDestroy {
   }
 
   editarID(id: number) {
-    this.router.navigate(['api/diretor-create', id]);
+    this.router.navigate(['api/diretor/listar', id]);
   }
 
   definirIdParaDeletar(id: number) {

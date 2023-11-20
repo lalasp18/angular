@@ -18,9 +18,11 @@ const routes: Routes = [
   { path: 'api/socio/listar', redirectTo: 'listar/cliente', pathMatch: 'full' },
   { path: 'listar/cliente', component: ClientesComponent },
 
-  { path: 'api/socio/listar/:id', redirectTo: 'editar/cliente/:id', pathMatch: 'full' },
-  { path: 'api/dependente/listar/:id', redirectTo: 'editar/cliente/:id', pathMatch: 'full' },
-  { path: 'editar/cliente/:id', component: ClienteEditComponent },
+  { path: 'api/socio/listar/:id', redirectTo: 'editar/socio/:id', pathMatch: 'full' },
+  { path: 'editar/socio/:id', component: ClienteEditComponent },
+  
+  { path: 'api/dependente/listar/:id', redirectTo: 'editar/dependente/:id', pathMatch: 'full' },
+  { path: 'editar/dependente/:id', component: ClienteEditComponent },
 ];
 
 @NgModule({
