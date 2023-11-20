@@ -13,9 +13,10 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     // canDeactivate: [FormDeactivateGuard] 
   },
-  { path: 'listar-itens', component: ItensComponent },
+  { path: 'api/item/listar', redirectTo: 'listar/item', pathMatch: 'full' },
+  { path: 'listar/item', component: ItensComponent },
 
-  { path: 'api/item-create/:id', redirectTo: 'editar/item/:id', pathMatch: 'full' },
+  { path: 'api/item/listar/:id', redirectTo: 'editar/item/:id', pathMatch: 'full' },
   { path: 'editar/item/:id', component: ItemEditComponent }
 ];
 

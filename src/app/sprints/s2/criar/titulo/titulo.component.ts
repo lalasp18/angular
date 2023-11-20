@@ -62,10 +62,18 @@ export class TituloComponent implements OnInit {
   preview(files: any) {
     if (files.length === 0)
       return;
+  
+    const maxSizeInBytes = 2 * 1024 * 1024; // Tamanho máximo em bytes (1MB, por exemplo)
+    if (files[0].size > maxSizeInBytes) {
+      this.message = "A imagem é muito grande. O tamanho máximo permitido é 2MB.";
+      alert(this.message);
+      return;
+    }
 
     let mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       this.message = "Apenas Imagens são suportadas.";
+      alert(this.message);
       return;
     }
 
@@ -290,7 +298,7 @@ export class TituloComponent implements OnInit {
   }
 
   goToRoute() {
-    this.router.navigate(['api/titulo-create']);
+    this.router.navigate(['api/titulo/criar']);
   }
 
   onSubmit() {

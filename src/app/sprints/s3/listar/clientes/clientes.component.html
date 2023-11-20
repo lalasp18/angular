@@ -1,1 +1,160 @@
-<p>clientes works!</p>
+<div class="corpo mx-auto mt-4">
+    <h2>Lista De Clientes</h2>
+
+    <div class="d-flex flex-row mb-2">
+        <div class="form-check me-4">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioAtivo" (change)="onChange($event)" checked>
+            <label class="form-check-label text-light" for="flexRadioAtivo">
+                Ativos
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioInativo" (change)="onChange($event)">
+            <label class="form-check-label text-light" for="flexRadioInativo">
+                Inativos
+            </label>
+        </div>
+    </div>
+    
+    <h3 class="mt-4 mb-3">Sócios</h3>
+    <div *ngIf="showStatus">
+        <div class="alert alert-warning" role="alert" *ngIf="showSocA">
+          {{ messageSocA }}
+        </div>
+        <div id="listaSocio" class="row row-cols-2 row-cols-lg-5 align-items-start" *ngIf="socioDataAtivo.length > 0">
+            <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;"
+                *ngFor="let socio of socioDataAtivo; index as i">
+                <div class="card-body">
+                    <img src="{{socio.imagem}}" class="img-thumbnail "><!--
+                    -->
+                    <h3 class="card-title"><strong>Nome:</strong> {{ socio.nome }}</h3>
+                    <h4 class="card-subtitle my-2"><strong>Dados pessoais: </strong> </h4>
+                    <p class="card-text"><b class="text-body-secondary">Data de nascimento:</b> {{ socio.dtNascimento }}, <b class="text-body-secondary">Sexo:</b> {{ socio.sexo }}, <b class="text-body-secondary">CPF:</b> {{ socio.cpf }}, <b class="text-body-secondary">Tel.:</b> {{ socio.tel }}, <b class="text-body-secondary">Endereço:</b> {{ socio.endereco }} </p>
+                    <p class="card-text" *ngIf="socio.dependentes"><strong>Dependentes:</strong> {{ formatarDependentes(socio.dependentes) }}
+                    </p>
+                    <a class="btn btn-warning me-2" (click)="editarIDSocio(socio.numInscricao)">Editar</a>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalSocio"
+                        (click)="definirIdParaDeletarSocio(socio.numInscricao, socio.nome)">Deletar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!showStatus">
+        <div class="alert alert-warning" role="alert" *ngIf="showSocI">
+          {{ messageSocI }}
+        </div>
+        <div id="listaSocio" class="row row-cols-2 row-cols-lg-5 align-items-start" *ngIf="socioDataInativo.length > 0">
+            <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;"
+                *ngFor="let socio of socioDataInativo; index as i">
+                <div class="card-body">
+                    <img src="{{socio.imagem}}" class="img-thumbnail "><!--
+                    -->
+                    <h3 class="card-title"><strong>Nome:</strong> {{ socio.nome }}</h3>
+                    <h4 class="card-subtitle my-2"><strong>Dados pessoais: </strong> </h4>
+                    <p class="card-text"><b class="text-body-secondary">Data de nascimento:</b> {{ socio.dtNascimento }}, <b class="text-body-secondary">Sexo:</b> {{ socio.sexo }}, <b class="text-body-secondary">CPF:</b> {{ socio.cpf }}, <b class="text-body-secondary">Tel.:</b> {{ socio.tel }}, <b class="text-body-secondary">Endereço:</b> {{ socio.endereco }} </p>
+                    <p class="card-text" *ngIf="socio.dependentes"><strong>Dependentes:</strong> {{ formatarDependentes(socio.dependentes) }}
+                    </p>
+                    <a class="btn btn-warning me-2" (click)="editarIDSocio(socio.numInscricao)">Editar</a>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalSocio"
+                        (click)="definirIdParaDeletarSocio(socio.numInscricao, socio.nome)">Deletar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <h3 class="mt-4 mb-3">Dependentes</h3>
+    
+    <div *ngIf="showStatus">
+        <div class="alert alert-warning" role="alert" *ngIf="showDepA">
+          {{ messageDepA }}
+        </div>
+        <div id="listaDependente" class="row row-cols-2 row-cols-lg-5 align-items-start" *ngIf="dependenteDataAtivo.length > 0">
+            <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;"
+                *ngFor="let dependente of dependenteDataAtivo; index as i">
+                <div class="card-body">
+                    <img src="{{dependente.imagem}}" class="img-thumbnail "><!--
+                    -->
+                    <h3 class="card-title"><strong>Nome:</strong> {{ dependente.nome }}</h3>
+                    <h4 class="card-subtitle my-2"><strong>Dados pessoais: </strong> </h4>
+                    <p class="card-text"><b class="text-body-secondary">Data de nascimento:</b> {{ dependente.dtNascimento }}, <b class="text-body-secondary">Sexo:</b> {{ dependente.sexo }} </p>
+                    <a class="btn btn-warning me-2" (click)="editarIDDependente(dependente.numInscricao)">Editar</a>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalDependente"
+                        (click)="definirIdParaDeletarDepende(dependente.numInscricao, dependente.nome)">Deletar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!showStatus">
+        <div class="alert alert-warning" role="alert" *ngIf="showDepI">
+          {{ messageDepI }}
+        </div>
+        <div id="listaDependente" class="row row-cols-2 row-cols-lg-5 align-items-start" *ngIf="dependenteDataInativo.length > 0">
+            <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;"
+                *ngFor="let dependente of dependenteDataInativo; index as i">
+                <div class="card-body">
+                    <img src="{{dependente.imagem}}" class="img-thumbnail "><!--
+                    -->
+                    <h3 class="card-title"><strong>Nome:</strong> {{ dependente.nome }}</h3>
+                    <h4 class="card-subtitle my-2"><strong>Dados pessoais: </strong> </h4>
+                    <p class="card-text"><b class="text-body-secondary">Data de nascimento:</b> {{ dependente.dtNascimento }}, <b class="text-body-secondary">Sexo:</b> {{ dependente.sexo }} </p>
+                    <a class="btn btn-warning me-2" (click)="editarIDDependente(dependente.numInscricao)">Editar</a>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalDependente"
+                        (click)="definirIdParaDeletarDepende(dependente.numInscricao, dependente.nome)">Deletar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModalSocio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        (hidden)="limparIdParaDeletarSocio()">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Você está prestes a excluir este sócio: {{ socioParaDeletarNome }}.</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <h3 id="modalAlert">Esta ação é irreversível.</h3>
+                    <p>Você deseja continuar?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        (click)="deletarIDSocio(socioParaDeletarId)">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModalDependente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        (hidden)="limparIdParaDeletarDepende()">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Você está prestes a excluir este dependente: {{ dependenteParaDeletarNome }}.</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <h3 id="modalAlert">Esta ação é irreversível.</h3>
+                    <p>Você deseja continuar?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        (click)="deletarIDDepende(dependenteParaDeletarId)">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alerta w-50 my-5 mx-auto">
+    <ngb-alert #selfClosingAlert *ngIf="alertMessage"
+        [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error', 'alert-warning': alertType === 'warning'}"
+        (closed)="close()">{{ alertMessage }}</ngb-alert>
+</div>

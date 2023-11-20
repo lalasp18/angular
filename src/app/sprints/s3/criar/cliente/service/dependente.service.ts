@@ -24,6 +24,14 @@ export class DependenteService {
     return this.http.get<Dependente[]>(`${this.API}/listar`);
   }
 
+  listarDependenteAtivo(): Observable<Dependente[]> {
+    return this.http.get<Dependente[]>(`${this.API}/listar/ativo`);
+  }
+
+  listarDependenteInativo(): Observable<Dependente[]> {
+    return this.http.get<Dependente[]>(`${this.API}/listar/inativo`);
+  }
+
   pegarIdDependente(id: number): Observable<Dependente> {
     return this.http.get<Dependente>(`${this.API}/listar/${id}`);
   }

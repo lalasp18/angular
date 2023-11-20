@@ -74,7 +74,7 @@ export class ClasseComponent implements OnInit {
   }
 
   goToRoute() {
-    this.router.navigate(['api/classe-create']);
+    this.router.navigate(['api/classe/criar']);
   }
 
   onSubmit() {

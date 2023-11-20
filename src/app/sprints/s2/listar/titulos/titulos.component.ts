@@ -78,7 +78,7 @@ export class TitulosComponent implements OnInit, OnDestroy {
   }
 
   editarID(id: number) {
-    this.router.navigate(['api/titulo-create', id]);
+    this.router.navigate(['api/titulo/listar', id]);
   }
 
   definirIdParaDeletar(id: number) {

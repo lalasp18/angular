@@ -66,7 +66,7 @@ export class AtoresComponent implements OnInit, OnDestroy {
   }
 
   editarID(idAtor: number) {
-    this.router.navigate(['api/ator-create', idAtor]);
+    this.router.navigate(['api/ator/listar', idAtor]);
   }
 
   definirIdParaDeletar(id: number) {

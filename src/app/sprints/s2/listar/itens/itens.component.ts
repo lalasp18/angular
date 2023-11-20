@@ -65,7 +65,7 @@ export class ItensComponent implements OnInit, OnDestroy {
   }
 
   editarID(id: number) {
-    this.router.navigate(['api/item-create', id]);
+    this.router.navigate(['api/item/listar', id]);
   }
 
   definirIdParaDeletar(id: number) {

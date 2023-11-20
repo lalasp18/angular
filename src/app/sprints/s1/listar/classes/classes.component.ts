@@ -65,7 +65,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
   }
 
   editarID(id: number) {
-    this.router.navigate(['api/classe-create', id]);
+    this.router.navigate(['api/classe/listar', id]);
   }
 
   definirIdParaDeletar(id: number) {

@@ -5,16 +5,17 @@ import { TitulosComponent } from '../../../listar/titulos/titulos.component';
 import { TituloEditComponent } from '../../../editar/titulo-edit/titulo-edit.component';
 
 const routes: Routes = [
-  { path: 'api/titulo-create', redirectTo: 'cadastrar/titulo', pathMatch: 'full' },
+  { path: 'api/titulo/criar', redirectTo: 'cadastrar/titulo', pathMatch: 'full' },
   {
     path: 'cadastrar/titulo',
     component: TituloComponent,
     // canActivate: [AuthGuard],
     // canDeactivate: [FormDeactivateGuard] 
   },
-  { path: 'listar-titulos', component: TitulosComponent },
+  { path: 'api/titulo/listar', redirectTo: 'listar/titulo', pathMatch: 'full' },
+  { path: 'listar/titulo', component: TitulosComponent },
 
-  { path: 'api/titulo-create/:id', redirectTo: 'editar/titulo/:id', pathMatch: 'full' },
+  { path: 'api/titulo/listar/:id', redirectTo: 'editar/titulo/:id', pathMatch: 'full' },
   { path: 'editar/titulo/:id', component: TituloEditComponent }
 
 ];

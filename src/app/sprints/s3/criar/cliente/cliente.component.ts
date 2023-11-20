@@ -20,7 +20,6 @@ export class ClienteComponent implements OnInit, OnDestroy {
   clienteDependente: Dependente[] = [];
   formularioSocio: FormGroup;
   formularioDependente: FormGroup;
-  message: any;
 
   listagemClienteDependente: Dependente[] = [];
   unsubscribe$!: Subscription;
@@ -29,6 +28,10 @@ export class ClienteComponent implements OnInit, OnDestroy {
   staticAlertClosed = false;
   alertMessage: string | undefined;
   alertType: string | undefined;
+
+  message: any;
+  imagePath: any;
+  imgURL: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,15 +49,17 @@ export class ClienteComponent implements OnInit, OnDestroy {
       cpf: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       endereco: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       tel: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      dependentes: this.formBuilder.array([], [Validators.required])
+      dependentes: this.formBuilder.array([], [Validators.required]),
+      imagem: [null, Validators.required],
     });
-
+    
     this.formularioDependente = this.formBuilder.group({
       numInscricao: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       dtNascimento: [null, Validators.required],
       sexo: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      estahAtivo: [1, [Validators.required]]
+      estahAtivo: [1, [Validators.required]],
+      imagem: [null, Validators.required],
     });
   }
 
@@ -146,6 +151,37 @@ export class ClienteComponent implements OnInit, OnDestroy {
     }
   }
 
+  preview(files: any) {
+    if (files.length === 0)
+      return;
+  
+    const maxSizeInBytes = 2 * 1024 * 1024; // Tamanho máximo em bytes (1MB, por exemplo)
+    if (files[0].size > maxSizeInBytes) {
+      this.message = "A imagem é muito grande. O tamanho máximo permitido é 2MB.";
+      alert(this.message);
+      return;
+    }
+
+    let mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Apenas Imagens são suportadas.";
+      alert(this.message);
+      return;
+    }
+
+    let reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+      if(this.showForm){
+        this.formularioDependente.get('imagem')?.setValue(reader.result);
+      } else {
+        this.formularioSocio.get('imagem')?.setValue(reader.result);
+      }
+    }
+  }
+
   enviarFormSocio() {
     this.socioService.salvarSocio(this.clienteSocio).subscribe({
       next: (data: any) => {
@@ -200,11 +236,13 @@ export class ClienteComponent implements OnInit, OnDestroy {
       while(this.getDependente().length !== 0) {
         this.getDependente().removeAt(0)
       }
+      this.imgURL=null;
       this.ngOnInit();
     } else if (this.formularioDependente.valid) {
       this.clienteDependente = this.formularioDependente.value;
       this.enviarFormDependente();
       this.formularioDependente.reset();
+      this.imgURL=null;
     } else {
       this.alertServ.warning('Informação inválida. Preencha o campo!')
     }

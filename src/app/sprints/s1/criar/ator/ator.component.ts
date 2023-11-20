@@ -71,7 +71,7 @@ export class AtorComponent implements OnInit {
   }
 
   goToRoute(){
-    this.router.navigate(['api/ator-create']);
+    this.router.navigate(['api/ator/criar']);
   }
 
   onSubmit() {
