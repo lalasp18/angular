@@ -37,7 +37,7 @@ public class LocacaoController {
             @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
             @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
-    public Locacao salvarLocacao(@RequestBody Locacao grava) {
+    public Locacao salvarLocacao(@RequestBody Locacao grava) throws Throwable {
         return locacaoServ.saveAll(grava);
 
     }

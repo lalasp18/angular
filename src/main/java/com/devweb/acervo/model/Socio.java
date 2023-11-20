@@ -3,6 +3,8 @@ package com.devweb.acervo.model;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,6 +25,7 @@ public class Socio extends Cliente {
     @Column(length = 20, nullable = false)
     private String tel;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Column(nullable = true)
     private List<Dependente> dependentes;

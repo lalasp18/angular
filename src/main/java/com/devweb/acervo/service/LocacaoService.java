@@ -7,7 +7,11 @@ import javax.management.relation.RelationTypeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.devweb.acervo.model.Cliente;
+import com.devweb.acervo.model.Dependente;
 import com.devweb.acervo.model.Locacao;
+import com.devweb.acervo.model.Socio;
+import com.devweb.acervo.repository.ClienteRepository;
 import com.devweb.acervo.repository.LocacaoRepository;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,7 +23,19 @@ public class LocacaoService {
     @Autowired
     private LocacaoRepository locacaoRepo;
 
-    public Locacao saveAll(Locacao locacao) {
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    public Locacao saveAll(Locacao locacao) throws Throwable {
+       Cliente cliente = (Cliente) clienteRepository.findById(locacao.getCliente().getNumInscricao())
+            .orElseThrow(() -> new RelationTypeNotFoundException("Cliente não encontrado com o id: " + locacao.getCliente().getNumInscricao()));
+
+        if (cliente instanceof Socio) {
+            Socio socio = (Socio) cliente;
+            socio.getDependentes().size();
+        }
+
+        locacao.setCliente(cliente);
         return locacaoRepo.save(locacao);
     }
 
