@@ -49,7 +49,7 @@ export class ClienteComponent implements OnInit, OnDestroy {
       cpf: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       endereco: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       tel: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      dependentes: this.formBuilder.array([], [Validators.required]),
+      dependentes: this.formBuilder.array([], [Validators.required]).clear(),
       imagem: [null, Validators.required],
     });
     

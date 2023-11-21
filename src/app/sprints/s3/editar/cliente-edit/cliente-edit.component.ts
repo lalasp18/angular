@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, debounceTime } from 'rxjs';
 import { AlertService } from 'src/app/_services/alert.service';
@@ -17,13 +17,19 @@ export class ClienteEditComponent implements OnInit, OnDestroy {
   @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
 
   clienteSocio: Socio[] = [];
+  clienteSocioID!: Socio;
   clienteDependente: Dependente[] = [];
+  clienteDependenteID!: Dependente;
   formularioSocio: FormGroup;
   formularioDependente: FormGroup;
 
   listagemClienteDependente: Dependente[] = [];
   unsubscribe$!: Subscription;
+  unsubscribeSoc$!: Subscription;
+  unsubscribeDep$!: Subscription;
+
   showForm:boolean = true;
+  showSpinner:boolean = false;
 
   staticAlertClosed = false;
   alertMessage: string | undefined;
@@ -39,6 +45,7 @@ export class ClienteEditComponent implements OnInit, OnDestroy {
     private alertServ: AlertService,
     private socioService: SocioService,
     private dependenteService: DependenteService,
+    private route: ActivatedRoute
   ) {
     this.formularioSocio = this.formBuilder.group({
       numInscricao: [null],
@@ -73,6 +80,91 @@ export class ClienteEditComponent implements OnInit, OnDestroy {
       }
     });
 
+    const id = + this.route.snapshot.paramMap.get('id')!;
+    const url = window.location.href;
+    
+    if (url.includes('socio')) {
+      this.showForm = false;
+      const radioElementS = document.getElementById("flexRadioOrienta") as HTMLInputElement;
+      radioElementS.checked = true;
+      radioElementS.disabled = true;
+
+      const radioElementD = document.getElementById("flexRadioRede") as HTMLInputElement;
+      radioElementD.checked = false;
+      radioElementD.disabled = true;
+
+      this.unsubscribeSoc$ = this.socioService.pegarIdSocio(id).subscribe({
+        next: (itens) => {
+          this.clienteSocioID = itens;
+
+          this.formularioSocio.get("numInscricao")?.setValue(this.clienteSocioID.numInscricao);
+          this.formularioSocio.get("nome")?.setValue(this.clienteSocioID.nome);
+          this.formularioSocio.get("dtNascimento")?.setValue(this.clienteSocioID.dtNascimento);
+          this.formularioSocio.get("sexo")?.setValue(this.clienteSocioID.sexo);
+          this.formularioSocio.get("estahAtivo")?.setValue(this.clienteSocioID.estahAtivo);
+          this.formularioSocio.get("cpf")?.setValue(this.clienteSocioID.cpf);
+          this.formularioSocio.get("endereco")?.setValue(this.clienteSocioID.endereco);
+          this.formularioSocio.get("tel")?.setValue(this.clienteSocioID.tel);
+          this.formularioSocio.get("imagem")?.setValue(this.clienteSocioID.imagem);
+
+          this.imgURL = this.clienteSocioID.imagem;
+          if(this.clienteSocioID.dependentes) {
+            for (const obj of this.clienteSocioID.dependentes) {
+              this.addDependente(obj);
+              this.listagemClienteDependente.push(obj);
+            }
+          }
+
+          this.showSpinner = true;
+          setTimeout(() => {
+            for(let i = 0; i < this.listagemClienteDependente.length; i++) {
+              if(this.clienteSocioID.dependentes) {
+                for (let depende of this.clienteSocioID.dependentes) {
+                  if(this.listagemClienteDependente[i].numInscricao === depende.numInscricao) {
+                    if (document.getElementById("flexCheck" + i) !== null) {
+                      const drop = document.getElementById("flexCheck" + i) as HTMLInputElement;
+                      drop.checked = true;
+                      this.showSpinner = false;
+                    }
+                  }
+                }
+              }
+            }
+          }, 5000);
+        },
+        error: (err: any) => {
+          this.alertServ.error('Opções para dependente não foram encontrados! Servidor não está respondendo.')
+        }
+      });
+    } else if (url.includes('dependente')) {
+      this.showForm = true;
+      const radioElementD = document.getElementById("flexRadioRede") as HTMLInputElement;
+      radioElementD.checked = true;
+      radioElementD.disabled = true;
+
+      const radioElementS = document.getElementById("flexRadioOrienta") as HTMLInputElement;
+      radioElementS.checked = false;
+      radioElementS.disabled =true;
+
+      this.unsubscribeDep$ = this.dependenteService.pegarIdDependente(id).subscribe({
+        next: (itens) => {
+          this.clienteDependenteID = itens;
+
+          this.formularioDependente.get("numInscricao")?.setValue(this.clienteDependenteID.numInscricao);
+          this.formularioDependente.get("nome")?.setValue(this.clienteDependenteID.nome);
+          this.formularioDependente.get("dtNascimento")?.setValue(this.clienteDependenteID.dtNascimento);
+          this.formularioDependente.get("sexo")?.setValue(this.clienteDependenteID.sexo);
+          this.formularioDependente.get("estahAtivo")?.setValue(this.clienteDependenteID.estahAtivo);
+          this.formularioDependente.get("imagem")?.setValue(this.clienteDependenteID.imagem);
+
+          this.imgURL = this.clienteDependenteID.imagem;
+        },
+        error: (err: any) => {
+          this.alertServ.error('Opções para dependente não foram encontrados! Servidor não está respondendo.')
+        }
+      });
+    }
+
     this.alertServ.getMessage().subscribe(message => {
       if (message) {
         this.alertMessage = message.text;
@@ -91,20 +183,12 @@ export class ClienteEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
+    if(this.unsubscribeSoc$){this.unsubscribeSoc$.unsubscribe()};
+    if(this.unsubscribeDep$){this.unsubscribeDep$.unsubscribe()};
   }
 
   close() {
     this.alertMessage = '';
-  }
-
-  onChange(event: any) {
-    if (event.target.id === 'flexRadioRede') {
-      this.showForm = true;
-    } else {
-      this.showForm = false;
-      this.ngOnInit();
-      // window.location.reload();
-    }
   }
 
   getDependente(): FormArray {
@@ -113,34 +197,24 @@ export class ClienteEditComponent implements OnInit, OnDestroy {
 
   addDependente(dependente: Dependente) {
     this.getDependente().push(new FormControl(dependente));
-    console.log(this.getDependente())
   }
 
   pegarDependentes(evento: any, dependente: Dependente, index: number) {
     if (evento.target.checked) {
-      console.log('size = ', this.getDependente().length <= 3)
       if (this.getDependente().length < 3) {
-        console.log("entrou no evento com index:", index)
-        console.log("entrou no evento com index:", dependente)
         this.addDependente(dependente)
-        console.log(this.getDependente().value)
       } else {
         alert("Você já tem 3 dependentes selecionados. Não é possível adicionar mais.");
-        console.log('evento antes -> ',evento.target.checked)
         evento.target.checked = false;
-        console.log('evento depois -> ',evento.target.checked)
       }
     } else {
-      console.log("removeu da seleção com index:", index)
       this.removeDependente(dependente)
-      console.log(this.getDependente().value)
     }
   }
 
   removeDependente(dependente: Dependente) {
     const dependentesArray = this.getDependente();
     const index = dependentesArray.controls.findIndex(control => control.value === dependente);
-    console.log('index do dependente para remover',index)
 
     if (index !== -1) {
       dependentesArray.removeAt(index);
@@ -180,12 +254,12 @@ export class ClienteEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  enviarFormSocio() {
-    this.socioService.salvarSocio(this.clienteSocio).subscribe({
+  updateFormSocio() {
+    this.socioService.editarSocio(this.clienteSocio).subscribe({
       next: (data: any) => {
         this.clienteSocio = data;
         this.goToRouteS();
-        this.alertServ.success('Cliente cadastrado com sucesso!');
+        this.alertServ.success('Cliente editado com sucesso!');
       },
       error: (err: any) => {
         this.alertServ.error('Cadastro não enviado.')
@@ -194,15 +268,15 @@ export class ClienteEditComponent implements OnInit, OnDestroy {
   }
 
   goToRouteS() {
-    this.router.navigate(['api/socio/criar']);
+    this.router.navigate(['api/socio/editar']);
   }
 
-  enviarFormDependente() {
-    this.dependenteService.salvarDependente(this.clienteDependente).subscribe({
+  updateFormDependente() {
+    this.dependenteService.editarDependente(this.clienteDependente).subscribe({
       next: (data: any) => {
         this.clienteDependente = data;
         this.goToRouteD();
-        this.alertServ.success('Cliente cadastrado com sucesso!');
+        this.alertServ.success('Cliente editado com sucesso!');
       },
       error: (err: any) => {
         this.alertServ.error('Cadastro não enviado.')
@@ -211,16 +285,14 @@ export class ClienteEditComponent implements OnInit, OnDestroy {
   }
 
   goToRouteD() {
-    this.router.navigate(['api/dependente/criar']);
+    this.router.navigate(['api/dependente/editar']);
   }
   
   onSubmit() {
-    this.formularioSocio.get('estahAtivo')?.setValue(1)
-    this.formularioDependente.get('estahAtivo')?.setValue(1)
     if (this.formularioSocio.valid) {
       this.clienteSocio = this.formularioSocio.value;
-      // this.enviarFormSocio();
-      // this.formularioSocio.reset();
+      this.updateFormSocio();
+      this.formularioSocio.reset();
     
       for (let i = 0; i < this.listagemClienteDependente.length; i++) {
         const selectDependente = document.getElementById(`flexCheck${i}`) as HTMLInputElement;
@@ -233,11 +305,10 @@ export class ClienteEditComponent implements OnInit, OnDestroy {
         this.getDependente().removeAt(0)
       }
       this.imgURL=null;
-      this.ngOnInit();
     } else if (this.formularioDependente.valid) {
       this.clienteDependente = this.formularioDependente.value;
-      // this.enviarFormDependente();
-      // this.formularioDependente.reset();
+      this.updateFormDependente();
+      this.formularioDependente.reset();
       this.imgURL=null;
     } else {
       this.alertServ.warning('Informação inválida. Preencha o campo!')

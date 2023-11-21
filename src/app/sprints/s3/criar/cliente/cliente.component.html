@@ -105,3 +105,18 @@
 <div class="alerta w-50 my-5 mx-auto">
     <ngb-alert #selfClosingAlert *ngIf="alertMessage" [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error'}" (closed)="close()">{{ alertMessage }}</ngb-alert>
 </div>
+
+<div style="margin-top:20px;margin-left: 4em; width: 600px;" form="formularioSocio">
+    <div style="background-color: tomato;">
+        Detalhes do form
+    </div>
+    <pre style="background-color: tan;">
+        Form válido: {{ formularioSocio.valid }}
+    </pre>
+    <pre style="background-color: tan;">
+        Form inválido: {{ !formularioSocio.valid }}
+    </pre>
+    <pre style="background-color: tan;">
+        Valores: <br> {{ formularioSocio.value | json }}
+    </pre>
+</div>

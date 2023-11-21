@@ -20,6 +20,14 @@ export class DependenteService {
     return this.http.put(`${this.API}/editar`, record);
   }
 
+  editarDependenteDesativo(record: Dependente): Observable<Object> {
+    return this.http.put(`${this.API}/ativar`, record);
+  }
+
+  editarDependenteAtivo(record: Dependente): Observable<Object> {
+    return this.http.put(`${this.API}/desativar`, record);
+  }
+
   listarDependente(): Observable<Dependente[]> {
     return this.http.get<Dependente[]>(`${this.API}/listar`);
   }

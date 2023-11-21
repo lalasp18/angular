@@ -20,6 +20,14 @@ export class SocioService {
     return this.http.put(`${this.API}/editar`, record);
   }
 
+  editarSocioDesativo(record: Socio): Observable<Object> {
+    return this.http.put(`${this.API}/ativar`, record);
+  }
+
+  editarSocioAtivo(record: Socio): Observable<Object> {
+    return this.http.put(`${this.API}/desativar`, record);
+  }
+
   listarSocioAtivo(): Observable<Socio[]> {
     return this.http.get<Socio[]>(`${this.API}/listar/ativo`);
   }

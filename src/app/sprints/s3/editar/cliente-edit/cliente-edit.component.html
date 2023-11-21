@@ -3,13 +3,13 @@
 
     <div class="d-flex flex-row mb-2">
         <div class="form-check me-4">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioRede" (change)="onChange($event); formularioSocio.reset" checked>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioRede" checked>
             <label class="form-check-label text-light" for="flexRadioRede">
                 Dependente
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioOrienta" (change)="onChange($event); formularioDependente.reset">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioOrienta">
             <label class="form-check-label text-light" for="flexRadioOrienta">
                 Sócio
             </label>
@@ -61,7 +61,7 @@
 
         <div class="col-md-8">
             <label for="inputCpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" formControlName="cpf" id="inputCpf" maxlength="20" mask="000.000.000-00" placeholder="___.___.___-__">
+            <input type="text" class="form-control" formControlName="cpf" id="inputCpf" maxlength="20">
         </div>
         
         <div class="col-md-8">
@@ -74,6 +74,11 @@
             <input type="text" class="form-control" formControlName="tel" id="inputTel" maxlength="20" required>
         </div>
 
+        <div class="col-md-8 d-flex justify-content-center">
+            <div class="spinner-border text-success" role="status" *ngIf="showSpinner">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
         <div class="col-md-8">
             <button class="btn btn-success col-12 dropdown-toggle" type="button" id="dropdownMenuLink"
                 data-bs-toggle="dropdown" aria-expanded="false">

@@ -25,8 +25,10 @@
             <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;"
                 *ngFor="let socio of socioDataAtivo; index as i">
                 <div class="card-body">
-                    <img src="{{socio.imagem}}" class="img-thumbnail "><!--
-                    -->
+                    <div class="d-flex justify-content-between">
+                        <img src="{{socio.imagem}}" class="img-thumbnail ">
+                        <button type="button" class="btn btn-outline-info btn-tam" (click)="desativarSocio(socio)">Desativar</button>
+                    </div>
                     <h3 class="card-title"><strong>Nome:</strong> {{ socio.nome }}</h3>
                     <h4 class="card-subtitle my-2"><strong>Dados pessoais: </strong> </h4>
                     <p class="card-text"><b class="text-body-secondary">Data de nascimento:</b> {{ socio.dtNascimento }}, <b class="text-body-secondary">Sexo:</b> {{ socio.sexo }}, <b class="text-body-secondary">CPF:</b> {{ socio.cpf }}, <b class="text-body-secondary">Tel.:</b> {{ socio.tel }}, <b class="text-body-secondary">Endereço:</b> {{ socio.endereco }} </p>
@@ -47,14 +49,15 @@
             <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;"
                 *ngFor="let socio of socioDataInativo; index as i">
                 <div class="card-body">
-                    <img src="{{socio.imagem}}" class="img-thumbnail "><!--
-                    -->
+                    <div class="d-flex justify-content-between">
+                        <img src="{{socio.imagem}}" class="img-thumbnail ">
+                        <button type="button" class="btn btn-outline-danger btn-tam" (click)="ativarSocio(socio)">Ativar</button>
+                    </div>
                     <h3 class="card-title"><strong>Nome:</strong> {{ socio.nome }}</h3>
                     <h4 class="card-subtitle my-2"><strong>Dados pessoais: </strong> </h4>
                     <p class="card-text"><b class="text-body-secondary">Data de nascimento:</b> {{ socio.dtNascimento }}, <b class="text-body-secondary">Sexo:</b> {{ socio.sexo }}, <b class="text-body-secondary">CPF:</b> {{ socio.cpf }}, <b class="text-body-secondary">Tel.:</b> {{ socio.tel }}, <b class="text-body-secondary">Endereço:</b> {{ socio.endereco }} </p>
                     <p class="card-text" *ngIf="socio.dependentes"><strong>Dependentes:</strong> {{ formatarDependentes(socio.dependentes) }}
                     </p>
-                    <a class="btn btn-warning me-2" (click)="editarIDSocio(socio.numInscricao)">Editar</a>
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalSocio"
                         (click)="definirIdParaDeletarSocio(socio.numInscricao, socio.nome)">Deletar</button>
                 </div>
@@ -72,8 +75,10 @@
             <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;"
                 *ngFor="let dependente of dependenteDataAtivo; index as i">
                 <div class="card-body">
-                    <img src="{{dependente.imagem}}" class="img-thumbnail "><!--
-                    -->
+                    <div class="d-flex justify-content-between">
+                        <img src="{{dependente.imagem}}" class="img-thumbnail ">
+                        <button type="button" class="btn btn-outline-info btn-tam" (click)="desativarDepende(dependente)">Desativar</button>
+                    </div>
                     <h3 class="card-title"><strong>Nome:</strong> {{ dependente.nome }}</h3>
                     <h4 class="card-subtitle my-2"><strong>Dados pessoais: </strong> </h4>
                     <p class="card-text"><b class="text-body-secondary">Data de nascimento:</b> {{ dependente.dtNascimento }}, <b class="text-body-secondary">Sexo:</b> {{ dependente.sexo }} </p>
@@ -84,7 +89,7 @@
             </div>
         </div>
     </div>
-
+    
     <div *ngIf="!showStatus">
         <div class="alert alert-warning" role="alert" *ngIf="showDepI">
           {{ messageDepI }}
@@ -93,12 +98,13 @@
             <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;"
                 *ngFor="let dependente of dependenteDataInativo; index as i">
                 <div class="card-body">
-                    <img src="{{dependente.imagem}}" class="img-thumbnail "><!--
-                    -->
+                    <div class="d-flex justify-content-between">
+                        <img src="{{dependente.imagem}}" class="img-thumbnail ">
+                        <button type="button" class="btn btn-outline-danger btn-tam" (click)="ativarDepende(dependente)">Ativar</button>
+                    </div>
                     <h3 class="card-title"><strong>Nome:</strong> {{ dependente.nome }}</h3>
                     <h4 class="card-subtitle my-2"><strong>Dados pessoais: </strong> </h4>
                     <p class="card-text"><b class="text-body-secondary">Data de nascimento:</b> {{ dependente.dtNascimento }}, <b class="text-body-secondary">Sexo:</b> {{ dependente.sexo }} </p>
-                    <a class="btn btn-warning me-2" (click)="editarIDDependente(dependente.numInscricao)">Editar</a>
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalDependente"
                         (click)="definirIdParaDeletarDepende(dependente.numInscricao, dependente.nome)">Deletar</button>
                 </div>
@@ -151,10 +157,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="alerta w-50 my-5 mx-auto">
-    <ngb-alert #selfClosingAlert *ngIf="alertMessage"
-        [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error', 'alert-warning': alertType === 'warning'}"
-        (closed)="close()">{{ alertMessage }}</ngb-alert>
 </div>

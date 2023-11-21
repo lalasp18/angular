@@ -76,3 +76,18 @@
         [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error'}"
         (closed)="close()">{{ alertMessage }}</ngb-alert>
 </div>
+
+<!-- <div style="margin-top:20px;margin-left: 4em; width: 600px;" form="formulario">
+    <div style="background-color: tomato;">
+        Detalhes do form
+    </div>
+    <pre style="background-color: tan;">
+        Form válido: {{ tituloform.valid }}
+    </pre>
+    <pre style="background-color: tan;">
+        Form inválido: {{ !tituloform.valid }}
+    </pre>
+    <pre style="background-color: tan;">
+        Valores: <br> {{ tituloform.value | json }}
+    </pre>
+</div> -->

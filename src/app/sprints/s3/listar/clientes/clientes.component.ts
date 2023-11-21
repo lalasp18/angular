@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, debounceTime } from 'rxjs';
-import { AlertService } from 'src/app/_services/alert.service';
 import { SocioService } from '../../criar/cliente/service/socio.service';
 import { DependenteService } from '../../criar/cliente/service/dependente.service';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
@@ -46,7 +45,6 @@ export class ClientesComponent implements OnInit, OnDestroy {
   alertType: string | undefined;
 
   constructor(
-    private alertServ: AlertService,
     private socioService: SocioService,
     private dependenteService: DependenteService,
     private router: Router
@@ -63,7 +61,8 @@ export class ClientesComponent implements OnInit, OnDestroy {
           }
         },
         error: (err: any) => {
-          this.alertServ.warning('Dados sócios ativos não encontrados.')
+          this.showSocA = true;
+          this.messageSocA = 'Dados sócios ativos não encontrados.';
         }
       });
     this.unsubscribeSocI$ = this.socioService.listarSocioInativo()
@@ -76,7 +75,8 @@ export class ClientesComponent implements OnInit, OnDestroy {
           }
         },
         error: (err: any) => {
-          this.alertServ.warning('Dados sócios inativos não encontrados.')
+          this.showSocI = true;
+          this.messageSocI = 'Dados sócios inativos não encontrados.';
         }
       });
 
@@ -90,7 +90,8 @@ export class ClientesComponent implements OnInit, OnDestroy {
           }
         },
         error: (err: any) => {
-          this.alertServ.warning('Dados dependentes ativos não encontrados.')
+          this.showDepA = true;
+          this.messageDepA = 'Dados dependentes ativos não encontrados.';
         }
       });
 
@@ -104,24 +105,10 @@ export class ClientesComponent implements OnInit, OnDestroy {
           }
         },
         error: (err: any) => {
-          this.alertServ.warning('Dados dependentes inativos não encontrados.')
+          this.showDepI = true;
+          this.messageDepI = 'Dados dependentes inativos não encontrados.';
         }
       });
-
-    this.alertServ.getMessage().subscribe((message:any) => {
-      if (message) {
-        this.alertMessage = message.text;
-        this.alertType = message.type;
-        this.alertServ.getMessage().pipe(debounceTime(5000)).subscribe(() => {
-          if (this.selfClosingAlert) {
-            this.selfClosingAlert.close();
-          }
-        });
-      } else {
-        this.alertMessage = undefined;
-        this.alertType = undefined;
-      }
-    });
   }
 
   ngOnDestroy() {
@@ -173,6 +160,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
       data => {
         console.log(data);
         this.ngOnInit();
+        window.location.reload();
       },
       error => {
         if (error.status) {
@@ -199,6 +187,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
       data => {
         console.log(data);
         this.ngOnInit();
+        window.location.reload();
       },
       error => {
         if (error.status) {
@@ -206,6 +195,42 @@ export class ClientesComponent implements OnInit, OnDestroy {
         } else {
           console.log('Erro desconhecido:', error);
         }
+      }
+    );
+  }
+
+  desativarDepende(dependente: Dependente){
+    this.dependenteService.editarDependenteAtivo(dependente).subscribe(
+      data => {
+        this.ngOnInit();
+        window.location.reload();
+      }
+    );
+  }
+
+  ativarDepende(dependente: Dependente){
+    this.dependenteService.editarDependenteDesativo(dependente).subscribe(
+      data => {
+        this.ngOnInit();
+        window.location.reload();
+      }
+    );
+  }
+
+  desativarSocio(socio: Socio){
+    this.socioService.editarSocioAtivo(socio).subscribe(
+      data => {
+        this.ngOnInit();
+        window.location.reload();
+      }
+    );
+  }
+
+  ativarSocio(socio: Socio){
+    this.socioService.editarSocioDesativo(socio).subscribe(
+      data => {
+        this.ngOnInit();
+        window.location.reload();
       }
     );
   }
