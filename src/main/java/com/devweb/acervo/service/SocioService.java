@@ -24,7 +24,7 @@ public class SocioService {
     private SocioRepository socioRepository;
 
     public Socio saveSocio(Socio socioEntra) {
-        if(socioEntra.getDependentes() != null) {
+        if(socioEntra.getDependentes().size() > 0) {
             long countActiveDependents = socioEntra.getDependentes()
                     .stream()
                     .filter(Dependente::isEstahAtivo)

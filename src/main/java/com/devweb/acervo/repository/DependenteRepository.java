@@ -9,12 +9,12 @@ import com.devweb.acervo.model.Dependente;
 
 public interface DependenteRepository extends JpaRepository<Dependente, Long> {
 
-    @Query(value ="SELECT c.* FROM cliente c INNER JOIN dependente d ON c.num_inscricao = d.num_inscricao WHERE not exists (SELECT c.* FROM socio_dependentes sd WHERE c.estah_ativo = true and d.num_inscricao = sd.dependentes) and c.estah_ativo = true", nativeQuery = true)
+    @Query(value ="SELECT d.* FROM dependente d WHERE not exists (SELECT d.* FROM socio_dependentes sd WHERE d.estah_ativo = true and d.num_inscricao = sd.dependentes) and d.estah_ativo = true", nativeQuery = true)
     List<Dependente> findByDependentesOption();
 
-    @Query(value ="SELECT c.* FROM cliente c INNER JOIN dependente d ON c.num_inscricao = d.num_inscricao WHERE c.estah_ativo = true", nativeQuery = true)
+    @Query(value ="SELECT d.* FROM dependente d WHERE d.estah_ativo = true", nativeQuery = true)
     List<Dependente> findAllByDependentesAtivos();
 
-    @Query(value ="SELECT c.* FROM cliente c INNER JOIN dependente d ON c.num_inscricao = d.num_inscricao WHERE c.estah_ativo = false", nativeQuery = true)
+    @Query(value ="SELECT d.* FROM dependente d WHERE d.estah_ativo = false", nativeQuery = true)
     List<Dependente> findAllByDependentesInativos();
 }

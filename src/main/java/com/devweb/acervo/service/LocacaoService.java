@@ -7,7 +7,6 @@ import javax.management.relation.RelationTypeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.devweb.acervo.model.Cliente;
 import com.devweb.acervo.model.Dependente;
 import com.devweb.acervo.model.Locacao;
 import com.devweb.acervo.model.Socio;
@@ -39,7 +38,8 @@ public class LocacaoService {
         editado.setMultaCobrada(locacao.getMultaCobrada());
         editado.setValorCobrado(locacao.getValorCobrado());
         editado.setItem(locacao.getItem());
-        editado.setCliente(locacao.getCliente());
+        editado.setSocio(locacao.getSocio());
+        editado.setDependente(locacao.getDependente());
 
         return locacaoRepo.save(editado);
 

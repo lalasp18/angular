@@ -9,9 +9,9 @@ import com.devweb.acervo.model.Socio;
 
 public interface SocioRepository extends JpaRepository<Socio, Long> {
     
-    @Query(value ="SELECT c.*, s.* FROM cliente c INNER JOIN socio s ON c.num_inscricao = s.num_inscricao WHERE c.estah_ativo = true", nativeQuery = true)
+    @Query(value ="SELECT s.* FROM socio s WHERE s.estah_ativo = true", nativeQuery = true)
     List<Socio> findAllBySocioAtivo();
 
-    @Query(value ="SELECT c.*, s.* FROM cliente c INNER JOIN socio s ON c.num_inscricao = s.num_inscricao WHERE c.estah_ativo = false", nativeQuery = true)
+    @Query(value ="SELECT s.* FROM socio s WHERE s.estah_ativo = false", nativeQuery = true)
     List<Socio> findAllBySocioInativo();
 }

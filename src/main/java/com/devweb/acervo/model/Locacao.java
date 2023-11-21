@@ -50,14 +50,18 @@ public class Locacao {
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "cliente")
-    private Cliente cliente;
+    @JoinColumn(name = "socio")
+    private Socio socio;
+
+    @ManyToOne
+    @JoinColumn(name = "dependente")
+    private Dependente dependente;
 
     public Locacao() {
 
     }
 
-    public Locacao(Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva, Float valorCobrado, Float multaCobrada, Item item, Cliente cliente) {
+    public Locacao(Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva, Float valorCobrado, Float multaCobrada, Item item, Socio socio, Dependente dependente) {
 
         this.dtLocacao = dtLocacao;
         this.dtDevolucaoPrevista = dtDevolucaoPrevista;
@@ -65,11 +69,11 @@ public class Locacao {
         this.valorCobrado = valorCobrado;
         this.multaCobrada = multaCobrada;
         this.item = item;
-        this.cliente = cliente;
-
+        this.socio = socio;
+        this.dependente = dependente;
     }
 
-    public Locacao(Long idLocacao, Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva, Float valorCobrado, Float multaCobrada, Item item, Cliente cliente) {
+    public Locacao(Long idLocacao, Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva, Float valorCobrado, Float multaCobrada, Item item, Socio socio, Dependente dependente) {
 
         this.idLocacao = idLocacao;
         this.dtLocacao = dtLocacao;
@@ -78,7 +82,8 @@ public class Locacao {
         this.valorCobrado = valorCobrado;
         this.multaCobrada = multaCobrada;
         this.item = item;
-        this.cliente = cliente;
+        this.socio = socio;
+        this.dependente = dependente;
     }
 
 }
