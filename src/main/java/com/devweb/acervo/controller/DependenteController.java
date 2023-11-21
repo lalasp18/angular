@@ -53,6 +53,28 @@ public class DependenteController {
 
     }
 
+    @PutMapping("/ativar")
+    @Operation(description = "Dado o status, o dependente é editado.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o dependente seja editado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public Dependente editarDependenteDesativo(@RequestBody Dependente grava) throws RelationTypeNotFoundException {
+        return dependenteService.activeDependente(grava);
+
+    }
+
+    @PutMapping("/desativar")
+    @Operation(description = "Dado o status, o dependente é editado.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o dependente seja editado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public Dependente editarDependenteAtivo(@RequestBody Dependente grava) throws RelationTypeNotFoundException {
+        return dependenteService.desactiveDependente(grava);
+
+    }
+
     @GetMapping("/listar")
     @Operation (description="Retorna todos os dependentees cadastrados.", responses = {
         @ApiResponse(responseCode = "200", description = "Caso o dependente seja listado com sucesso."),

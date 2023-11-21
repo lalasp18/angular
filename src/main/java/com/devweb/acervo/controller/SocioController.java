@@ -50,7 +50,26 @@ public class SocioController {
     })
     public Socio editarSocio(@RequestBody Socio grava) throws RelationTypeNotFoundException {
         return socioService.editSocio(grava);
+    }
 
+    @PutMapping("/ativar")
+    @Operation(description = "Dado o nome, o sócio é editado.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o sócio seja editado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public Socio editarSocioDesativo(@RequestBody Socio grava) throws RelationTypeNotFoundException {
+        return socioService.activeSocio(grava);
+    }
+
+    @PutMapping("/desativar")
+    @Operation(description = "Dado o nome, o sócio é editado.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o sócio seja editado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public Socio editarSocioAtivo(@RequestBody Socio grava) throws RelationTypeNotFoundException {
+        return socioService.desactiveSocio(grava);
     }
 
     @GetMapping("/listar/ativo")

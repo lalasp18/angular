@@ -38,6 +38,22 @@ public class DependenteService {
         return dependenteRepository.save(dependente);
     }
     
+    public Dependente activeDependente(Dependente dependenteEntra) throws RelationTypeNotFoundException {
+        Dependente dependente = dependenteRepository.findById(dependenteEntra.getNumInscricao())
+                    .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + dependenteEntra.getNumInscricao()));
+        dependente.setEstahAtivo(true);
+
+        return dependenteRepository.save(dependente);
+    }
+    
+    public Dependente desactiveDependente(Dependente dependenteEntra) throws RelationTypeNotFoundException {
+        Dependente dependente = dependenteRepository.findById(dependenteEntra.getNumInscricao())
+                    .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + dependenteEntra.getNumInscricao()));
+        dependente.setEstahAtivo(false);
+
+        return dependenteRepository.save(dependente);
+    }
+    
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Dependente> listAllDependentes() {
         return dependenteRepository.findByDependentesOption();

@@ -24,18 +24,37 @@ public class SocioService {
     private SocioRepository socioRepository;
 
     public Socio saveSocio(Socio socioEntra) {
-        long countActiveDependents = socioEntra.getDependentes()
-                .stream()
-                .filter(Dependente::isEstahAtivo)
-                .count();
-    
-        if (countActiveDependents <= 3) {
-            return socioRepository.save(socioEntra);
+        if(socioEntra.getDependentes() != null) {
+            long countActiveDependents = socioEntra.getDependentes()
+                    .stream()
+                    .filter(Dependente::isEstahAtivo)
+                    .count();
+        
+            if (countActiveDependents <= 3) {
+                return socioRepository.save(socioEntra);
+            } else {
+                throw new IllegalArgumentException("Não é possível salvar o sócio, pois existem mais de 3 dependentes ativos.");
+            }
         } else {
-            throw new IllegalArgumentException("Não é possível salvar o sócio, pois existem mais de 3 dependentes ativos.");
+            return socioRepository.save(socioEntra);
         }
     }
     
+    public Socio activeSocio(Socio socioEntra) throws RelationTypeNotFoundException {
+        Socio socio = socioRepository.findById(socioEntra.getNumInscricao())
+                    .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + socioEntra.getNumInscricao()));
+        socio.setEstahAtivo(true);
+
+        return socioRepository.save(socio);
+    }
+    
+    public Socio desactiveSocio(Socio socioEntra) throws RelationTypeNotFoundException {
+        Socio socio = socioRepository.findById(socioEntra.getNumInscricao())
+                    .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + socioEntra.getNumInscricao()));
+        socio.setEstahAtivo(false);
+
+        return socioRepository.save(socio);
+    }
 
     public Socio editSocio(Socio socioEntra) throws RelationTypeNotFoundException {
         Socio socio = socioRepository.findById(socioEntra.getNumInscricao())

@@ -25,9 +25,8 @@ public class Socio extends Cliente {
     @Column(length = 20, nullable = false)
     private String tel;
 
-    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @Column(nullable = true)
+    @Column
     private List<Dependente> dependentes;
     
     public Socio () {}

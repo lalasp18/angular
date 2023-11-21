@@ -45,9 +45,9 @@ public class Locacao {
     @Column(nullable = false)
     private Float multaCobrada;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ItemLocacao", joinColumns = @JoinColumn(name = "item"), inverseJoinColumns = @JoinColumn(name = "itens"))
-    private List<Item> itens;
+    @ManyToOne
+    @JoinColumn(name = "item")
+    private Item item;
 
     @ManyToOne
     @JoinColumn(name = "cliente")
@@ -57,22 +57,19 @@ public class Locacao {
 
     }
 
-    public Locacao(Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva, Float valorCobrado,
-            Float multaCobrada, Cliente cliente) {
+    public Locacao(Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva, Float valorCobrado, Float multaCobrada, Item item, Cliente cliente) {
 
         this.dtLocacao = dtLocacao;
         this.dtDevolucaoPrevista = dtDevolucaoPrevista;
         this.dtDevolucaoEfetiva = dtDevolucaoEfetiva;
         this.valorCobrado = valorCobrado;
         this.multaCobrada = multaCobrada;
-        this.itens = new ArrayList<Item>();
+        this.item = item;
         this.cliente = cliente;
 
     }
 
-    public Locacao(Long idLocacao, Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva,
-            Float valorCobrado,
-            Float multaCobrada, Cliente cliente) {
+    public Locacao(Long idLocacao, Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva, Float valorCobrado, Float multaCobrada, Item item, Cliente cliente) {
 
         this.idLocacao = idLocacao;
         this.dtLocacao = dtLocacao;
@@ -80,7 +77,7 @@ public class Locacao {
         this.dtDevolucaoEfetiva = dtDevolucaoEfetiva;
         this.valorCobrado = valorCobrado;
         this.multaCobrada = multaCobrada;
-        this.itens = new ArrayList<Item>();
+        this.item = item;
         this.cliente = cliente;
     }
 
