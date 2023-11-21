@@ -12,7 +12,7 @@ export class DependenteService {
 
   constructor(private http: HttpClient) { }
 
-  salvarDependente(record: Dependente[]): Observable<Object> {
+  salvarDependente(record: Dependente): Observable<Object> {
     return this.http.post(`${this.API}/criar`, record);
   }
 

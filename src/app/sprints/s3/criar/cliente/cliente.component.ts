@@ -16,8 +16,8 @@ import { DependenteService } from './service/dependente.service';
 export class ClienteComponent implements OnInit, OnDestroy {
   @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert!: NgbAlert;
 
-  clienteSocio: Socio[] = [];
-  clienteDependente: Dependente[] = [];
+  clienteSocio!: Socio;
+  clienteDependente!: Dependente;
   formularioSocio: FormGroup;
   formularioDependente: FormGroup;
 
@@ -49,7 +49,7 @@ export class ClienteComponent implements OnInit, OnDestroy {
       cpf: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       endereco: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       tel: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      dependentes: this.formBuilder.array([], [Validators.required]).clear(),
+      dependentes: this.formBuilder.array([]),
       imagem: [null, Validators.required],
     });
     
@@ -217,8 +217,6 @@ export class ClienteComponent implements OnInit, OnDestroy {
   }
   
   onSubmit() {
-    console.log('socio: ',this.formularioSocio.value)
-    console.log('dependente: ',this.formularioDependente.value)
     this.formularioSocio.get('estahAtivo')?.setValue(1)
     this.formularioDependente.get('estahAtivo')?.setValue(1)
     if (this.formularioSocio.valid) {

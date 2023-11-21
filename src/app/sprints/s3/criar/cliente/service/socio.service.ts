@@ -12,7 +12,7 @@ export class SocioService {
 
   constructor(private http: HttpClient) { }
 
-  salvarSocio(record: Socio[]): Observable<Object> {
+  salvarSocio(record: Socio): Observable<Object> {
     return this.http.post(`${this.API}/criar`, record);
   }
 

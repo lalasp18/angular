@@ -117,8 +117,8 @@ export class ClienteEditComponent implements OnInit, OnDestroy {
 
           this.showSpinner = true;
           setTimeout(() => {
-            for(let i = 0; i < this.listagemClienteDependente.length; i++) {
-              if(this.clienteSocioID.dependentes) {
+            if(this.clienteSocioID.dependentes) {
+              for(let i = 0; i < this.listagemClienteDependente.length; i++) {
                 for (let depende of this.clienteSocioID.dependentes) {
                   if(this.listagemClienteDependente[i].numInscricao === depende.numInscricao) {
                     if (document.getElementById("flexCheck" + i) !== null) {
@@ -129,7 +129,7 @@ export class ClienteEditComponent implements OnInit, OnDestroy {
                   }
                 }
               }
-            }
+            } else {this.showSpinner = false;return}
           }, 5000);
         },
         error: (err: any) => {
