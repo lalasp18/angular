@@ -38,8 +38,7 @@ public class LocacaoService {
         editado.setMultaCobrada(locacao.getMultaCobrada());
         editado.setValorCobrado(locacao.getValorCobrado());
         editado.setItem(locacao.getItem());
-        editado.setSocio(locacao.getSocio());
-        editado.setDependente(locacao.getDependente());
+        editado.setCliente(locacao.getCliente());
 
         return locacaoRepo.save(editado);
 

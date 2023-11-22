@@ -1,15 +1,8 @@
 package com.devweb.acervo.model;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.boot.autoconfigure.integration.IntegrationProperties.RSocket.Client;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,13 +29,13 @@ public class Locacao {
     @Column(nullable = false)
     private Date dtDevolucaoPrevista;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date dtDevolucaoEfetiva;
 
     @Column(nullable = false)
     private Float valorCobrado;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Float multaCobrada;
 
     @ManyToOne
@@ -50,40 +43,7 @@ public class Locacao {
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "socio")
-    private Socio socio;
-
-    @ManyToOne
-    @JoinColumn(name = "dependente")
-    private Dependente dependente;
-
-    public Locacao() {
-
-    }
-
-    public Locacao(Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva, Float valorCobrado, Float multaCobrada, Item item, Socio socio, Dependente dependente) {
-
-        this.dtLocacao = dtLocacao;
-        this.dtDevolucaoPrevista = dtDevolucaoPrevista;
-        this.dtDevolucaoEfetiva = dtDevolucaoEfetiva;
-        this.valorCobrado = valorCobrado;
-        this.multaCobrada = multaCobrada;
-        this.item = item;
-        this.socio = socio;
-        this.dependente = dependente;
-    }
-
-    public Locacao(Long idLocacao, Date dtLocacao, Date dtDevolucaoPrevista, Date dtDevolucaoEfetiva, Float valorCobrado, Float multaCobrada, Item item, Socio socio, Dependente dependente) {
-
-        this.idLocacao = idLocacao;
-        this.dtLocacao = dtLocacao;
-        this.dtDevolucaoPrevista = dtDevolucaoPrevista;
-        this.dtDevolucaoEfetiva = dtDevolucaoEfetiva;
-        this.valorCobrado = valorCobrado;
-        this.multaCobrada = multaCobrada;
-        this.item = item;
-        this.socio = socio;
-        this.dependente = dependente;
-    }
+    @JoinColumn(name = "cliente", referencedColumnName = "numInscricao")
+    private Cliente cliente;
 
 }

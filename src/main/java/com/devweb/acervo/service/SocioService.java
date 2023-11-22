@@ -19,38 +19,41 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Service
 @Tag(name = "SocioService", description = "Fornece serviços web REST para acesso e manipulação de dados de sócios.")
 public class SocioService {
-    
+
     @Autowired
     private SocioRepository socioRepository;
 
     public Socio saveSocio(Socio socioEntra) {
-        if(socioEntra.getDependentes().size() > 0) {
+        if (socioEntra.getDependentes().size() > 0) {
             long countActiveDependents = socioEntra.getDependentes()
                     .stream()
                     .filter(Dependente::isEstahAtivo)
                     .count();
-        
+
             if (countActiveDependents <= 3) {
                 return socioRepository.save(socioEntra);
             } else {
-                throw new IllegalArgumentException("Não é possível salvar o sócio, pois existem mais de 3 dependentes ativos.");
+                throw new IllegalArgumentException(
+                        "Não é possível salvar o sócio, pois existem mais de 3 dependentes ativos.");
             }
         } else {
             return socioRepository.save(socioEntra);
         }
     }
-    
+
     public Socio activeSocio(Socio socioEntra) throws RelationTypeNotFoundException {
         Socio socio = socioRepository.findById(socioEntra.getNumInscricao())
-                    .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + socioEntra.getNumInscricao()));
+                .orElseThrow(() -> new RelationTypeNotFoundException(
+                        "Sócio não existe com número de inscrição:" + socioEntra.getNumInscricao()));
         socio.setEstahAtivo(true);
 
         return socioRepository.save(socio);
     }
-    
+
     public Socio desactiveSocio(Socio socioEntra) throws RelationTypeNotFoundException {
         Socio socio = socioRepository.findById(socioEntra.getNumInscricao())
-                    .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + socioEntra.getNumInscricao()));
+                .orElseThrow(() -> new RelationTypeNotFoundException(
+                        "Sócio não existe com número de inscrição:" + socioEntra.getNumInscricao()));
         socio.setEstahAtivo(false);
 
         return socioRepository.save(socio);
@@ -58,7 +61,8 @@ public class SocioService {
 
     public Socio editSocio(Socio socioEntra) throws RelationTypeNotFoundException {
         Socio socio = socioRepository.findById(socioEntra.getNumInscricao())
-                    .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + socioEntra.getNumInscricao()));
+                .orElseThrow(() -> new RelationTypeNotFoundException(
+                        "Sócio não existe com número de inscrição:" + socioEntra.getNumInscricao()));
         socio.setNumInscricao(socioEntra.getNumInscricao());
         socio.setNome(socioEntra.getNome());
         socio.setDtNascimento(socioEntra.getDtNascimento());
@@ -72,12 +76,12 @@ public class SocioService {
 
         return socioRepository.save(socio);
     }
-    
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Socio> listAllSociosAtivos() {
         return socioRepository.findAllBySocioAtivo();
     }
-    
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Socio> listAllSociosInativos() {
         return socioRepository.findAllBySocioInativo();
@@ -85,13 +89,13 @@ public class SocioService {
 
     public Socio listIdSocio(Long id) throws RelationTypeNotFoundException {
         return socioRepository.findById(id)
-            .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + id));
+                .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + id));
     }
 
     public void deleteSocio(Long id) throws RelationTypeNotFoundException {
         Socio pa = socioRepository.findById(id)
-            .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + id));
-        
+                .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + id));
+
         socioRepository.delete(pa);
     }
 }
