@@ -19,9 +19,7 @@ import { DiretorModule } from './sprints/s1/criar/diretor/routing/diretor.module
 import { TituloModule } from './sprints/s2/criar/titulo/routing/titulo.module';
 import { ItemModule } from './sprints/s2/criar/item/routing/item.module';
 import { ClienteModule } from './sprints/s3/criar/cliente/routing/cliente.module';
-import { LocacaoComponent } from './sprints/s3/criar/locacao/locacao.component';
-import { LocacaoEditComponent } from './sprints/s3/editar/locacao-edit/locacao-edit.component';
-import { LocacoesComponent } from './sprints/s3/listar/locacoes/locacoes.component';
+import { LocacaoModule } from './sprints/s3/criar/locacao/routing/locacao.module';
 
 @NgModule({
   declarations: [
@@ -29,9 +27,6 @@ import { LocacoesComponent } from './sprints/s3/listar/locacoes/locacoes.compone
     NavComponent,
     FooterComponent,
     HomeComponent,
-    LocacaoComponent,
-    LocacaoEditComponent,
-    LocacoesComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +46,8 @@ import { LocacoesComponent } from './sprints/s3/listar/locacoes/locacoes.compone
     TituloModule,
     ItemModule,
 
-    ClienteModule
+    ClienteModule,
+    LocacaoModule
   ],
   providers: [
     AlertService
