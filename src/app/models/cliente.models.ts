@@ -1,4 +1,4 @@
-export interface Dependente {
+export interface Cliente {
     numInscricao: number;
     nome: string;
     dtNascimento: Date;
@@ -7,13 +7,9 @@ export interface Dependente {
     imagem: string;
 }
 
-export interface Socio {
-    numInscricao: number;
-    nome: string;
-    dtNascimento: Date;
-    sexo: string;
-    estahAtivo: boolean;
-    imagem: string;
+export interface Dependente extends Cliente {}
+
+export interface Socio extends Cliente {
     cpf: string;
     endereco: string;
     tel: string;
