@@ -1,0 +1,58 @@
+<div class="corpo mx-auto mt-4">
+    <h2>Lista De Locações Pendentes</h2>
+
+    <div id="listaLocacoes" class="row row-cols-2 row-cols-lg-5 align-items-center" *ngIf="locacaoData.length > 0">
+        <div class="card col mb-4 me-4 shadow bg-body-tertiary rounded" style="width: 18rem;cursor: pointer;"
+            *ngFor="let locacao of locacaoData; index as i">
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+                    <img src="{{locacao.item.titulo.imagem}}" class="img-thumbnail ">
+                    <img src="{{locacao.cliente.imagem}}" class="img-thumbnail ">
+                </div>
+                <h2 class="card-title text-dark"><strong>Cliente:</strong> {{ locacao.cliente.nome }}</h2>
+                <h3 class="card-title"><strong>Data da locação:</strong> {{ locacao.dtLocacao | date: 'dd/MM/yyyy' }}
+                </h3>
+                <h4 class="card-subtitle my-2 text-body-secondary"><strong>Data de devolução: </strong>{{
+                    locacao.dtDevolucaoPrevista | date: 'dd/MM/yyyy' }}
+                </h4>
+                <p class="card-text">Filme: {{ locacao.item.titulo.nome}} </p>
+                <p class="card-text">Valor: {{ locacao.valorCobrado }}
+                </p>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    (click)="definirIdParaDevolver(locacao.idLocacao, locacao.item.titulo.nome)">Devolver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        (hidden)="limparIdParaDevolver()">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Você está prestes a fazer a devolução deste
+                        item: {{itemParaDevolverNome}}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <h5>Valor padrão da multa R$12,00</h5>
+                    <h3 id="modalAlert">Multa: {{valorMulta | currency:'BRL'}}</h3>
+                    <p>Você deseja continuar?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-confirmar-devolucao" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        (click)="devolverID(locacaoParaDevolverId)">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alerta w-50 my-5 mx-auto">
+    <ngb-alert #selfClosingAlert *ngIf="alertMessage"
+        [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error', 'alert-warning': alertType === 'warning'}"
+        (closed)="close()">{{ alertMessage }}</ngb-alert>
+</div>

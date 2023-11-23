@@ -24,6 +24,10 @@ export class ItemService {
     return this.http.get<Item[]>(`${this.API}/listar`);
   }
 
+  listarItemSemLocacao(): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.API}/listar/itemslocacao`);
+  }
+
   pegarIdItem(idItem: number): Observable<Item> {
     return this.http.get<Item>(`${this.API}/listar/${idItem}`);
   }

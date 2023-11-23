@@ -48,10 +48,19 @@
             <li><a class="dropdown-item" routerLink="listar/cliente">Listar Clientes</a></li>
           </ul>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Controle de Locação
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" routerLink="api/locacao/listar/devolvida">Listar Locações</a></li>
+            <li><a class="dropdown-item" routerLink="api/locacao/listar/pendente">Devolução de Locação</a></li>
+          </ul>
+        </li>
       </ul>
       <div class="d-flex ">
-        <button type="button" class="btn btn-outline-success">
-          <i class="fa-solid fa-cart-plus fa-beat"></i> Nova Locação
+        <button type="button" class="btn btn-outline-success"><a class="dropdown-item" routerLink="api/locacao/criar">
+            <i class="fa-solid fa-cart-plus fa-beat"></i> Nova Locação</a>
         </button>
       </div>
     </div>

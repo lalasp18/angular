@@ -3,12 +3,13 @@ import { Item } from "./item.models";
 
 
 export interface Locacao {
+    idLocacao: number;
     dtLocacao: Date;
     dtDevolucaoPrevista: Date;
     dtDevolucaoEfetiva: Date;
     valorCobrado: number;
     multaCobrada: number;
-    item: Array<Item>;
+    item: Item;
     cliente: Cliente;
 
 }

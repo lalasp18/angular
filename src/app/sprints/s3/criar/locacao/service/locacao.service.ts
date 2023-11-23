@@ -16,12 +16,16 @@ export class LocacaoService {
     return this.http.post(`${this.API}/criar`, record);
   }
 
-  editarLocacao(record: Locacao[]): Observable<Object> {
-    return this.http.put(`${this.API}/editar`, record);
+  editarLocacao(id: number): Observable<Object> {
+    return this.http.put(`${this.API}/editar`, id);
   }
 
-  listarLocacao(): Observable<Locacao[]> {
-    return this.http.get<Locacao[]>(`${this.API}/listar`);
+  listarLocacaoPendente(): Observable<Locacao[]> {
+    return this.http.get<Locacao[]>(`${this.API}/listar/pendente`);
+  }
+
+  listarLocacaoDevolvida(): Observable<Locacao[]> {
+    return this.http.get<Locacao[]>(`${this.API}/listar/devolvida`);
   }
 
   pegarIdLocacao(id: number): Observable<Locacao> {

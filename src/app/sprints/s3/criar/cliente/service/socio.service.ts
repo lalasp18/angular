@@ -32,6 +32,10 @@ export class SocioService {
     return this.http.get<Socio[]>(`${this.API}/listar/ativo`);
   }
 
+  listarSocioAtivoESemMulta(): Observable<Socio[]> {
+    return this.http.get<Socio[]>(`${this.API}/listar/ativosmulta`);
+  }
+
   listarSocioInativo(): Observable<Socio[]> {
     return this.http.get<Socio[]>(`${this.API}/listar/inativo`);
   }

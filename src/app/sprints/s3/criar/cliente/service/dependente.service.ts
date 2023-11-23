@@ -36,6 +36,10 @@ export class DependenteService {
     return this.http.get<Dependente[]>(`${this.API}/listar/ativo`);
   }
 
+  listarDependenteESemMulta(): Observable<Dependente[]> {
+    return this.http.get<Dependente[]>(`${this.API}/listar/ativosmulta`);
+  }
+
   listarDependenteInativo(): Observable<Dependente[]> {
     return this.http.get<Dependente[]>(`${this.API}/listar/inativo`);
   }

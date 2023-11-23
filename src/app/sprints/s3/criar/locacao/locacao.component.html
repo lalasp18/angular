@@ -1,33 +1,6 @@
-<!-- <div class="corpo mx-auto mt-4">
+<div class="corpo mx-auto mt-4">
     <h2>Locar Filme</h2>
     <form id="meuFormulario" class="row g-3 mx-auto mt-4" [formGroup]="locacaoform" (ngSubmit)="onSubmit()">
-        <div class="col-md-8">
-            <button class="btn btn-success col-12 dropdown-toggle" type="button" id="dropdownMenuLink"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Selecionar Filme..
-            </button>
-
-            <div class="dropdown-menu col-md-4" aria-labelledby="dropdownMenuLink">
-                <div *ngFor="let item of itemList; index as i">
-                    <input class="form-check-input mx-2" type="checkbox" id="flexCheck{{i}}"
-                        (change)="pegarItem($event,item,i)">
-                    <label class="form-check-label me-3" for="flexCheck{{i}}">
-                        {{item.titulo.nome}}/{{item.tipo}}
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-8">
-            <label class="form-label">Seleção de Cliente</label>
-            <select id="selectCliente" class="form-select" aria-label="Seleção de Cliente"
-                (change)="pegarCliente($event)">
-                <option selected>Selecione um(a) Cliente..</option>
-                <option *ngFor="let cliente of clienteList" [value]="cliente.num_inscricao">
-                    {{cliente.nome}}
-                </option>
-            </select>
-        </div>
 
         <div class="col-md-8">
             <label for="inputDtLocacao" class="form-label">Date de Locação</label>
@@ -36,20 +9,61 @@
 
         <div class="col-md-8">
             <label for="inputDevolucaoPrevista" class="form-label">Date de Devolução Prevista</label>
-            <input type="date" class="form-control" formControlName="dtDevolucaoPrevista" id="inputDtDevoluvaoPrevista" required>
+            <input type="date" class="form-control" formControlName="dtDevolucaoPrevista" id="inputDtDevoluvaoPrevista"
+                required>
         </div>
 
-
+        <div class="col-md-8">
+            <label class="form-label">Seleção de Filmes</label>
+            <select id="selectFilme" class="form-select" aria-label="Seleção de Filme" (change)="pegarItem($event)">
+                <option selected>Selecione um Filme...</option>
+                <option *ngFor="let item of itemList" [value]="item.idItem">
+                    {{item.titulo.nome}} - {{item.tipoItem}}
+                </option>
+            </select>
+        </div>
 
         <div class="col-md-8">
             <label for="inputAno" class="form-label">Valor Cobrado</label>
-            <input type="number" class="form-control" formControlName="ano" id="inputAno" required min=0>
+            <input type="number" class="form-control" formControlName="valorCobrado" id="inputAno" required min=0>
         </div>
 
+        <div class="d-flex flex-row mb-2">
+            <div class="form-check me-4">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioRede"
+                    (change)="onChange($event)" checked>
+                <label class="form-check-label text-light" for="flexRadioRede">
+                    Dependente
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioOrienta"
+                    (change)="onChange($event)">
+                <label class="form-check-label text-light" for="flexRadioOrienta">
+                    Sócio
+                </label>
+            </div>
+        </div>
 
-        <div class="col-md-8">
-            <img src="{{imgURL}}" class="img-thumbnail">
-            <input class="form-control" accept="image/*" #file (change)="preview(file.files)" type="file" id="formFile">
+        <div class="col-md-8" *ngIf="showForm">
+            <label class="form-label">Seleção de Dependente</label>
+            <select id="selectDependente" class="form-select" aria-label="Seleção de Dependente"
+                (change)="pegarDependente($event)">
+                <option selected>Selecione um Dependente...</option>
+                <option *ngFor="let depende of dependenteList" [value]="depende.numInscricao">
+                    {{depende.nome}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-8" *ngIf="!showForm">
+            <label class="form-label">Seleção de Sócio</label>
+            <select id="selectSocio" class="form-select" aria-label="Seleção de Sócio" (change)="pegarSocio($event)">
+                <option selected>Selecione um Sócio...</option>
+                <option *ngFor="let socio of socioList" [value]="socio.numInscricao">
+                    {{socio.nome}}
+                </option>
+            </select>
         </div>
 
         <div class="col-12">
@@ -63,4 +77,4 @@
     <ngb-alert #selfClosingAlert *ngIf="alertMessage"
         [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error'}"
         (closed)="close()">{{ alertMessage }}</ngb-alert>
-</div> -->
+</div>
