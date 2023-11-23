@@ -87,6 +87,11 @@ public class SocioService {
         return socioRepository.findAllBySocioInativo();
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public List<Socio> listAllSociosAtivoseSemMulta() {
+        return socioRepository.findAllBySocioAtivoeSemMulta();
+    }
+
     public Socio listIdSocio(Long id) throws RelationTypeNotFoundException {
         return socioRepository.findById(id)
                 .orElseThrow(() -> new RelationTypeNotFoundException("Sócio não existe com número de inscrição:" + id));

@@ -33,9 +33,9 @@ public class ItemController {
 
     @PostMapping("/criar")
     @Operation(description = "Dado o nome, cadastra um novo item.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso o item seja incluído com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso o item seja incluído com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public Item salvarItem(@RequestBody Item grava) {
         return itemServ.saveAll(grava);
@@ -44,9 +44,9 @@ public class ItemController {
 
     @PutMapping("/editar")
     @Operation(description = "Dado o nome, o item é editado.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso o item seja editado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso o item seja editado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public Item editarItem(@RequestBody Item grava) throws RelationTypeNotFoundException {
         return itemServ.editAll(grava);
@@ -55,9 +55,9 @@ public class ItemController {
 
     @GetMapping("/listar")
     @Operation(description = "Retorna todos os itemes cadastrados.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso o item seja listado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso o item seja listado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public List<Item> listarItem() {
         return itemServ.listAll();
@@ -65,20 +65,31 @@ public class ItemController {
 
     @GetMapping("/listar/{id}")
     @Operation(description = "Retorna o item cadastrado por id.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso o item ID seja listado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso o item ID seja listado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public Item pegarIdItem(@PathVariable Long id) throws RelationTypeNotFoundException {
         return itemServ.listId(id);
 
     }
 
+    @GetMapping("/listar/itemslocacao")
+    @Operation(description = "Retorna o item cadastrado por id.", responses = {
+            @ApiResponse(responseCode = "200", description = "Caso o item ID seja listado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public List<Item> listarItemSemLocacao() throws RelationTypeNotFoundException {
+        return itemServ.listAllOutLocacao();
+
+    }
+
     @DeleteMapping("/deletar/{id}")
     @Operation(description = "Dado o id, deleta o item.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso o item seja deletado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso o item seja deletado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public ResponseEntity<String> deletarItem(@PathVariable Long id) {
         try {

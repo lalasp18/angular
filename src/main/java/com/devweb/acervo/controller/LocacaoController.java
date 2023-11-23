@@ -53,14 +53,24 @@ public class LocacaoController {
 
     }
 
-    @GetMapping("/listar")
+    @GetMapping("/listar/pendente")
     @Operation(description = "Retorna todos as locações cadastrados.", responses = {
             @ApiResponse(responseCode = "200", description = "Caso a locacão seja listado com sucesso."),
             @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
             @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
-    public List<Locacao> listarLocacao() {
-        return locacaoServ.listAll();
+    public List<Locacao> listarLocacaoPendente() {
+        return locacaoServ.listAllNaoDevolvido();
+    }
+
+    @GetMapping("/listar/devolvida")
+    @Operation(description = "Retorna todos as locações cadastrados.", responses = {
+            @ApiResponse(responseCode = "200", description = "Caso a locacão seja listado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public List<Locacao> listarLocacaoDevolvida() {
+        return locacaoServ.listAllDevolvido();
     }
 
     @GetMapping("/listar/{id}")

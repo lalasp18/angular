@@ -1,9 +1,17 @@
 package com.devweb.acervo.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.devweb.acervo.model.Locacao;
 
 public interface LocacaoRepository extends JpaRepository<Locacao, Long> {
 
+    @Query(value = "select * from locacao where dt_devolucao_efetiva is null", nativeQuery = true)
+    List<Locacao> findAllLocacaoNaoDevolvida();
+
+    @Query(value = "select * from locacao where dt_devolucao_efetiva is not null ", nativeQuery = true)
+    List<Locacao> findAllLocacaoDevolvida();
 }
