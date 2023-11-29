@@ -105,6 +105,16 @@ public class DependenteController {
         return dependenteService.listAllDependentesQuery3();
     }
 
+    @GetMapping("/listar/inativosmulta")
+    @Operation (description="Retorna todos os dependentees cadastrados.", responses = {
+        @ApiResponse(responseCode = "200", description = "Caso o dependente seja listado com sucesso."),
+        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public List<Dependente> listarDependenteInativoMulta() {
+        return dependenteService.listAllDependentesQuery3();
+    }
+
     @GetMapping("/listar/{id}")
     @Operation (description="Retorna o dependente cadastrado por id.", responses = {
         @ApiResponse(responseCode = "200", description = "Caso o dependente ID seja listado com sucesso."),

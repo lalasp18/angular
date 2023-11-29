@@ -46,6 +46,28 @@ public class SocioService {
                 .orElseThrow(() -> new RelationTypeNotFoundException(
                         "Sócio não existe com número de inscrição:" + socioEntra.getNumInscricao()));
         socio.setEstahAtivo(true);
+        if(!socio.getDependentes().isEmpty()) {
+            List<Dependente> dList = new ArrayList<>();
+            if (socio.getDependentes().size() > 0 && socio.getDependentes().size() <= 3) {
+                for (Dependente element : socio.getDependentes()) {
+                    element.setEstahAtivo(true);
+                    dList.add(element);
+                }
+                socio.setDependentes(dList);
+            } else if (socio.getDependentes().size() > 3){
+                for (int i = 0; i < 3; i++) {
+                    Dependente element = socio.getDependentes().get(i);
+                    element.setEstahAtivo(true);
+                    dList.add(element);
+                }
+                for (int i = 3; i < socio.getDependentes().size(); i++) {
+                    Dependente element = socio.getDependentes().get(i);
+                    element.setEstahAtivo(false);
+                    dList.add(element);
+                }
+                socio.setDependentes(dList);
+            }
+        }
 
         return socioRepository.save(socio);
     }
@@ -55,6 +77,14 @@ public class SocioService {
                 .orElseThrow(() -> new RelationTypeNotFoundException(
                         "Sócio não existe com número de inscrição:" + socioEntra.getNumInscricao()));
         socio.setEstahAtivo(false);
+        if(!socio.getDependentes().isEmpty()) {
+            List<Dependente> dList = new ArrayList<>();
+            for (Dependente element : socio.getDependentes()) {
+                element.setEstahAtivo(false);
+                dList.add(element);
+            }
+            socio.setDependentes(dList);
+        }
 
         return socioRepository.save(socio);
     }
