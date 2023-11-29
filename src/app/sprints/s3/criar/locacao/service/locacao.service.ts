@@ -16,8 +16,8 @@ export class LocacaoService {
     return this.http.post(`${this.API}/criar`, record);
   }
 
-  editarLocacao(id: number): Observable<Object> {
-    return this.http.put(`${this.API}/editar`, id);
+  editarLocacao(record: Locacao): Observable<Object> {
+    return this.http.put(`${this.API}/editar`, record);
   }
 
   listarLocacaoPendente(): Observable<Locacao[]> {

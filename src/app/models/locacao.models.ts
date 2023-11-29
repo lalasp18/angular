@@ -11,5 +11,5 @@ export interface Locacao {
     multaCobrada: number;
     item: Item;
     cliente: Cliente;
-
+    ativo: boolean;
 }

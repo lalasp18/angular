@@ -16,7 +16,7 @@ export class LocacaoPendenteComponent implements OnInit, OnDestroy {
 
   locacaoData: Locacao[] = [];
   unsubscribe$!: Subscription;
-  locacaoParaDevolverId: number = -1;
+  locacaoParaDevolver!: Locacao;
   itemParaDevolverNome: string = "";
   valorMulta: any;
 
@@ -31,6 +31,10 @@ export class LocacaoPendenteComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+
+let nom: Date = new Date(new Date().toISOString());
+
+console.log('format ',nom);
     this.unsubscribe$ = this.locacaoService.listarLocacaoPendente()
       .subscribe({
         next: (itens: any) => {
@@ -67,21 +71,21 @@ export class LocacaoPendenteComponent implements OnInit, OnDestroy {
   }
 
   definirIdParaDevolver(id: number, item: string) {
-    this.locacaoParaDevolverId = id;
     this.itemParaDevolverNome = item;
     this.locacaoService.pegarIdLocacao(id).subscribe({
       next: (data: Locacao) => {
+        this.locacaoParaDevolver = data;
         let dtAtual = new Date();
         let outraDt = new Date(data.dtDevolucaoPrevista)
         if (outraDt < dtAtual) {
           let dias = this.diferencaEmDias(outraDt, dtAtual);
           this.valorMulta = dias * 12;
+          this.locacaoParaDevolver.multaCobrada = this.valorMulta;
         } else {
           this.valorMulta = "Este cliente não possui multa.";
         }
       }
     })
-    this.valorMulta = 858585;
   }
 
   diferencaEmDias(outraData: Date, dataAtual: Date) {
@@ -93,12 +97,26 @@ export class LocacaoPendenteComponent implements OnInit, OnDestroy {
     return diferencaEmDias;
   }
 
-  limparIdParaDevolver() {
-    this.locacaoParaDevolverId = -1;
+  formatarDataLocacao(){
+    this.locacaoParaDevolver.dtDevolucaoEfetiva = new Date();
+    const ano = this.locacaoParaDevolver.dtDevolucaoEfetiva.getFullYear();
+    const mes = (this.locacaoParaDevolver.dtDevolucaoEfetiva.getMonth() + 1).toString().padStart(2, '0');
+    const dia = this.locacaoParaDevolver.dtDevolucaoEfetiva.getDate().toString().padStart(2, '0');
+    const dataFormatada = `${ano}-${mes}-${dia}`;
+
+    console.log(dataFormatada);
+    this.locacaoParaDevolver.dtDevolucaoEfetiva = new Date(dataFormatada);
+    this.locacaoParaDevolver.dtDevolucaoPrevista = new Date(dataFormatada);
   }
 
-  devolverID(id: number) {
-    this.locacaoService.editarLocacao(id).subscribe(data => {
+  limparLocacaoParaDevolver() {
+    this.locacaoParaDevolver = {} as Locacao;
+    this.itemParaDevolverNome = "";
+  }
+
+  devolverID() {
+    this.formatarDataLocacao();
+    this.locacaoService.editarLocacao(this.locacaoParaDevolver).subscribe(data => {
       this.ngOnInit();
     });
   }
