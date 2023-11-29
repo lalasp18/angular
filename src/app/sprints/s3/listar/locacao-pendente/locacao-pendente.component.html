@@ -37,8 +37,13 @@
 
                 <div class="modal-body">
                     <h5>Valor padrão da multa R$12,00</h5>
-                    <h3 id="modalAlert">Multa: {{valorMulta | currency:'BRL'}}</h3>
+                    <h3 id="modalAlert" *ngIf="valorMultaMessage == ''">Multa: {{valorMulta | currency:'BRL'}}</h3>
+                    <h3 id="modalAlert" *ngIf="valorMultaMessage != ''">Multa: {{valorMultaMessage}}</h3>
                     <p>Você deseja continuar?</p>
+                    <div>
+                        <label for="efetDev">Efeivar devolução</label>
+                        <input type="date" id="efetDev" class="form-control form-control-sm" readonly>
+                    </div>
                 </div>
 
                 <div class="modal-footer">
