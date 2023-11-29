@@ -6,6 +6,8 @@ import javax.management.relation.RelationTypeNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.devweb.acervo.model.Item;
 import com.devweb.acervo.repository.ItemRepository;
@@ -38,6 +40,11 @@ public class ItemService {
 
     public List<Item> listAll() {
         return itemRepo.findAll();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public List<Item> listAllOutLocacao() {
+        return itemRepo.findAllItemOutLocacao();
     }
 
     public Item listId(Long idItem) throws RelationTypeNotFoundException {

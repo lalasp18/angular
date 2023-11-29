@@ -17,4 +17,8 @@ public interface DependenteRepository extends JpaRepository<Dependente, Long> {
 
     @Query(value = "SELECT c.* FROM cliente c INNER JOIN dependente d ON c.num_inscricao = d.num_inscricao WHERE c.estah_ativo = false", nativeQuery = true)
     List<Dependente> findAllByDependentesInativos();
+
+    @Query(value = "select c.*,d.* from cliente c, dependente d where d.num_inscricao = c.num_inscricao and c.num_inscricao not in (select c.num_inscricao from cliente c inner join locacao l on c.num_inscricao = l.cliente where  c.estah_ativo = true and(l.dt_devolucao_efetiva <= l.dt_devolucao_prevista or l.dt_devolucao_efetiva is null )) ", nativeQuery = true)
+    List<Dependente> findAllByDependentesativosesemmulta();
+
 }

@@ -44,8 +44,12 @@ public class LocacaoService {
 
     }
 
-    public List<Locacao> listAll() {
-        return locacaoRepo.findAll();
+    public List<Locacao> listAllNaoDevolvido() {
+        return locacaoRepo.findAllLocacaoNaoDevolvida();
+    }
+
+    public List<Locacao> listAllDevolvido() {
+        return locacaoRepo.findAllLocacaoDevolvida();
     }
 
     public Locacao listId(Long idLocacao) throws RelationTypeNotFoundException {
