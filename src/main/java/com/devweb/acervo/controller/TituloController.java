@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.devweb.acervo.model.Item;
 import com.devweb.acervo.model.Titulo;
 import com.devweb.acervo.service.TituloService;
 
@@ -33,9 +34,9 @@ public class TituloController {
 
     @PostMapping("/criar")
     @Operation(description = "Dado o nome, cadastra um novo título.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso o título seja incluído com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso o título seja incluído com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public Titulo salvarTitulo(@RequestBody Titulo grava) {
         return tituloServ.saveAll(grava);
@@ -44,9 +45,9 @@ public class TituloController {
 
     @PutMapping("/editar")
     @Operation(description = "Dado o nome, o título é editado.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso o título seja editado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso o título seja editado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public Titulo editarTitulo(@RequestBody Titulo grava) throws RelationTypeNotFoundException {
         return tituloServ.editAll(grava);
@@ -55,19 +56,53 @@ public class TituloController {
 
     @GetMapping("/listar")
     @Operation(description = "Retorna todos os títuloes cadastrados.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso o título seja listado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso o título seja listado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public List<Titulo> listarTitulo() {
         return tituloServ.listAll();
     }
 
+    @GetMapping("/listar/tituloNome")
+    @Operation(description = "Retorna o titulo cadastrado por nome do titulo.", responses = {
+            @ApiResponse(responseCode = "200", description = "Caso o titulo seja listado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public List<Titulo> listarTituloNome(@RequestBody String nome) throws RelationTypeNotFoundException {
+        return tituloServ.listTituloNome(nome);
+
+    }
+
+    @GetMapping("/listar/tituloAtor")
+    @Operation(description = "Retorna o titulo cadastrado por nome do ator.", responses = {
+            @ApiResponse(responseCode = "200", description = "Caso o titulo seja listado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public List<Titulo> listarTituloAtor(@RequestBody String nome) throws RelationTypeNotFoundException {
+        return tituloServ.listTituloAtor(nome);
+
+    }
+
+    @GetMapping("/listar/tituloCategoria")
+    @Operation(description = "Retorna o titulo cadastrado por categoria.", responses = {
+            @ApiResponse(responseCode = "200", description = "Caso o titulo seja listado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+    })
+    public List<Titulo> listarTitulocategoria(@RequestBody String nome) throws RelationTypeNotFoundException {
+        System.out.println("VEIO AQUI O PARAMETRO CONTROLLER:" + nome);
+        return tituloServ.listTituloCategoria(nome);
+
+    }
+
     @GetMapping("/listar/{id}")
     @Operation(description = "Retorna o título cadastrado por id.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso o título ID seja listado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso o título ID seja listado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public Titulo pegarIdTitulo(@PathVariable Long id) throws RelationTypeNotFoundException {
         return tituloServ.listId(id);
@@ -76,9 +111,9 @@ public class TituloController {
 
     @DeleteMapping("/deletar/{id}")
     @Operation(description = "Dado o id, deleta o título.", responses = {
-        @ApiResponse(responseCode = "200", description = "Caso o título seja deletado com sucesso."),
-        @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
-        @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
+            @ApiResponse(responseCode = "200", description = "Caso o título seja deletado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "O servidor não pode processar a requisição devido a alguma coisa que foi entendida como um erro do cliente."),
+            @ApiResponse(responseCode = "500", description = "Caso não tenha sido possível realizar a operação.")
     })
     public ResponseEntity<String> deletarTitulo(@PathVariable Long id) {
         try {

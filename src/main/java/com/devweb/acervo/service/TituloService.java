@@ -6,7 +6,10 @@ import javax.management.relation.RelationTypeNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.devweb.acervo.model.Item;
 import com.devweb.acervo.model.Titulo;
 import com.devweb.acervo.repository.TituloRepository;
 
@@ -42,6 +45,23 @@ public class TituloService {
 
     public List<Titulo> listAll() {
         return tituloRepo.findAll();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public List<Titulo> listTituloNome(String nome) {
+        return tituloRepo.findTituloNome(nome);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public List<Titulo> listTituloAtor(String nomeator) {
+        return tituloRepo.findTituloAtor(nomeator);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public List<Titulo> listTituloCategoria(String nomeCategoria) {
+        System.out.println("VEIO AQUI O PARAMETRO EM SERVICE:" + nomeCategoria);
+        System.out.println("VEIO NA QUERY:" + tituloRepo.findTituloCategoria(nomeCategoria));
+        return tituloRepo.findTituloCategoria(nomeCategoria);
     }
 
     public Titulo listId(Long idTitulo) throws RelationTypeNotFoundException {
