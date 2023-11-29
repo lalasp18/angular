@@ -45,5 +45,7 @@ public class Locacao {
     @ManyToOne
     @JoinColumn(name = "cliente", referencedColumnName = "numInscricao")
     private Cliente cliente;
-
+    
+    @Column(nullable = false)
+    private boolean ativo = true;
 }

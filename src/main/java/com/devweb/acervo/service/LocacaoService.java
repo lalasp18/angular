@@ -6,6 +6,8 @@ import javax.management.relation.RelationTypeNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.devweb.acervo.model.Dependente;
 import com.devweb.acervo.model.Locacao;
@@ -31,23 +33,22 @@ public class LocacaoService {
                         () -> new RelationTypeNotFoundException(
                                 "Locação não existe com id :" + locacao.getIdLocacao()));
 
-        editado.setIdLocacao(locacao.getIdLocacao());
         editado.setDtLocacao(locacao.getDtLocacao());
         editado.setDtDevolucaoEfetiva(locacao.getDtDevolucaoEfetiva());
         editado.setDtDevolucaoPrevista(locacao.getDtDevolucaoEfetiva());
         editado.setMultaCobrada(locacao.getMultaCobrada());
-        editado.setValorCobrado(locacao.getValorCobrado());
-        editado.setItem(locacao.getItem());
-        editado.setCliente(locacao.getCliente());
+        editado.setAtivo(false);
 
         return locacaoRepo.save(editado);
 
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Locacao> listAllNaoDevolvido() {
         return locacaoRepo.findAllLocacaoNaoDevolvida();
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Locacao> listAllDevolvido() {
         return locacaoRepo.findAllLocacaoDevolvida();
     }

@@ -38,6 +38,7 @@ public class ItemService {
         return itemRepo.save(editado);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Item> listAll() {
         return itemRepo.findAll();
     }
