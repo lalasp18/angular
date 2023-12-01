@@ -8,6 +8,7 @@ import { TituloComponent } from '../titulo.component';
 import { TituloService } from '../service/titulo.service';
 import { TitulosComponent } from '../../../listar/titulos/titulos.component';
 import { TituloEditComponent } from '../../../editar/titulo-edit/titulo-edit.component';
+import { BuscaTitulosComponent } from 'src/app/sprints/s4/busca-titulos/busca-titulos.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { TituloEditComponent } from '../../../editar/titulo-edit/titulo-edit.com
     TituloComponent,
     TituloEditComponent,
 
-    TitulosComponent
+    TitulosComponent,
+    BuscaTitulosComponent
 
   ],
   imports: [

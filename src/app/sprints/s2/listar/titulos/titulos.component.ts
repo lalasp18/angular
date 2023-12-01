@@ -93,7 +93,7 @@ export class TitulosComponent implements OnInit, OnDestroy {
     this.tituloService.deletarTitulo(id)
     .subscribe(
       data => {
-        console.log(data);
+        window.location.reload();
         this.ngOnInit();
       },
       error => {

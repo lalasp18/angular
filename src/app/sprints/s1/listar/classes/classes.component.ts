@@ -80,7 +80,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
     this.classeService.deletarClasse(id)
     .subscribe(
       data => {
-        console.log(data);
+        window.location.reload();
         this.ngOnInit();
       },
       error => {

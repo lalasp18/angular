@@ -78,6 +78,7 @@ export class ItensComponent implements OnInit, OnDestroy {
 
   deletarID(id: number) {
     this.itemService.deletarItem(id).subscribe(data => {
+      window.location.reload();
       this.ngOnInit();
     });
   }

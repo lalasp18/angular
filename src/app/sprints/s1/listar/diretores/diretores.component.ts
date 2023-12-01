@@ -81,7 +81,7 @@ export class DiretoresComponent implements OnInit, OnDestroy {
     this.diretorService.deletarDiretor(id)
     .subscribe(
       data => {
-        console.log(data);
+        window.location.reload();
         this.ngOnInit();
       },
       error => {

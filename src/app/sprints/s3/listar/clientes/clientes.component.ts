@@ -185,9 +185,8 @@ export class ClientesComponent implements OnInit, OnDestroy {
     this.dependenteService.deletarDependente(id)
     .subscribe(
       data => {
-        console.log(data);
-        this.ngOnInit();
         window.location.reload();
+        this.ngOnInit();
       },
       error => {
         if (error.status) {

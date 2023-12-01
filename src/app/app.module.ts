@@ -26,7 +26,7 @@ import { LocacaoModule } from './sprints/s3/criar/locacao/routing/locacao.module
     AppComponent,
     NavComponent,
     FooterComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

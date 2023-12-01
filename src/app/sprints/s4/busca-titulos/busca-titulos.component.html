@@ -1,0 +1,48 @@
+<div class="caixa">
+    <form class="d-flex justify-content-center g-3">
+        <div class="input-group mb-3 w-50">
+            <select id="selectParam" class="form-select w-25" aria-label="Default select example">
+                <option value="1" selected>Nome</option>
+                <option value="2">Categoria</option>
+                <option value="3">Autor</option>
+            </select>
+            <input type="text" id="inputParam" class="form-control w-75" placeholder="Pesquisar em títulos">
+        </div>
+        <div class="ms-3">
+            <button type="submit" class="btn btn-busca mb-3" (click)="procurarFilter()">
+                <i class="fa-solid fa-magnifying-glass fa-rotate-90"></i>
+            </button>
+        </div>
+    </form>
+        
+    <div class="movie_card" *ngFor="let titulo of tituloFilter; index as i">
+        <div class="info_section">
+            <div class="movie_header">
+                <img class="locandina" src="{{titulo.imagem}}" />
+                <h1>{{titulo.nome}}</h1>
+                <h4>{{titulo.ano}}, {{titulo.diretor.nome}}</h4>
+                <p>{{ formatarAtores(titulo.atores) }}
+                </p>
+
+                <span class="minutes">{{titulo.classe.nome}}</span>
+                <span class="minutes">{{titulo.categoria}}</span>
+
+            </div>
+            <div class="movie_desc">
+                <p class="text">
+                    {{titulo.sinopse}}
+                </p>
+            </div>
+        </div>
+        <div class="blur_back ">
+            <img class="imgblur  float-start ms-5" src=" {{titulo.imagem}}" />
+            <img class="imgblur float-end ms-5" src="{{titulo.imagem}}" />
+        </div>
+    </div>
+</div>
+
+<div class="alerta w-50 my-5 mx-auto">
+    <ngb-alert #selfClosingAlert *ngIf="alertMessage && showAlert"
+        [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error', 'alert-warning': alertType === 'warning'}"
+        (closed)="close()">{{ alertMessage }}</ngb-alert>
+</div>
