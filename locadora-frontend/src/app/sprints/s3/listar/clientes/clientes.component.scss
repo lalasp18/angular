@@ -1,0 +1,22 @@
+.corpo {
+  width: 80%;
+  color: white;
+
+  .modal{
+    color: black;
+  }
+  
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+  .btn-tam{
+    height: fit-content;
+    font-size: smaller;
+    box-shadow: .125rem .25rem rgba(0,0,0,0.2);
+  }
+  .btn-tam:active{
+    box-shadow: none;
+  }
+}
